@@ -125,7 +125,13 @@ namespace StoryOfPersonality
             this.playedLeftButton = true;
             this.DisableButtons();
             string[] tags = StoryHandler.GetLeftTag().Split(',');
-            ThalamusClientLeft.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
+            string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+
+            // ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), "TESTE 123");
+
+              ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
+
+           // ThalamusClientLeft.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
         }
 
         private void PlayRight_Click(object sender, EventArgs e)
@@ -147,6 +153,11 @@ namespace StoryOfPersonality
 
         private void LanguageSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            Thalamus.BML.ISpeakControlActions.
+
+
+
             if (languageSelector.Text == "English")
                 this.Language = Thalamus.BML.SpeechLanguages.English;
             else this.Language = Thalamus.BML.SpeechLanguages.Portuguese;

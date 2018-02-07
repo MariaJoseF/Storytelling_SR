@@ -31,7 +31,9 @@ namespace StoryOfPersonality
         public const string UTTERANCE_SCENES_FILE = "utterances_scenes.csv";
         public const string OUTPUT_FILE = "story-choices/choices-";
         public int UserId;
+        private 
         Stopwatch stopwatch = new Stopwatch();
+
 
         private Dictionary<int, Scenes> storyNodes;
         private Dictionary<String, DecisionPoints> decisionPoints;
@@ -76,10 +78,25 @@ namespace StoryOfPersonality
             return decisionPoints[decisionPoint].Tag1;
         }
 
+
+        internal string GetLeftUtterance(Thalamus.BML.SpeechLanguages language)
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+
+            return (language == Thalamus.BML.SpeechLanguages.English ? decisionPoints[decisionPoint].Textp1En : decisionPoints[decisionPoint].Textp1);
+        }
+
         internal string GetRightTag()
         {
             string decisionPoint = storyNodes[currentStoryNodeId].Before;
             return decisionPoints[decisionPoint].Tag2;
+        }
+
+        internal string GetRightUtterance(Thalamus.BML.SpeechLanguages language)
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+
+            return (language == Thalamus.BML.SpeechLanguages.English ? decisionPoints[decisionPoint].Textp2En : decisionPoints[decisionPoint].Textp2);
         }
 
         internal String GetSceneUtterance(Thalamus.BML.SpeechLanguages language)
@@ -135,5 +152,7 @@ namespace StoryOfPersonality
             }
             return "<prosody rate=" + value + utterance + "</prosody>";
         }
+
+
     }
 }
