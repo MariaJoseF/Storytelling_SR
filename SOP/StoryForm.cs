@@ -109,24 +109,26 @@ namespace StoryOfPersonality
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
             this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
+            this.playRight.Enabled = this.playLeft.Enabled = true;
+            this.playLeft.Style = this.playRight.Style = MetroFramework.MetroColorStyle.Green;
             if (StoryHandler.isEnding())
                 this.DisableButtons();
         }
 
-         internal void EnableBTS(string button)
+        internal void EnableBTS(string button)
         {
             switch (button)
             {
                 case "R":
-                    playRight.Enabled = true;
-                     this.playRight.Style = MetroFramework.MetroColorStyle.Green;
+                    this.playRight.Enabled = true;
+                    this.playRight.Style = MetroFramework.MetroColorStyle.Green;
                     break;
                 case "L":
-                    playLeft.Enabled = true;
+                    this.playLeft.Enabled = true;
                     this.playLeft.Style = MetroFramework.MetroColorStyle.Green;
                     break;
                 case "LR":
-                    rightButton.Enabled = leftButton.Enabled = true;
+                    this.rightButton.Enabled = leftButton.Enabled = true;
                     break;
             }
         }
@@ -141,6 +143,8 @@ namespace StoryOfPersonality
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
             this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
+            this.playRight.Enabled = this.playLeft.Enabled = true;
+            this.playLeft.Style = this.playRight.Style = MetroFramework.MetroColorStyle.Green;
             if (StoryHandler.isEnding())
                 this.DisableButtons();
         }
