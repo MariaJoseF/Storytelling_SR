@@ -34,14 +34,22 @@ namespace StoryOfPersonality
 
             ThalamusClientRight = new Client(this, EMY.right, Language, "Dom");
             ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
+            // ThalamusClientRight.CPublisher.SetLanguage(Language);
 
-            ThalamusClientLeft = new Client(this,EMY.left, Language, "Domina");
+            ThalamusClientLeft = new Client(this, EMY.left, Language, "Domina");
             ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
+            // ThalamusClientLeft.CPublisher.SetLanguage(Language);
 
             //backImage.Visible = false;
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
 
             StoryHandler = new StoryHandler(this.UserId);
+
+            //wait until the characters are connected
+            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+
+            //set language to English by default
+            languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
         }
 
         private void CropAndStrechBackImage()
@@ -71,7 +79,8 @@ namespace StoryOfPersonality
         public void EnableButtons(object sender, EventArgs e)
         {
             this.BeginInvoke((Action)delegate () { this.leftButton.Enabled = this.rightButton.Enabled = playedLeftButton && playedRightButton; });
-            this.BeginInvoke((Action)delegate () {
+            this.BeginInvoke((Action)delegate ()
+            {
                 this.playLeft.Enabled = this.playRight.Enabled = true;
                 this.playLeft.Style = this.playRight.Style = MetroFramework.MetroColorStyle.Green;
             });
@@ -89,7 +98,7 @@ namespace StoryOfPersonality
             this.CropAndStrechBackImage();
         }
 
-        private void StoryForm_Resize(object sender , EventArgs e)
+        private void StoryForm_Resize(object sender, EventArgs e)
         {
             this.CropAndStrechBackImage();
         }
@@ -127,11 +136,9 @@ namespace StoryOfPersonality
             string[] tags = StoryHandler.GetLeftTag().Split(',');
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
 
-            // ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), "TESTE 123");
+            ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
 
-              ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
-
-           // ThalamusClientLeft.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
+            // ThalamusClientLeft.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
         }
 
         private void PlayRight_Click(object sender, EventArgs e)
@@ -139,7 +146,11 @@ namespace StoryOfPersonality
             this.playedRightButton = true;
             this.DisableButtons();
             string[] tags = StoryHandler.GetRightTag().Split(',');
-            ThalamusClientRight.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
+            string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
+
+            ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
+
+            //ThalamusClientRight.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
@@ -154,14 +165,20 @@ namespace StoryOfPersonality
         private void LanguageSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-            Thalamus.BML.ISpeakControlActions.
-
-
-
             if (languageSelector.Text == "English")
+            {
                 this.Language = Thalamus.BML.SpeechLanguages.English;
-            else this.Language = Thalamus.BML.SpeechLanguages.Portuguese;
+                ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
+                ThalamusClientRight.CPublisher.SetLanguage(this.Language);
+            }
+            else
+            {
+                this.Language = Thalamus.BML.SpeechLanguages.Portuguese;
+                ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
+                ThalamusClientRight.CPublisher.SetLanguage(this.Language);
+            }
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
+
         }
     }
 }

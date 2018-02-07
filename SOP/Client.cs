@@ -17,7 +17,10 @@ namespace StoryOfPersonality
    
     public interface IClient : Thalamus.BML.ISpeakEvents { }
 
-    public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions { }
+    public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions
+    {
+      //  new void SetLanguage(Thalamus.BML.SpeechLanguages languages);
+    }
 
     public class Client : ThalamusClient, IClient
     {
@@ -119,6 +122,7 @@ namespace StoryOfPersonality
         public void StartUtterance(string id, string utteranceText, EventHandler endUtteranceEvent = null)
         {
             CPublisher.PerformUtterance(id, utteranceText, "");
+
             this.endUtteranceEvent = endUtteranceEvent;
         }
 
@@ -134,8 +138,11 @@ namespace StoryOfPersonality
             Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
             //Console.WriteLine("--------------------------------------- CurrentUtterance:" + currentUtterance);
             Console.WriteLine("--------------------------------------- Dialog:" );
-            //NextUtterance();
-            endUtteranceEvent(this, EventArgs.Empty); // fire the custom event
+            //    NextUtterance();
+
+            //não percebi o que faz
+
+            //   endUtteranceEvent(this, EventArgs.Empty); // fire the custom event
         }
         #endregion
 
