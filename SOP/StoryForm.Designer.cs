@@ -1,4 +1,6 @@
-﻿namespace StoryOfPersonality
+﻿using MetroFramework.Controls;
+
+namespace StoryOfPersonality
 {
     partial class StoryForm
     {
@@ -174,6 +176,7 @@
         private MetroFramework.Controls.MetroTextBox sceneBox;
         private MetroFramework.Controls.MetroTile playLeft;
         private MetroFramework.Controls.MetroTile playRight;
+
     }
 }
 

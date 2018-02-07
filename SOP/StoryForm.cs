@@ -13,6 +13,9 @@ namespace StoryOfPersonality
 {
     public partial class StoryForm : MetroFramework.Forms.MetroForm
     {
+
+        private static StoryForm instance = null;
+
         public Client ThalamusClientLeft;
         public Client ThalamusClientRight;
 
@@ -24,6 +27,10 @@ namespace StoryOfPersonality
         public int UserId;
 
         public Stopwatch stopwatch = new Stopwatch();
+
+        public static StoryForm Instance { get => instance; set => instance = value; }
+        public bool PlayedLeftButton { get => playedLeftButton; set => playedLeftButton = value; }
+        public bool PlayedRightButton { get => playedRightButton; set => playedRightButton = value; }
 
         public StoryForm(int UserId)
         {
@@ -50,24 +57,14 @@ namespace StoryOfPersonality
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
+
+            instance = this;
         }
 
         private void CropAndStrechBackImage()
         {
             this.backImage.Size = this.Size;
-            //double ratio = (double)this.backImage.BackgroundImage.Height / this.backImage.BackgroundImage.Width;
-            //if (this.Width < this.backImage.BackgroundImage.Width)
-            //{
-            //    this.backImage.Width = this.Width;
-            //    this.backImage.Height = Convert.ToInt32(this.backImage.Width * ratio);
-            //    this.backImage.Location = new Point(0, (this.Height - this.backImage.Height)/2);
-            //}
-            //else
-            //{
-            //    this.backImage.Height = this.Height;
-            //    this.backImage.Width = Convert.ToInt32(this.backImage.Height / ratio);
-            //    this.backImage.Location = new Point((this.Width - this.backImage.Width)/2, 0);
-            //}
+
         }
 
         private void DisableButtons()
@@ -78,7 +75,7 @@ namespace StoryOfPersonality
 
         public void EnableButtons(object sender, EventArgs e)
         {
-            this.BeginInvoke((Action)delegate () { this.leftButton.Enabled = this.rightButton.Enabled = playedLeftButton && playedRightButton; });
+            this.BeginInvoke((Action)delegate () { this.leftButton.Enabled = this.rightButton.Enabled = PlayedLeftButton && PlayedRightButton; });
             this.BeginInvoke((Action)delegate ()
             {
                 this.playLeft.Enabled = this.playRight.Enabled = true;
@@ -111,10 +108,29 @@ namespace StoryOfPersonality
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
-            this.leftButton.Enabled = this.rightButton.Enabled = this.playedLeftButton = this.playedRightButton = false;
+            this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
             if (StoryHandler.isEnding())
                 this.DisableButtons();
         }
+
+         internal void EnableBTS(string button)
+        {
+            switch (button)
+            {
+                case "R":
+                    playRight.Enabled = true;
+                     this.playRight.Style = MetroFramework.MetroColorStyle.Green;
+                    break;
+                case "L":
+                    playLeft.Enabled = true;
+                    this.playLeft.Style = MetroFramework.MetroColorStyle.Green;
+                    break;
+                case "LR":
+                    rightButton.Enabled = leftButton.Enabled = true;
+                    break;
+            }
+        }
+
 
         private void RightButton_Click(object sender, EventArgs e)
         {
@@ -124,14 +140,15 @@ namespace StoryOfPersonality
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
-            this.leftButton.Enabled = this.rightButton.Enabled = this.playedLeftButton = this.playedRightButton = false;
+            this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
             if (StoryHandler.isEnding())
                 this.DisableButtons();
         }
 
+
         private void PlayLeft_Click(object sender, EventArgs e)
         {
-            this.playedLeftButton = true;
+            this.PlayedLeftButton = true;
             this.DisableButtons();
             string[] tags = StoryHandler.GetLeftTag().Split(',');
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
@@ -143,7 +160,7 @@ namespace StoryOfPersonality
 
         private void PlayRight_Click(object sender, EventArgs e)
         {
-            this.playedRightButton = true;
+            this.PlayedRightButton = true;
             this.DisableButtons();
             string[] tags = StoryHandler.GetRightTag().Split(',');
             string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');

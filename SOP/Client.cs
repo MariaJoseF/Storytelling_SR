@@ -14,12 +14,12 @@ namespace StoryOfPersonality
         left = 0,
         right = 1
     }
-   
+
     public interface IClient : Thalamus.BML.ISpeakEvents { }
 
     public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions
     {
-      //  new void SetLanguage(Thalamus.BML.SpeechLanguages languages);
+        //  new void SetLanguage(Thalamus.BML.SpeechLanguages languages);
     }
 
     public class Client : ThalamusClient, IClient
@@ -91,11 +91,11 @@ namespace StoryOfPersonality
         public ClientPublisher CPublisher;
         public StoryForm storyWindow;
 
-        public Thalamus.BML.SpeechLanguages Language { get; private set; } 
+        public Thalamus.BML.SpeechLanguages Language { get; private set; }
         private EMY Side;
         private EventHandler endUtteranceEvent;
 
-        public Client(StoryForm window, EMY side, Thalamus.BML.SpeechLanguages language, string character )
+        public Client(StoryForm window, EMY side, Thalamus.BML.SpeechLanguages language, string character)
             : base(character, character)
 
         {
@@ -137,8 +137,29 @@ namespace StoryOfPersonality
         {
             Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
             //Console.WriteLine("--------------------------------------- CurrentUtterance:" + currentUtterance);
-            Console.WriteLine("--------------------------------------- Dialog:" );
+            Console.WriteLine("--------------------------------------- Dialog:");
             //    NextUtterance();
+            if (storyWindow.PlayedLeftButton && storyWindow.PlayedRightButton)
+            {
+                storyWindow.Invoke((Action)(() =>
+                {//this refer to form in WPF application 
+                    storyWindow.EnableBTS("LR");
+                }));
+            }
+            else if (storyWindow.PlayedLeftButton)
+            {
+                storyWindow.Invoke((Action)(() =>
+                {//this refer to form in WPF application 
+                    storyWindow.EnableBTS("R");
+                }));
+            }
+            else if (storyWindow.PlayedRightButton)
+            {
+                storyWindow.Invoke((Action)(() =>
+                {//this refer to form in WPF application 
+                    storyWindow.EnableBTS("L");
+                }));
+            }
 
             //não percebi o que faz
 
