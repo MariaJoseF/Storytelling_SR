@@ -68,6 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Modules\Personality.cs" />
+    <Compile Include="Modules\Rapport.cs" />
+    <Compile Include="Modules\Immersion.cs" />
+    <Compile Include="Modules\Persuasion.cs" />
     <Compile Include="PostQuestionnaire.cs">
       <SubType>Form</SubType>
     </Compile>
