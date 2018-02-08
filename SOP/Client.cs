@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Thalamus;
 using EmoteCommonMessages;
 using System.Timers;
+using System.IO;
 
 namespace StoryOfPersonality
 {
@@ -19,7 +20,6 @@ namespace StoryOfPersonality
 
     public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions
     {
-        //  new void SetLanguage(Thalamus.BML.SpeechLanguages languages);
     }
 
     public class Client : ThalamusClient, IClient
@@ -27,6 +27,9 @@ namespace StoryOfPersonality
         public class ClientPublisher : IClientPublisher
         {
             dynamic publisher;
+            //gets the project folder not the bin/Debug folder like System.Environment.CurrentDirectory;
+            public string fileName = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName; 
+
             public ClientPublisher(dynamic publisher)
             {
                 this.publisher = publisher;
@@ -161,9 +164,6 @@ namespace StoryOfPersonality
                 }));
             }
 
-            //não percebi o que faz
-
-            //   endUtteranceEvent(this, EventArgs.Empty); // fire the custom event
         }
         #endregion
 
@@ -178,6 +178,38 @@ namespace StoryOfPersonality
             //Console.WriteLine("------------------ HERE UTTFINISHED : " + id + currentUtterance + dialogsCat.start.ToString() + " " + dialogsSubCat.small_talk1.ToString());
         }
         #endregion
+
+
+        public void WriteJSON(string timestamp, string info, string aux_path, string name_file)
+        {
+
+        string filePath = CPublisher.fileName + @"\Logs\" + aux_path + @"\";
+            string filename = filePath + name_file + ".txt";
+
+
+            Console.WriteLine(filePath);
+            try
+            {
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                    Console.WriteLine(filePath);
+                }
+            }
+            catch (IOException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            using (System.IO.StreamWriter file =
+                    new System.IO.StreamWriter(filename, true))
+            {
+
+                file.WriteLine(timestamp + " " + info);
+            }
+
+        }
+
 
     }
 }

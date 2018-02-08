@@ -27,9 +27,12 @@ namespace StoryOfPersonality
 
     public class StoryHandler
     {
+
+        public StoryForm storyWindow;
+
         public const string UTTERANCE_DP_FILE = "utterances_dp.csv";
         public const string UTTERANCE_SCENES_FILE = "utterances_scenes.csv";
-        public const string OUTPUT_FILE = "story-choices/choices-";
+       // public const string OUTPUT_FILE = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/choices-";
         public int UserId;
         private 
         Stopwatch stopwatch = new Stopwatch();
@@ -37,18 +40,19 @@ namespace StoryOfPersonality
 
         private Dictionary<int, Scenes> storyNodes;
         private Dictionary<String, DecisionPoints> decisionPoints;
+        private Client clientThalamus;
 
         public int currentStoryNodeId { get; set; }
 
-        private void writeLog(string log)
-        {
-            File.AppendAllText(OUTPUT_FILE + this.UserId.ToString() + ".txt", log + "\r\n");
-        }
+        //private void writeLog(string log)
+        //{
+        //    File.AppendAllText(OUTPUT_FILE + this.UserId.ToString() + ".txt", log + "\r\n");
+        //}
 
-        public StoryHandler(int UserId)
+        public StoryHandler(Client thalamusClient, int UserId)
         {
             this.UserId = UserId;
-            Directory.CreateDirectory(OUTPUT_FILE.Substring(0, OUTPUT_FILE.IndexOf('/')));
+            //Directory.CreateDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/");
             //From the original excel file the two tabs should be imported in Unicode csv in the name mentioned
             //below. The files should be at the current user's folder.
             List<DecisionPoints> fromcsv1 = File.ReadAllLines(UTTERANCE_DP_FILE).Skip(1).Select(v => DecisionPoints.FromCSV(v)).ToList();
@@ -56,12 +60,21 @@ namespace StoryOfPersonality
             decisionPoints = fromcsv1.ToDictionary(DecisionPoints => DecisionPoints.Initial);
             storyNodes = fromcsv2.ToDictionary(Scenes => Scenes.Id);
             currentStoryNodeId = 0; // initial scene ID since we skip the first line (id -1)
+
+            this.clientThalamus = thalamusClient;
         }
 
         internal void NextScene(EMY side, long elapsedms)
         {
             String decisionPoint = storyNodes[currentStoryNodeId].Before;
-            writeLog(currentStoryNodeId + ";" + side + ";" + elapsedms.ToString());
+
+
+
+            clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + side + ";" + elapsedms.ToString(), "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+
+            //  writeLog(currentStoryNodeId + ";" + side + ";" + elapsedms.ToString());
+   
+
             if (! decisionPoint.StartsWith("Final"))
                 this.currentStoryNodeId =  side == EMY.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
         }

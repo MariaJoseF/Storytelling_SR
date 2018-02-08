@@ -50,13 +50,16 @@ namespace StoryOfPersonality
             //backImage.Visible = false;
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
 
-            StoryHandler = new StoryHandler(this.UserId);
+            StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
             //wait until the characters are connected
             while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
+
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "teste");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "teste");
 
             instance = this;
         }
