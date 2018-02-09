@@ -7,6 +7,6 @@ namespace StoryOfPersonality
 {
     static class Immersion
     {
-        
+
     }
 }
