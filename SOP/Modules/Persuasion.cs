@@ -13,12 +13,20 @@ namespace StoryOfPersonality
         private string animation;
         private Prosody prosody;
 
-
-        public Persuasion(string _gaze, int _time, string _animation)
+        public Persuasion(string gaze, int time, string animation)
         {
-            this.gaze = _gaze;
-            this.time = _time;
-            this.animation = _animation;
+            this.gaze = gaze;
+            this.time = time;
+            this.animation = animation;
+            this.prosody = null;
+        }
+
+        public Persuasion(string gaze, int time, string animation, Prosody prosody)
+        {
+            this.gaze = gaze;
+            this.time = time;
+            this.animation = animation;
+            this.prosody = prosody;
         }
 
         public string Gaze { get => gaze; set => gaze = value; }
@@ -30,5 +38,7 @@ namespace StoryOfPersonality
         {
             return "Gaze: " + gaze + " Time: " + time + " Animation: " + animation;
         }
+
+
     }
 }

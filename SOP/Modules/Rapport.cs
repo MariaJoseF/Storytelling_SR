@@ -7,8 +7,6 @@ namespace StoryOfPersonality
 {
     static class Rapport
     {
-        static void Main()
-        {
-        }
+       
     }
 }

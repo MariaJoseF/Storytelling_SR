@@ -14,6 +14,10 @@ namespace SOP.Modules
         private string pitch;
         private string volume;
 
+        public Prosody()
+        {
+        }
+
         //public Prosody(string _rate, string _pitch, string _volume)
         //{
         //    this.rate = _rate;

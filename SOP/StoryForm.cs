@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SOP.Modules;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace StoryOfPersonality
 {
@@ -28,9 +30,12 @@ namespace StoryOfPersonality
 
         public Stopwatch stopwatch = new Stopwatch();
 
+        private List<Prosody> prosodyLvls = new List<Prosody>();
+
         public static StoryForm Instance { get => instance; set => instance = value; }
         public bool PlayedLeftButton { get => playedLeftButton; set => playedLeftButton = value; }
         public bool PlayedRightButton { get => playedRightButton; set => playedRightButton = value; }
+        internal List<Prosody> PersuasionLvls { get => prosodyLvls; set => prosodyLvls = value; }
 
         public StoryForm(int UserId)
         {
@@ -59,8 +64,31 @@ namespace StoryOfPersonality
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
 
             LoadLogFiles();
-
+          //  LoadPersuasionLvlIntensity();
             instance = this;
+        }
+
+        private void LoadPersuasionLvlIntensity()
+        {
+            XmlTextReader reader = new XmlTextReader("books.xml");
+
+            while (reader.Read())
+            {
+                switch (reader.NodeType)
+                {
+                    case XmlNodeType.Element: // The node is an element.
+                        Console.Write("<" + reader.Name);
+                        Console.WriteLine(">");
+                        break;
+                    case XmlNodeType.Text: //Display the text in each element.
+                        Console.WriteLine(reader.Value);
+                        break;
+                    case XmlNodeType.EndElement: //Display the end of the element.
+                        Console.Write("</" + reader.Name);
+                        Console.WriteLine(">");
+                        break;
+                }
+            }
         }
 
         private void LoadLogFiles()
@@ -213,6 +241,23 @@ namespace StoryOfPersonality
             }
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
 
+        }
+
+        internal Prosody  SearchProsodyLvl(int lvl, int intensity)
+        {
+            Prosody correct = new Prosody();
+            try
+            {
+                correct = prosodyLvls.First(a => (a.Lvl == lvl) && (a.Intensity == intensity));
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return correct;
         }
     }
 }
