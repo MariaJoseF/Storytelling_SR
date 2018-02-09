@@ -21,8 +21,8 @@ namespace StoryOfPersonality
 
         public Thalamus.BML.SpeechLanguages Language;
         public StoryHandler StoryHandler;
-        //public Config config;
-        //public Logs logs;
+        public Config config;
+        public Logs logs;
 
         public EventHandler ReenableButtonsEvent;
         private bool playedLeftButton, playedRightButton = false;
@@ -43,34 +43,34 @@ namespace StoryOfPersonality
 
             ThalamusClientRight = new Client(this, EMY.right, Language, "Dom");
             ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
-            // ThalamusClientRight.CPublisher.SetLanguage(Language);
+            ThalamusClientRight.CPublisher.SetLanguage(Language);
 
             ThalamusClientLeft = new Client(this, EMY.left, Language, "Domina");
             ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
-            // ThalamusClientLeft.CPublisher.SetLanguage(Language);
+            ThalamusClientLeft.CPublisher.SetLanguage(Language);
 
             //backImage.Visible = false;
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
 
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
-            //logs = new Logs(StoryHandler);
-            //config = new Config();
+            logs = new Logs(StoryHandler);
+            config = new Config();
 
             //wait until the characters are connected
-            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+           // while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
 
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "teste");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "teste");
+            //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "teste");
+            //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "teste");
 
-            /*string textRecord = "Started: " + String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now);
+            string textRecord = "Started: " + String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now);
             logs.RecordLog(NameOfFiles.ThalamusClientLeft, textRecord);
             logs.RecordLog(NameOfFiles.ThalamusClientRight, textRecord);
             logs.RecordLog(NameOfFiles.PlayerConfig, config.recordConfig());
-            */
+            
             instance = this;
         }
 

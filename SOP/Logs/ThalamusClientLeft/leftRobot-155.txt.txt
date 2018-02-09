@@ -1,0 +1,8 @@
+09-02-2018 03-56-33 teste
+09-02-2018 03-57-01 Fear3;You summon the council to discuss the course of action
+09-02-2018 03-57-11 Fear1;You ask the people to gather and discuss the threat
+09-02-2018 03-57-38 ;A ameaça pode ser verdadeira.
+09-02-2018 03-57-43 ;A ameaça é verdadeira.
+09-02-2018 03-57-56 ;Explicas tuas ideias e em seguida solicitas a opinião dos conselheiros.
+09-02-2018 03-58-03 ;Lê suas anotações e solicitas ao conselho que delibere.
+09-02-2018 03-58-25 Surprise1;<animate(Surprise1) >You ask for that person to enter and share their information
