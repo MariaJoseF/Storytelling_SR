@@ -1,0 +1,45 @@
+public string[] headMoves = {"<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)>",
+                                     "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)>",
+                                     "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)>",
+                                     "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)>",
+                                     "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)>",
+                                     "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)>",};
+
+        // persuasion level 1
+        public string[] headMovesPersuasion1 = { "<Gaze(person3)><break time=\"1s\"/><ANIMATE(anger1)>",
+                                                 "<Gaze(person3)><break time=\"1s\"/><ANIMATE(anger3)>",
+                                                 "<Gaze(person3)><break time=\"1s\"/><ANIMATE(anger5)>",
+                                                 "<Gaze(person3)><break time=\"1s\"/><ANIMATE(joy1)>",
+                                                 "<Gaze(person3)><break time=\"1s\"/><ANIMATE(joy3)>",
+                                                 "<Gaze(person3)><break time=\"1s\"/><ANIMATE(joy5)>"};
+
+        // persuasion level 2
+        // The firsts four only in EN, then PT
+        public string[] ticksToPersuasion2 = { "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>ups</prosody></prosody></prosody>",
+                                               "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>hi</prosody></prosody></prosody>",
+                                               "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='loud'>aham</prosody></prosody></prosody>",
+                                               "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='x-loud'>psiu</prosody></prosody></prosody>",
+                                               "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>oi</prosody></prosody></prosody>",
+                                               "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>arran</prosody></prosody></prosody>",
+                                               "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='x-loud'>psiu</prosody></prosody></prosody>"};
+
+        // persuasion level 3 - The first four is in EN.
+        public string[] phrasesToPersuasion3 = { "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>Did you note?</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>You should have more attention.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='loud'>That decision was not good.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='x-loud'>Come on.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>Tu notastes?</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>Tu deverias ter mais atenção.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='loud'>Essa decisão não foi boa.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='x-loud'>Vamos!</prosody></prosody></prosody>"};
+
+
+        // persuasion level 4 - The first four is in EN.
+        public string[] phrasesToPersuasion4 = { "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>With those decisions, you will lose.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>The people is angry.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='loud'>Now, there is no solution.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='x-loud'>One more decision like this and you will lose.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>Com essas decisões vais perder.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>Teu povo está irritado.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='loud'>Agora não tem mais solução.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='x-loud'>Mais uma decisão assim e vais perder.</prosody></prosody></prosody>"};
