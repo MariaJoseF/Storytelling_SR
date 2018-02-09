@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Prosodies>
+  <Prosody>
+    <lvl name="1" />
+    <intensity name="1" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="softsoft" />
+  </Prosody>
+</Prosodies>
