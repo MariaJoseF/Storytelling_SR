@@ -21,6 +21,8 @@ namespace StoryOfPersonality
 
         public Thalamus.BML.SpeechLanguages Language;
         public StoryHandler StoryHandler;
+        //public Config config;
+        //public Logs logs;
 
         public EventHandler ReenableButtonsEvent;
         private bool playedLeftButton, playedRightButton = false;
@@ -52,6 +54,9 @@ namespace StoryOfPersonality
 
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
+            //logs = new Logs(StoryHandler);
+            //config = new Config();
+
             //wait until the characters are connected
             while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
@@ -61,6 +66,11 @@ namespace StoryOfPersonality
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "teste");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "teste");
 
+            /*string textRecord = "Started: " + String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now);
+            logs.RecordLog(NameOfFiles.ThalamusClientLeft, textRecord);
+            logs.RecordLog(NameOfFiles.ThalamusClientRight, textRecord);
+            logs.RecordLog(NameOfFiles.PlayerConfig, config.recordConfig());
+            */
             instance = this;
         }
 

@@ -7,8 +7,6 @@ namespace StoryOfPersonality
 {
     static class Personality
     {
-        static void Main()
-        {
-        }
+        
     }
 }

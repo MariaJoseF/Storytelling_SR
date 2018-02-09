@@ -34,13 +34,12 @@ namespace StoryOfPersonality
         public const string UTTERANCE_SCENES_FILE = "utterances_scenes.csv";
        // public const string OUTPUT_FILE = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/choices-";
         public int UserId;
-        private 
-        Stopwatch stopwatch = new Stopwatch();
+        private Stopwatch stopwatch = new Stopwatch();
 
 
         private Dictionary<int, Scenes> storyNodes;
         private Dictionary<String, DecisionPoints> decisionPoints;
-        private Client clientThalamus;
+        public Client clientThalamus;
 
         public int currentStoryNodeId { get; set; }
 

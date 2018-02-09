@@ -34,8 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EmoteEvents">
-      <HintPath>..\..\..\SERA Work\Skene\EmoteEvents.dll</HintPath>
+    <Reference Include="EmoteEvents, Version=1.0.5877.35032, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\OneDrive\Thesis Project\SERA Work\Skene\EmoteEvents.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
@@ -62,12 +63,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="Thalamus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\SERA\Thalamus\Thalamus.dll</HintPath>
+      <HintPath>..\..\..\..\OneDrive\Thesis Project\SERA Work\Thalamus\Thalamus.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Function\Logs.cs" />
     <Compile Include="Modules\Personality.cs" />
     <Compile Include="Modules\Rapport.cs" />
     <Compile Include="Modules\Immersion.cs" />

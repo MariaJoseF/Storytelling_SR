@@ -7,8 +7,6 @@ namespace StoryOfPersonality
 {
     static class Persuasion
     {
-        static void Main()
-        {
-        }
+
     }
 }

@@ -35,5 +35,14 @@ namespace StoryOfPersonality
         {
             return rapportLevel;
         }
+
+        public string recordConfig()
+        {
+            string configuration = "Persuasion Type: " + getPersuasionType() + "\r\n" +
+                                   "Persuasion Intensity: " + getPersuasionIntensity() + "\r\n" +
+                                   "Rapport Level: " + getRapportLevel() + "\r\n";
+
+            return configuration;
+        }
     }
 }
