@@ -58,10 +58,17 @@ namespace StoryOfPersonality
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
 
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "teste");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "teste");
+            LoadLogFiles();
 
             instance = this;
+        }
+
+        private void LoadLogFiles()
+        {
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;RobotSide;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+
         }
 
         private void CropAndStrechBackImage()
@@ -161,6 +168,8 @@ namespace StoryOfPersonality
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
 
             ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";"+utterance[0], "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+
 
             // ThalamusClientLeft.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
         }
@@ -173,6 +182,7 @@ namespace StoryOfPersonality
             string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
 
             ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + utterance[0], "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
 
             //ThalamusClientRight.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
         }

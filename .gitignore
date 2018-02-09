@@ -286,3 +286,9 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# ignore an entire directory
+/SOP/Logs
+
+# ignore a file
+/SOP/Dados Persuasão.txt
