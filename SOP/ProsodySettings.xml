@@ -2,10 +2,90 @@
 
 <Prosodies>
   <Prosody>
-    <lvl name="1" />
+    <lvl name="2" />
     <intensity name="1" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="softsoft" />
+    <volume name="soft" />
   </Prosody>
+  <Prosody>
+    <lvl name="2" />
+    <intensity name="2" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="medium" />
+  </Prosody>
+  <Prosody>
+    <lvl name="2" />
+    <intensity name="3" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="loud" />
+  </Prosody>
+  <Prosody>
+    <lvl name="2" />
+    <intensity name="4" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="x-loud" />
+  </Prosody>
+
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="1" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="soft" />
+  </Prosody>
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="2" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="medium" />
+  </Prosody>
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="3" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="loud" />
+  </Prosody>
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="4" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="x-loud" />
+  </Prosody>
+
+  <Prosody>
+    <lvl name="4" />
+    <intensity name="1" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="soft" />
+  </Prosody>
+    <Prosody>
+    <lvl name="4" />
+    <intensity name="2" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="medium" />
+  </Prosody>
+  <Prosody>
+    <lvl name="4" />
+    <intensity name="3" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="loud" />
+  </Prosody>
+  <Prosody>
+    <lvl name="4" />
+    <intensity name="4" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="x-loud" />
+  </Prosody>
+
 </Prosodies>

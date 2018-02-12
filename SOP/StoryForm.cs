@@ -72,28 +72,37 @@ namespace StoryOfPersonality
 
         private void LoadPersuasionLvlIntensity()
         {
-            XmlTextReader reader = new XmlTextReader(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/ProsodySettings.xml");
-            string aux = "";
             int lvl, intensity;
             string rate, pitch, volume;
-
-
-
 
             StringBuilder result = new StringBuilder();
             foreach (XElement level1Element in XElement.Load(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/ProsodySettings.xml").Elements("Prosody"))
             {
+                lvl = intensity = 0;
+                rate = pitch = volume = "";
                 foreach (XElement level2Element in level1Element.Elements())
                 {
-
-                    ///
-                    /// falta fazer para cada um dos elementos a actualização
-                    ///
-
-                    result.AppendLine("  " + level2Element.Attribute("name").Value);
+                    switch (level2Element.Name.LocalName)
+                    {
+                        case "lvl":
+                            lvl = Convert.ToInt32(level2Element.Attribute("name").Value);
+                            break;
+                        case "intensity":
+                            intensity = Convert.ToInt32(level2Element.Attribute("name").Value);
+                            break;
+                        case "rate":
+                            rate = level2Element.Attribute("name").Value;
+                            break;
+                        case "pitch":
+                            pitch = level2Element.Attribute("name").Value;
+                            break;
+                        case "volume":
+                            volume = level2Element.Attribute("name").Value;
+                            break;
+                    }
                 }
 
-                prosodyLvls.Add(new Prosody( lvl,  intensity,  rate,  pitch,  volume);
+                prosodyLvls.Add(new Prosody(lvl, intensity, rate, pitch, volume));
             }
 
         }
