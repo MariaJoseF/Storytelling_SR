@@ -39,6 +39,5 @@ namespace StoryOfPersonality
             return "Gaze: " + gaze + " Time: " + time + " Animation: " + animation;
         }
 
-
     }
 }
