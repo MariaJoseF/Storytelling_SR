@@ -14,25 +14,6 @@ namespace SOP.Modules
         private string pitch;
         private string volume;
 
-        public Prosody()
-        {
-        }
-
-        //public Prosody(string _rate, string _pitch, string _volume)
-        //{
-        //    this.rate = _rate;
-        //    this.pitch = _pitch;
-        //    this.volume = _volume;
-        //}
-
-        //public Prosody(int _lvl, string _rate, string _pitch, string _volume)
-        //{
-        //    this.lvl = _lvl;
-        //    this.rate = _rate;
-        //    this.pitch = _pitch;
-        //    this.volume = _volume;
-        //}
-
         public Prosody(int lvl, int intensity, string rate, string pitch, string volume)
         {
             this.lvl = lvl;
@@ -50,7 +31,7 @@ namespace SOP.Modules
 
         public override string ToString()
         {
-            return "Level: "+ lvl + " Intensity: "+intensity+" Rate: " + rate + " Pitch: " + pitch + " Volume: " + volume;
+            return "Level: " + lvl + " Intensity: " + intensity + " Rate: " + rate + " Pitch: " + pitch + " Volume: " + volume;
         }
     }
 }
