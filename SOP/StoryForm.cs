@@ -5,11 +5,13 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace StoryOfPersonality
 {
@@ -64,31 +66,45 @@ namespace StoryOfPersonality
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
 
             LoadLogFiles();
-          //  LoadPersuasionLvlIntensity();
+            LoadPersuasionLvlIntensity();
             instance = this;
         }
 
         private void LoadPersuasionLvlIntensity()
         {
-            XmlTextReader reader = new XmlTextReader("books.xml");
+            int lvl, intensity;
+            string rate, pitch, volume;
 
-            while (reader.Read())
+            StringBuilder result = new StringBuilder();
+            foreach (XElement level1Element in XElement.Load(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/ProsodySettings.xml").Elements("Prosody"))
             {
-                switch (reader.NodeType)
+                lvl = intensity = 0;
+                rate = pitch = volume = "";
+                foreach (XElement level2Element in level1Element.Elements())
                 {
-                    case XmlNodeType.Element: // The node is an element.
-                        Console.Write("<" + reader.Name);
-                        Console.WriteLine(">");
-                        break;
-                    case XmlNodeType.Text: //Display the text in each element.
-                        Console.WriteLine(reader.Value);
-                        break;
-                    case XmlNodeType.EndElement: //Display the end of the element.
-                        Console.Write("</" + reader.Name);
-                        Console.WriteLine(">");
-                        break;
+                    switch (level2Element.Name.LocalName)
+                    {
+                        case "lvl":
+                            lvl = Convert.ToInt32(level2Element.Attribute("name").Value);
+                            break;
+                        case "intensity":
+                            intensity = Convert.ToInt32(level2Element.Attribute("name").Value);
+                            break;
+                        case "rate":
+                            rate = level2Element.Attribute("name").Value;
+                            break;
+                        case "pitch":
+                            pitch = level2Element.Attribute("name").Value;
+                            break;
+                        case "volume":
+                            volume = level2Element.Attribute("name").Value;
+                            break;
+                    }
                 }
+
+                prosodyLvls.Add(new Prosody(lvl, intensity, rate, pitch, volume));
             }
+
         }
 
         private void LoadLogFiles()
@@ -196,7 +212,7 @@ namespace StoryOfPersonality
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
 
             ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";"+utterance[0], "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + utterance[0], "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
 
 
             // ThalamusClientLeft.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
@@ -243,7 +259,7 @@ namespace StoryOfPersonality
 
         }
 
-        internal Prosody  SearchProsodyLvl(int lvl, int intensity)
+        internal Prosody SearchProsodyLvl(int lvl, int intensity)
         {
             Prosody correct = new Prosody();
             try
