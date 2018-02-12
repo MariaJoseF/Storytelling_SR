@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Diagnostics;
+using SOP.Modules;
 
 namespace StoryOfPersonality
 {
@@ -63,19 +64,19 @@ namespace StoryOfPersonality
             this.clientThalamus = thalamusClient;
         }
 
-        internal void NextScene(EMY side, long elapsedms)
+        internal void NextScene(EMYS side, SelectionDP selectOption)
         {
             String decisionPoint = storyNodes[currentStoryNodeId].Before;
 
 
 
-            clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + side + ";" + elapsedms.ToString(), "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + selectOption, "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
 
             //  writeLog(currentStoryNodeId + ";" + side + ";" + elapsedms.ToString());
    
 
             if (! decisionPoint.StartsWith("Final"))
-                this.currentStoryNodeId =  side == EMY.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
+                this.currentStoryNodeId =  side == EMYS.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
         }
 
         internal bool isEnding()

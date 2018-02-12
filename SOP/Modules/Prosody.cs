@@ -14,6 +14,10 @@ namespace SOP.Modules
         private string pitch;
         private string volume;
 
+        public Prosody()
+        {
+        }
+
         public Prosody(int lvl, int intensity, string rate, string pitch, string volume)
         {
             this.lvl = lvl;

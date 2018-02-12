@@ -33,6 +33,21 @@ namespace StoryOfPersonality
         public Stopwatch stopwatch = new Stopwatch();
 
         private List<Prosody> prosodyLvls = new List<Prosody>();
+        public SelectionDP selectedDP;
+        private RobotsPersonality assertiveRobot;
+        private RobotsPersonality dominantRobot;
+
+        public enum RobotsPersonality
+        {
+            left = 0,
+            right = 1
+        }
+
+        public enum OptionSide
+        {
+            left = 0,
+            right = 1
+        }
 
         public static StoryForm Instance { get => instance; set => instance = value; }
         public bool PlayedLeftButton { get => playedLeftButton; set => playedLeftButton = value; }
@@ -46,11 +61,11 @@ namespace StoryOfPersonality
 
             Language = Thalamus.BML.SpeechLanguages.English;
 
-            ThalamusClientRight = new Client(this, EMY.right, Language, "Dom");
+            ThalamusClientRight = new Client(this, EMYS.right, Language, "Dom");
             ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
             // ThalamusClientRight.CPublisher.SetLanguage(Language);
 
-            ThalamusClientLeft = new Client(this, EMY.left, Language, "Domina");
+            ThalamusClientLeft = new Client(this, EMYS.left, Language, "Domina");
             ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
             // ThalamusClientLeft.CPublisher.SetLanguage(Language);
 
@@ -67,6 +82,9 @@ namespace StoryOfPersonality
 
             LoadLogFiles();
             LoadPersuasionLvlIntensity();
+            selectedDP = new SelectionDP();
+            assertiveRobot = RobotsPersonality.left;
+            dominantRobot = RobotsPersonality.right;
             instance = this;
         }
 
@@ -111,7 +129,7 @@ namespace StoryOfPersonality
         {
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;RobotSide;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
 
         }
 
@@ -157,8 +175,27 @@ namespace StoryOfPersonality
         private void LeftButton_Click(object sender, EventArgs e)
         {
             stopwatch.Stop();
-            StoryHandler.NextScene(EMY.left, stopwatch.ElapsedMilliseconds);
+
+            selectedDP.OptionSelected = Convert.ToInt32(OptionSide.left);
+            selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
+
+            ///////
+            //Se os robôs dominante e assertivo ficarem num lugar fixo este if não é necessário
+            //caso seja aleatório então temos que actualizar a variavel assertiveRobot
+            //////
+            if (EMYS.left.Equals(assertiveRobot))
+            {
+                selectedDP.TotalAssertive++;
+            }
+            else
+            {
+                selectedDP.TotalDominant++;
+            }
+
+            StoryHandler.NextScene(EMYS.left, selectedDP);
+
             stopwatch.Restart();
+
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
@@ -183,6 +220,8 @@ namespace StoryOfPersonality
                     break;
                 case "LR":
                     this.rightButton.Enabled = leftButton.Enabled = true;
+                    this.rightButton.Theme = MetroFramework.MetroThemeStyle.Light;
+                    this.leftButton.Theme = MetroFramework.MetroThemeStyle.Light;
                     break;
             }
         }
@@ -191,7 +230,27 @@ namespace StoryOfPersonality
         private void RightButton_Click(object sender, EventArgs e)
         {
             stopwatch.Stop();
-            StoryHandler.NextScene(EMY.right, stopwatch.ElapsedMilliseconds);
+
+            selectedDP.OptionSelected = Convert.ToInt32(OptionSide.right);
+            selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
+
+            ///////
+            //Se os robôs dominante e assertivo ficarem num lugar fixo este if não é necessário
+            //caso seja aleatório então temos que que actualizar a variavel dominantRobot
+            //////
+            if (EMYS.right.Equals(dominantRobot))
+            {
+                
+                selectedDP.TotalDominant++;
+            }
+            else
+            {
+                selectedDP.TotalAssertive++;
+            }
+
+            StoryHandler.NextScene(EMYS.right, selectedDP);
+
+
             stopwatch.Restart();
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());

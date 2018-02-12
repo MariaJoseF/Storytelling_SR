@@ -10,7 +10,7 @@ using System.IO;
 
 namespace StoryOfPersonality
 {
-    public enum EMY
+    public enum EMYS
     {
         left = 0,
         right = 1
@@ -95,10 +95,10 @@ namespace StoryOfPersonality
         public StoryForm storyWindow;
 
         public Thalamus.BML.SpeechLanguages Language { get; private set; }
-        private EMY Side;
+        private EMYS Side;
         private EventHandler endUtteranceEvent;
 
-        public Client(StoryForm window, EMY side, Thalamus.BML.SpeechLanguages language, string character)
+        public Client(StoryForm window, EMYS side, Thalamus.BML.SpeechLanguages language, string character)
             : base(character, character)
 
         {
