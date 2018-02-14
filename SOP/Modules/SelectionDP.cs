@@ -21,7 +21,7 @@ namespace SOP.Modules
         public SelectionDP()
         {
             this.optionSelected = 0;
-            this.optionSelected = 0;
+            this.sideSelected = OptionSide.none;
             this.robotPersonality = RobotsPersonality.none;
             this.persLvl = 0;
             this.persIntensity = 0;

@@ -46,6 +46,7 @@ namespace StoryOfPersonality
 
         public enum OptionSide
         {
+            none = -1,
             left = 0,
             right = 1
         }
