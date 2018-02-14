@@ -1,4 +1,0 @@
-Persuasion Type: 1
-Persuasion Intensity: 0
-Rapport Level: 0
-

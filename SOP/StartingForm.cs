@@ -35,9 +35,17 @@ namespace SOP
 
         private void metroButton4_Click(object sender, EventArgs e)
         {
-            StoryForm s = new StoryForm(this.UserID);
+            if (metroTextBox1.Text.Contains("-1-") || metroTextBox1.Text.Contains("-0-"))
+            {
+ StoryForm s = new StoryForm(metroTextBox1.Text);
             s.Show();
             this.Hide();
+            }
+            else
+            {
+                this.label1.Visible = true;
+            }
+           
         }
 
         private void metroButton3_Click(object sender, EventArgs e)

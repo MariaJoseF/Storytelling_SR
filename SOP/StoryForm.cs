@@ -22,7 +22,7 @@ namespace StoryOfPersonality
 
         public Client ThalamusClientLeft;
         public Client ThalamusClientRight;
-
+        private string UserPersonalitiy;
         public Thalamus.BML.SpeechLanguages Language;
         public StoryHandler StoryHandler;
 
@@ -39,6 +39,7 @@ namespace StoryOfPersonality
 
         public enum RobotsPersonality
         {
+            none = -1,
             left = 0,
             right = 1
         }
@@ -53,11 +54,26 @@ namespace StoryOfPersonality
         public bool PlayedLeftButton { get => playedLeftButton; set => playedLeftButton = value; }
         public bool PlayedRightButton { get => playedRightButton; set => playedRightButton = value; }
         internal List<Prosody> PersuasionLvls { get => prosodyLvls; set => prosodyLvls = value; }
+        public string UserPersonalitiy1 { get => UserPersonalitiy; set => UserPersonalitiy = value; }
 
-        public StoryForm(int UserId)
+        public StoryForm(string UserId)
         {
             InitializeComponent();
-            this.UserId = UserId;
+            string[] aux = UserId.Split('-');
+            this.UserId = Convert.ToInt32(aux[0]);
+
+            if (Convert.ToChar(aux[1][0]).Equals('1'))
+            {
+                dominantRobot = RobotsPersonality.right;
+                assertiveRobot = RobotsPersonality.left;
+            }
+            else
+            {
+                dominantRobot = RobotsPersonality.left;
+                assertiveRobot = RobotsPersonality.right;
+            }
+
+            this.UserPersonalitiy = aux[2];
 
             Language = Thalamus.BML.SpeechLanguages.English;
 
@@ -179,16 +195,14 @@ namespace StoryOfPersonality
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.left);
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
-            ///////
-            //Se os robôs dominante e assertivo ficarem num lugar fixo este if não é necessário
-            //caso seja aleatório então temos que actualizar a variavel assertiveRobot
-            //////
             if (EMYS.left.Equals(assertiveRobot))
             {
+                selectedDP.RobotPersonality = assertiveRobot;
                 selectedDP.TotalAssertive++;
             }
             else
             {
+                selectedDP.RobotPersonality = dominantRobot;
                 selectedDP.TotalDominant++;
             }
 
@@ -234,17 +248,14 @@ namespace StoryOfPersonality
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.right);
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
-            ///////
-            //Se os robôs dominante e assertivo ficarem num lugar fixo este if não é necessário
-            //caso seja aleatório então temos que que actualizar a variavel dominantRobot
-            //////
             if (EMYS.right.Equals(dominantRobot))
             {
-                
+                selectedDP.RobotPersonality = dominantRobot;
                 selectedDP.TotalDominant++;
             }
             else
             {
+                selectedDP.RobotPersonality = assertiveRobot;
                 selectedDP.TotalAssertive++;
             }
 
