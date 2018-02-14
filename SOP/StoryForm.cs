@@ -34,14 +34,14 @@ namespace StoryOfPersonality
 
         private List<Prosody> prosodyLvls = new List<Prosody>();
         public SelectionDP selectedDP;
-        private RobotsPersonality assertiveRobot;
-        private RobotsPersonality dominantRobot;
+        private RobotsPersonality leftRobot;
+        private RobotsPersonality rightRobot;
 
         public enum RobotsPersonality
         {
             none = -1,
-            left = 0,
-            right = 1
+            assertive = 0,
+            dominant = 1
         }
 
         public enum OptionSide
@@ -64,13 +64,13 @@ namespace StoryOfPersonality
 
             if (Convert.ToChar(aux[1][0]).Equals('1'))
             {
-                dominantRobot = RobotsPersonality.right;
-                assertiveRobot = RobotsPersonality.left;
+                rightRobot = RobotsPersonality.dominant;
+                leftRobot = RobotsPersonality.assertive;
             }
             else
             {
-                dominantRobot = RobotsPersonality.left;
-                assertiveRobot = RobotsPersonality.right;
+                rightRobot = RobotsPersonality.assertive;
+                leftRobot = RobotsPersonality.dominant;
             }
 
             this.UserPersonalitiy = aux[2];
@@ -99,8 +99,6 @@ namespace StoryOfPersonality
             LoadLogFiles();
             LoadPersuasionLvlIntensity();
             selectedDP = new SelectionDP();
-            assertiveRobot = RobotsPersonality.left;
-            dominantRobot = RobotsPersonality.right;
             instance = this;
         }
 
@@ -145,7 +143,7 @@ namespace StoryOfPersonality
         {
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
 
         }
 
@@ -193,16 +191,17 @@ namespace StoryOfPersonality
             stopwatch.Stop();
 
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.left);
+            selectedDP.SideSelected = OptionSide.left;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
-            if (EMYS.left.Equals(assertiveRobot))
+            if (EMYS.left.Equals(leftRobot))
             {
-                selectedDP.RobotPersonality = assertiveRobot;
+                selectedDP.RobotPersonality = leftRobot;
                 selectedDP.TotalAssertive++;
             }
             else
             {
-                selectedDP.RobotPersonality = dominantRobot;
+                selectedDP.RobotPersonality = rightRobot;
                 selectedDP.TotalDominant++;
             }
 
@@ -246,16 +245,17 @@ namespace StoryOfPersonality
             stopwatch.Stop();
 
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.right);
+            selectedDP.SideSelected = OptionSide.right;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
-            if (EMYS.right.Equals(dominantRobot))
+            if (EMYS.right.Equals(rightRobot))
             {
-                selectedDP.RobotPersonality = dominantRobot;
+                selectedDP.RobotPersonality = rightRobot;
                 selectedDP.TotalDominant++;
             }
             else
             {
-                selectedDP.RobotPersonality = assertiveRobot;
+                selectedDP.RobotPersonality = leftRobot;
                 selectedDP.TotalAssertive++;
             }
 

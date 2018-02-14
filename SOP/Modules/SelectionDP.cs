@@ -10,6 +10,7 @@ namespace SOP.Modules
     public class SelectionDP
     {
         private int optionSelected;
+        private OptionSide sideSelected;
         private RobotsPersonality robotPersonality;
         private int persLvl;
         private int persIntensity;
@@ -19,6 +20,7 @@ namespace SOP.Modules
 
         public SelectionDP()
         {
+            this.optionSelected = 0;
             this.optionSelected = 0;
             this.robotPersonality = RobotsPersonality.none;
             this.persLvl = 0;
@@ -35,10 +37,11 @@ namespace SOP.Modules
         public int TotalAssertive { get => totalAssertive; set => totalAssertive = value; }
         public RobotsPersonality RobotPersonality { get => robotPersonality; set => robotPersonality = value; }
         public long ElapsedMs { get => elapsedMs; set => elapsedMs = value; }
+        public OptionSide SideSelected { get => sideSelected; set => sideSelected = value; }
 
         public override string ToString()
         {
-            return optionSelected + ";" + robotPersonality + ";" + persLvl + ";" + persIntensity + ";" + totalDominant + ";" + totalAssertive + ";" + elapsedMs;
+            return optionSelected + ";" + sideSelected + ";" + robotPersonality + ";" + persLvl + ";" + persIntensity + ";" + totalDominant + ";" + totalAssertive + ";" + elapsedMs;
         }
     }
 }
