@@ -37,15 +37,15 @@ namespace SOP
         {
             if (metroTextBox1.Text.Contains("-1-") || metroTextBox1.Text.Contains("-0-"))
             {
- StoryForm s = new StoryForm(metroTextBox1.Text);
-            s.Show();
-            this.Hide();
+                StoryForm s = new StoryForm(metroTextBox1.Text);
+                s.Show();
+                this.Hide();
             }
             else
             {
                 this.label1.Visible = true;
             }
-           
+
         }
 
         private void metroButton3_Click(object sender, EventArgs e)

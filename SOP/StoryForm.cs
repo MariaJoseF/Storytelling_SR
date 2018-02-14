@@ -34,15 +34,15 @@ namespace StoryOfPersonality
 
         private List<Prosody> prosodyLvls = new List<Prosody>();
         public SelectionDP selectedDP;
-        private RobotsPersonality leftRobot;
-        private RobotsPersonality rightRobot;
+        private Robot leftRobot;
+        private Robot rightRobot;
 
-        public enum RobotsPersonality
-        {
-            none = -1,
-            assertive = 0,
-            dominant = 1
-        }
+        //private enum RobotsPersonality
+        //{
+        //    none = -1,
+        //    assertive = 0,
+        //    dominant = 1
+        //}
 
         public enum OptionSide
         {
@@ -65,13 +65,13 @@ namespace StoryOfPersonality
 
             if (Convert.ToChar(aux[1][0]).Equals('1'))
             {
-                rightRobot = RobotsPersonality.dominant;
-                leftRobot = RobotsPersonality.assertive;
+                rightRobot = new Robot(Robot.RobotsPersonality.dominant);
+                leftRobot = new Robot(Robot.RobotsPersonality.assertive);
             }
             else
             {
-                rightRobot = RobotsPersonality.assertive;
-                leftRobot = RobotsPersonality.dominant;
+                rightRobot = new Robot(Robot.RobotsPersonality.assertive);
+                leftRobot = new Robot(Robot.RobotsPersonality.dominant);
             }
 
             this.UserPersonalitiy = aux[2];
@@ -195,14 +195,14 @@ namespace StoryOfPersonality
             selectedDP.SideSelected = OptionSide.left;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
-            if (EMYS.left.Equals(leftRobot))
+            if (EMYS.left.Equals(leftRobot.Personality))
             {
-                selectedDP.RobotPersonality = leftRobot;
+                selectedDP.RobotPersonality = leftRobot.Personality;
                 selectedDP.TotalAssertive++;
             }
             else
             {
-                selectedDP.RobotPersonality = rightRobot;
+                selectedDP.RobotPersonality = rightRobot.Personality;
                 selectedDP.TotalDominant++;
             }
 
@@ -249,14 +249,28 @@ namespace StoryOfPersonality
             selectedDP.SideSelected = OptionSide.right;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
-            if (EMYS.right.Equals(rightRobot))
+            //last time robot played
+            if (selectedDP.RobotPersonality.Equals(rightRobot.Personality))
             {
-                selectedDP.RobotPersonality = rightRobot;
+                rightRobot.ConsecutivePlays++;
+                leftRobot.ConsecutivePlays = 0;
+
+            }
+            else
+            {
+                rightRobot.ConsecutivePlays = 0;
+                leftRobot.ConsecutivePlays++;
+            }
+
+            //updates current state of the robot
+            if (EMYS.right.Equals(rightRobot.Personality))
+            {
+                selectedDP.RobotPersonality = rightRobot.Personality;
                 selectedDP.TotalDominant++;
             }
             else
             {
-                selectedDP.RobotPersonality = leftRobot;
+                selectedDP.RobotPersonality = leftRobot.Personality;
                 selectedDP.TotalAssertive++;
             }
 
@@ -281,6 +295,11 @@ namespace StoryOfPersonality
             this.DisableButtons();
             string[] tags = StoryHandler.GetLeftTag().Split(',');
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+
+
+            
+
+
 
             ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + utterance[0], "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");

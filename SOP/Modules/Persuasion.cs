@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static SOP.Modules.Robot;
+using static StoryOfPersonality.StoryForm;
 
 namespace StoryOfPersonality
 {
@@ -27,6 +29,11 @@ namespace StoryOfPersonality
             this.time = time;
             this.animation = animation;
             this.prosody = prosody;
+        }
+
+        public void LoadScenePersuasion(Robot robot)
+        {
+
         }
 
         public string Gaze { get => gaze; set => gaze = value; }

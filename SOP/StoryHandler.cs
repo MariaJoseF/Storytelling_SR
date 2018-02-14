@@ -65,13 +65,8 @@ namespace StoryOfPersonality
         {
             String decisionPoint = storyNodes[currentStoryNodeId].Before;
 
-
-
             clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + selectOption, "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-
-            //  writeLog(currentStoryNodeId + ";" + side + ";" + elapsedms.ToString());
    
-
             if (! decisionPoint.StartsWith("Final"))
                 this.currentStoryNodeId =  side == EMYS.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
         }

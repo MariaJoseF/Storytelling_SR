@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SOP.Modules.Robot;
 using static StoryOfPersonality.StoryForm;
 
 namespace SOP.Modules
@@ -22,7 +23,7 @@ namespace SOP.Modules
         {
             this.optionSelected = 0;
             this.sideSelected = OptionSide.none;
-            this.robotPersonality = RobotsPersonality.none;
+            this.robotPersonality =RobotsPersonality.none;
             this.persLvl = 0;
             this.persIntensity = 0;
             this.totalDominant = 0;
@@ -35,7 +36,7 @@ namespace SOP.Modules
         public int PersIntensity { get => persIntensity; set => persIntensity = value; }
         public int TotalDominant { get => totalDominant; set => totalDominant = value; }
         public int TotalAssertive { get => totalAssertive; set => totalAssertive = value; }
-        public RobotsPersonality RobotPersonality { get => robotPersonality; set => robotPersonality = value; }
+        internal RobotsPersonality RobotPersonality { get => robotPersonality; set => robotPersonality = value; }
         public long ElapsedMs { get => elapsedMs; set => elapsedMs = value; }
         public OptionSide SideSelected { get => sideSelected; set => sideSelected = value; }
 
