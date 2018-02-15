@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StoryOfPersonality
 {
-    static class Rapport
+    public class Rapport
     {
         
     }
