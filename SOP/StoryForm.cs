@@ -149,7 +149,7 @@ namespace StoryOfPersonality
         {
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalAssertive;TotalDominant;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
         }
 
         private void CropAndStrechBackImage()
@@ -387,7 +387,7 @@ namespace StoryOfPersonality
 
             Console.WriteLine("=========== NEXT AUDIO ==============" + (idScene+1));
 
-            axWindowsMediaPlayer1.URL = @"speech/"+folder+"/"+(idScene+1)+".wav";
+            axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName +@"\\speech\\"+folder+"\\"+(idScene+1)+".wav";
             axWindowsMediaPlayer1.Ctlcontrols.play();
             Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
 
@@ -410,15 +410,22 @@ namespace StoryOfPersonality
             if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsMediaEnded)
             {
                 Console.WriteLine("=========== AUDIO FINISHED ==============");
-                // saber em qual lado está o robo dominante e depois ativar o botao.
-                if (leftRobot.Personality == Robot.RobotsPersonality.dominant)
+                if (!(StoryHandler.isEnding()))
                 {
-                    Console.WriteLine("=========== ROBOT LEFT DOMINANT ==============");
-                    PlayLeft_Robot();
-                } else
-                {
-                    Console.WriteLine("=========== ROBOT RIGHT DOMINANT ==============");
-                    PlayRight_Robot();
+                    // saber em qual lado está o robo dominante e depois ativar o botao.
+                    if (leftRobot.Personality == Robot.RobotsPersonality.dominant)
+                    {
+                        Console.WriteLine("=========== ROBOT LEFT DOMINANT ==============");
+                        PlayLeft_Robot();
+                    }
+                    else
+                    {
+                        Console.WriteLine("=========== ROBOT RIGHT DOMINANT ==============");
+                        PlayRight_Robot();
+                    }
+                }
+                else {
+                    Console.WriteLine("============= END GAME ===============");
                 }
             }
         }
@@ -428,7 +435,10 @@ namespace StoryOfPersonality
             string txt = "\r\n ============================= \r\n" +
                          "Left Robot Again: " + listenRobotAgain[0] + "\r\n" +
                          "Right Robot Again: " + listenRobotAgain[1] + "\r\n" +
-                         "\r\n ============================= \r\n";
+                         "============================= \r\n" +
+                         "Total Dominant: " + selectedDP.TotalDominant + "\r\n" +
+                         "Total Assertivo: " + selectedDP.TotalAssertive + "\r\n" +
+                         "============================= \r\n";
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
