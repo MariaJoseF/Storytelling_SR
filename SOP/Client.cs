@@ -124,6 +124,7 @@ namespace StoryOfPersonality
         }
         public void StartUtterance(string id, string utteranceText, EventHandler endUtteranceEvent = null)
         {
+            Console.WriteLine("UTTERANCE: " + utteranceText);
             CPublisher.PerformUtterance(id, utteranceText, "");
 
             this.endUtteranceEvent = endUtteranceEvent;
@@ -140,7 +141,7 @@ namespace StoryOfPersonality
         {
             Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
             //Console.WriteLine("--------------------------------------- CurrentUtterance:" + currentUtterance);
-            Console.WriteLine("--------------------------------------- Dialog:");
+            //Console.WriteLine("--------------------------------------- Dialog:");
             //    NextUtterance();
             if (storyWindow.PlayedLeftButton && storyWindow.PlayedRightButton)
             {
@@ -206,7 +207,6 @@ namespace StoryOfPersonality
             using (System.IO.StreamWriter file =
                     new System.IO.StreamWriter(filename, true))
             {
-
                 file.WriteLine(timestamp + " " + info);
             }
 

@@ -152,7 +152,6 @@ namespace StoryOfPersonality
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyPitch;ProsodyVolume;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality; ConsecutivePlays; OpopnentPlays; Gaze; TimeRobotFeatures; AnimationDominant; ProsodyLvl; ProsodyIntensity; ProsodyRate; ProsodyPitch; ProsodyVolume;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-
         }
 
         private void CropAndStrechBackImage()
@@ -320,7 +319,6 @@ namespace StoryOfPersonality
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
-
         //private void PlayLeft_Click(object sender, EventArgs e)
         internal void PlayLeft_Robot()
         {
@@ -329,14 +327,8 @@ namespace StoryOfPersonality
             string[] tags = StoryHandler.GetLeftTag().Split(',');
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
 
-
-            
-
-
-
             ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + utterance[0] + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-
         }
         // THE NAME OF THE METHOD CHANGED
         //private void PlayRight_Click(object sender, EventArgs e)
