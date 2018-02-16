@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StoryOfPersonality
 {
-    static class Personality
+    public class Personality
     {
         
     }

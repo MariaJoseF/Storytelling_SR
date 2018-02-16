@@ -69,6 +69,17 @@ namespace StoryOfPersonality
    
             if (! decisionPoint.StartsWith("Final"))
                 this.currentStoryNodeId =  side == EMYS.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
+
+
+
+            /////
+            ///     Load Scene Persuasion for each robot
+            ////
+
+
+          //  LoadScenePersuasion(storyWindow.LeftRobot);
+
+
         }
 
         internal bool isEnding()

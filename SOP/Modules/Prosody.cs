@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SOP.Modules
 {
-    class Prosody
+    public class Prosody
     {
         private int lvl;
         private int intensity;
@@ -16,6 +16,11 @@ namespace SOP.Modules
 
         public Prosody()
         {
+            this.lvl = 0;
+            this.intensity = 0;
+            this.rate = "";
+            this.pitch = "";
+            this.volume = "";
         }
 
         public Prosody(int lvl, int intensity, string rate, string pitch, string volume)
@@ -35,7 +40,9 @@ namespace SOP.Modules
 
         public override string ToString()
         {
-            return "Level: " + lvl + " Intensity: " + intensity + " Rate: " + rate + " Pitch: " + pitch + " Volume: " + volume;
+            //return "Level: " + lvl + " Intensity: " + intensity + " Rate: " + rate + " Pitch: " + pitch + " Volume: " + volume;
+            return "" + lvl + ";" + intensity + ";" + rate + ";" + pitch + ";" + volume;
+
         }
     }
 }
