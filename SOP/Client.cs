@@ -153,14 +153,16 @@ namespace StoryOfPersonality
             {
                 storyWindow.Invoke((Action)(() =>
                 {//this refer to form in WPF application 
-                    storyWindow.EnableBTS("R");
+                    //storyWindow.EnableBTS("R");
+                    storyWindow.PlayRight_Robot();
                 }));
             }
             else if (storyWindow.PlayedRightButton)
             {
                 storyWindow.Invoke((Action)(() =>
                 {//this refer to form in WPF application 
-                    storyWindow.EnableBTS("L");
+                    //storyWindow.EnableBTS("L");
+                    storyWindow.PlayLeft_Robot();
                 }));
             }
 

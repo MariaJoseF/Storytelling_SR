@@ -109,6 +109,10 @@ namespace StoryOfPersonality
             return (language == Thalamus.BML.SpeechLanguages.English ? storyNodes[currentStoryNodeId].TextEn : storyNodes[currentStoryNodeId].Text).Replace("\\r\\n", ""+ Environment.NewLine).Replace("\\t", Environment.NewLine);
         }
 
+        internal int GetSceneUtteranceId(Thalamus.BML.SpeechLanguages language) {
+            return (language == Thalamus.BML.SpeechLanguages.English ? storyNodes[currentStoryNodeId].Id : storyNodes[currentStoryNodeId].Id);
+        }
+
         internal string GetDecisionUtteranceId()
         {
             string decisionPoint = storyNodes[currentStoryNodeId].Before;

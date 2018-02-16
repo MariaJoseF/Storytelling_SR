@@ -20,7 +20,7 @@ namespace StoryOfPersonality
         private int persuasionIntensity = 0;
 
         // Only the dominand robot perform this.
-        // 0 = no small talk, 1 = presentation and light small talk, 2 = presentation with more interaction
+        // 0 = no small talk, 1 = presentation and light small talk, 2 = presentation with more interaction (ONLY DOM)
         private int rapportLevel = 0;
 
         public int getPersuasionType()

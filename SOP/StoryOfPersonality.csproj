@@ -143,6 +143,44 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="speech\PT\1.wav" />
+    <Content Include="speech\PT\10.wav" />
+    <Content Include="speech\PT\11.wav" />
+    <Content Include="speech\PT\12.wav" />
+    <Content Include="speech\PT\13.wav" />
+    <Content Include="speech\PT\14.wav" />
+    <Content Include="speech\PT\15.wav" />
+    <Content Include="speech\PT\16.wav" />
+    <Content Include="speech\PT\17.wav" />
+    <Content Include="speech\PT\18.wav" />
+    <Content Include="speech\PT\19.wav" />
+    <Content Include="speech\PT\2.wav" />
+    <Content Include="speech\PT\20.wav" />
+    <Content Include="speech\PT\21.wav" />
+    <Content Include="speech\PT\22.wav" />
+    <Content Include="speech\PT\23.wav" />
+    <Content Include="speech\PT\24.wav" />
+    <Content Include="speech\PT\25.wav" />
+    <Content Include="speech\PT\26.wav" />
+    <Content Include="speech\PT\27.wav" />
+    <Content Include="speech\PT\28.wav" />
+    <Content Include="speech\PT\29.wav" />
+    <Content Include="speech\PT\3.wav" />
+    <Content Include="speech\PT\30.wav" />
+    <Content Include="speech\PT\31.wav" />
+    <Content Include="speech\PT\32.wav" />
+    <Content Include="speech\PT\33.wav" />
+    <Content Include="speech\PT\34.wav" />
+    <Content Include="speech\PT\35.wav" />
+    <Content Include="speech\PT\36.wav" />
+    <Content Include="speech\PT\37.wav" />
+    <Content Include="speech\PT\38.wav" />
+    <Content Include="speech\PT\4.wav" />
+    <Content Include="speech\PT\5.wav" />
+    <Content Include="speech\PT\6.wav" />
+    <Content Include="speech\PT\7.wav" />
+    <Content Include="speech\PT\8.wav" />
+    <Content Include="speech\PT\9.wav" />
     <None Include="images\sound.png" />
     <None Include="images\castle.jpg" />
     <None Include="images\office.jpg" />
@@ -152,6 +190,25 @@
     <None Include="images\meeting.jpg" />
     <None Include="images\victory.jpg" />
     <Content Include="MetroFramework.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

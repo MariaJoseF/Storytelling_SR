@@ -1,4 +1,5 @@
-﻿using SOP.Modules;
+﻿using AxWMPLib;
+using SOP.Modules;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,6 +37,10 @@ namespace StoryOfPersonality
         public SelectionDP selectedDP;
         private Robot leftRobot;
         private Robot rightRobot;
+
+        // at the end of the story this must be recorded to a log file. Then, we can note if the dominant robot was more clear than the assertive or not.
+        // pos 0 left robot and 1 right robot.
+        public int[] listenRobotAgain = new int[2];
 
         //private enum RobotsPersonality
         //{
@@ -77,7 +82,6 @@ namespace StoryOfPersonality
             this.UserPersonalitiy = aux[2];
 
             Language = Thalamus.BML.SpeechLanguages.English;
-
             ThalamusClientRight = new Client(this, EMYS.right, Language, "Dom");
             ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
             // ThalamusClientRight.CPublisher.SetLanguage(Language);
@@ -86,13 +90,14 @@ namespace StoryOfPersonality
             ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
             // ThalamusClientLeft.CPublisher.SetLanguage(Language);
 
+
             //backImage.Visible = false;
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
-
+            
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
             //wait until the characters are connected
-            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+            //while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
@@ -145,7 +150,6 @@ namespace StoryOfPersonality
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "teste", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-
         }
 
         private void CropAndStrechBackImage()
@@ -179,6 +183,7 @@ namespace StoryOfPersonality
             this.languageSelector.Text = "English"; // put this as default
             this.leftButton.Enabled = this.rightButton.Enabled = false;
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
+            playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
             this.CropAndStrechBackImage();
         }
 
@@ -217,7 +222,12 @@ namespace StoryOfPersonality
             this.playRight.Enabled = this.playLeft.Enabled = true;
             this.playLeft.Style = this.playRight.Style = MetroFramework.MetroColorStyle.Green;
             if (StoryHandler.isEnding())
+            {
                 this.DisableButtons();
+                recordFinalLog();
+            }
+
+            playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
         internal void EnableBTS(string button)
@@ -236,6 +246,9 @@ namespace StoryOfPersonality
                     this.rightButton.Enabled = leftButton.Enabled = true;
                     this.rightButton.Theme = MetroFramework.MetroThemeStyle.Light;
                     this.leftButton.Theme = MetroFramework.MetroThemeStyle.Light;
+                    this.playLeft.Enabled = playRight.Enabled = true;
+                    this.playRight.Style = MetroFramework.MetroColorStyle.Green;
+                    this.playLeft.Style = MetroFramework.MetroColorStyle.Green;
                     break;
             }
         }
@@ -285,30 +298,30 @@ namespace StoryOfPersonality
             this.playRight.Enabled = this.playLeft.Enabled = true;
             this.playLeft.Style = this.playRight.Style = MetroFramework.MetroColorStyle.Green;
             if (StoryHandler.isEnding())
+            {
                 this.DisableButtons();
+                recordFinalLog();
+            }
+            playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
 
-        private void PlayLeft_Click(object sender, EventArgs e)
+        //private void PlayLeft_Click(object sender, EventArgs e)
+        internal void PlayLeft_Robot()
         {
             this.PlayedLeftButton = true;
             this.DisableButtons();
             string[] tags = StoryHandler.GetLeftTag().Split(',');
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
 
-
-            
-
-
-
             ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + utterance[0], "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
 
-
             // ThalamusClientLeft.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
         }
-
-        private void PlayRight_Click(object sender, EventArgs e)
+        // THE NAME OF THE METHOD CHANGED
+        //private void PlayRight_Click(object sender, EventArgs e)
+        internal void PlayRight_Robot()
         {
             this.PlayedRightButton = true;
             this.DisableButtons();
@@ -364,6 +377,60 @@ namespace StoryOfPersonality
             }
 
             return correct;
+        }
+
+        internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)
+        {
+            DisableButtons();
+            string folder = "EN";
+            if (language == Thalamus.BML.SpeechLanguages.Portuguese) folder = "PT";
+
+            Console.WriteLine("=========== NEXT AUDIO ==============" + (idScene+1));
+
+            axWindowsMediaPlayer1.URL = @"speech/"+folder+"/"+(idScene+1)+".wav";
+            axWindowsMediaPlayer1.Ctlcontrols.play();
+            Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
+
+        }
+
+        private void playLeft_Click(object sender, EventArgs e)
+        {
+            listenRobotAgain[0]++;
+            PlayLeft_Robot();
+        }
+
+        private void playRight_Click(object sender, EventArgs e)
+        {
+            listenRobotAgain[1]++;
+            PlayRight_Robot();
+        }
+
+        private void axWindowsMediaPlayer1_PlayStateChange_1(object sender, _WMPOCXEvents_PlayStateChangeEvent e)
+        {
+            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsMediaEnded)
+            {
+                Console.WriteLine("=========== AUDIO FINISHED ==============");
+                // saber em qual lado está o robo dominante e depois ativar o botao.
+                if (leftRobot.Personality == Robot.RobotsPersonality.dominant)
+                {
+                    Console.WriteLine("=========== ROBOT LEFT DOMINANT ==============");
+                    PlayLeft_Robot();
+                } else
+                {
+                    Console.WriteLine("=========== ROBOT RIGHT DOMINANT ==============");
+                    PlayRight_Robot();
+                }
+            }
+        }
+
+        private void recordFinalLog()
+        {
+            string txt = "\r\n ============================= \r\n" +
+                         "Left Robot Again: " + listenRobotAgain[0] + "\r\n" +
+                         "Right Robot Again: " + listenRobotAgain[1] + "\r\n" +
+                         "\r\n ============================= \r\n";
+
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
     }
 }
