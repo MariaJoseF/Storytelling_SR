@@ -28,8 +28,9 @@ namespace StoryOfPersonality
 
         public StoryForm storyWindow;
 
-        public const string UTTERANCE_DP_FILE = "utterances_dp.csv";
-        public const string UTTERANCE_SCENES_FILE = "utterances_scenes.csv";
+
+        public string UTTERANCE_DP_FILE;
+        public string UTTERANCE_SCENES_FILE;
         // public const string OUTPUT_FILE = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/choices-";
         public int UserId;
         private Stopwatch stopwatch = new Stopwatch();
@@ -49,6 +50,10 @@ namespace StoryOfPersonality
         public StoryHandler(Client thalamusClient, int UserId)
         {
             this.UserId = UserId;
+
+            UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_dp.csv";
+            UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_scenes.csv";
+
             //Directory.CreateDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/");
             //From the original excel file the two tabs should be imported in Unicode csv in the name mentioned
             //below. The files should be at the current user's folder.
@@ -59,6 +64,9 @@ namespace StoryOfPersonality
             currentStoryNodeId = 0; // initial scene ID since we skip the first line (id -1)
 
             this.clientThalamus = thalamusClient;
+
+
+
         }
 
         internal void NextScene(EMYS side, SelectionDP selectOption)

@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CookComputing.XmlRpcV2">
-      <HintPath>..\..\SERA\Skene\CookComputing.XmlRpcV2.dll</HintPath>
+      <HintPath>..\..\..\SERA\Skene\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="EmoteEvents, Version=1.0.5877.35032, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
