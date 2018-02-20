@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
+using static SOP.Modules.Prosody;
+using static SOP.Modules.Robot;
 
 namespace StoryOfPersonality
 {
@@ -63,6 +65,7 @@ namespace StoryOfPersonality
         public string UserPersonalitiy1 { get => UserPersonalitiy; set => UserPersonalitiy = value; }
         internal Robot LeftRobot { get => leftRobot; set => leftRobot = value; }
         internal Robot RightRobot { get => rightRobot; set => rightRobot = value; }
+        public List<Prosody> ProsodyLvls { get => prosodyLvls; set => prosodyLvls = value; }
 
         public StoryForm(string UserId)
         {
@@ -73,17 +76,21 @@ namespace StoryOfPersonality
             if (Convert.ToChar(aux[1][0]).Equals('1'))
             {
                 rightRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
+                rightRobot.Ptich = "x-low";
                 leftRobot = new Robot(Robot.RobotsPersonality.assertive, Convert.ToInt32(aux[3]));
+                leftRobot.Ptich = "x-high";
             }
             else
             {
                 rightRobot = new Robot(Robot.RobotsPersonality.assertive, Convert.ToInt32(aux[3]));
+                rightRobot.Ptich = "x-high";
                 leftRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
+                leftRobot.Ptich = "x-low";
             }
 
             this.UserPersonalitiy = aux[2];
 
-            Language = Thalamus.BML.SpeechLanguages.English;
+            this.Language = Thalamus.BML.SpeechLanguages.English;
             ThalamusClientRight = new Client(this, EMYS.right, Language, "Dom");
             ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
             // ThalamusClientRight.CPublisher.SetLanguage(Language);
@@ -95,11 +102,11 @@ namespace StoryOfPersonality
 
             //backImage.Visible = false;
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
-            
+
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
             //wait until the characters are connected
-            //while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
@@ -112,14 +119,16 @@ namespace StoryOfPersonality
 
         private void LoadPersuasionLvlIntensity()
         {
+            RobotsLanguage language;
             int lvl, intensity;
-            string rate, pitch, volume;
+            string rate, volume, utterance;
 
             StringBuilder result = new StringBuilder();
             foreach (XElement level1Element in XElement.Load(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/ProsodySettings.xml").Elements("Prosody"))
             {
+                language = RobotsLanguage.none;
                 lvl = intensity = 0;
-                rate = pitch = volume = "";
+                rate = volume = utterance = "";
                 foreach (XElement level2Element in level1Element.Elements())
                 {
                     switch (level2Element.Name.LocalName)
@@ -133,24 +142,32 @@ namespace StoryOfPersonality
                         case "rate":
                             rate = level2Element.Attribute("name").Value;
                             break;
-                        case "pitch":
-                            pitch = level2Element.Attribute("name").Value;
-                            break;
+                        //case "pitch":
+                        //    pitch = level2Element.Attribute("name").Value;
+                        //    break;
                         case "volume":
                             volume = level2Element.Attribute("name").Value;
+                            break;
+                        case "utterance":
+                            utterance = level2Element.Attribute("name").Value;
+                            break;
+                        case "language":
+                            RobotsLanguage aux = (RobotsLanguage)Enum.Parse(typeof(RobotsLanguage), level2Element.Attribute("name").Value);
+                            language = aux;
                             break;
                     }
                 }
 
-                prosodyLvls.Add(new Prosody(lvl, intensity, rate, pitch, volume));
+                //prosodyLvls.Add(new Prosody(lvl, intensity, rate, pitch, volume, utterance, language));
+                prosodyLvls.Add(new Prosody(lvl, intensity, rate, volume, utterance, language));
             }
 
         }
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyPitch;ProsodyVolume;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality; ConsecutivePlays; OpopnentPlays; Gaze; TimeRobotFeatures; AnimationDominant; ProsodyLvl; ProsodyIntensity; ProsodyRate; ProsodyPitch; ProsodyVolume;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyPitch;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyPitch;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
         }
 
@@ -222,7 +239,15 @@ namespace StoryOfPersonality
 
             }
 
+
             StoryHandler.NextScene(EMYS.left, selectedDP);
+
+            /////
+            ///     Load Scene Persuasion for each robot
+            ////
+
+            LoadScenePersuasion(leftRobot);
+            LoadScenePersuasion(rightRobot);
 
             stopwatch.Restart();
 
@@ -239,6 +264,217 @@ namespace StoryOfPersonality
             }
 
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+        }
+
+        public void LoadScenePersuasion(Robot robot)
+        {
+
+            Persuasion _persuasion = new Persuasion();
+            Prosody _prosody = new Prosody();
+            _persuasion.Prosody = _prosody;
+
+            switch (robot.Condition)
+            {
+                case 0:
+                    //No prosody just Gaze
+                    LoadGazeTime(robot, _persuasion);
+                    break;
+                case 1:
+                    if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
+                    {
+                        //  <animation> only for the dominant robot
+                        //annimation intensity is done according to repetition done by the robot that is performing it
+                        //when intensity achieves value 4 the next keeps 4
+
+                        if (robot.OponentPlays > 0) // Assertive robot was the last option selected
+                        {
+                            switch (robot.OponentPlays)
+                            {
+                                case 1:
+                                    _persuasion.Animation = "anger1";
+                                    break;
+                                case 2:
+                                    _persuasion.Animation = "anger3";
+                                    break;
+                                case 3:
+                                    _persuasion.Animation = "anger5";
+                                    break;
+                                default:
+                                    if (robot.OponentPlays > 3)
+                                    {
+                                        _persuasion.Animation = "anger5";
+                                    }
+                                    break;
+                            }
+                        }
+                        else if (robot.ConsecutivePlays > 0)// Dominant robot was the last option selected
+                        {
+                            switch (robot.ConsecutivePlays)
+                            {
+                                case 1:
+                                    _persuasion.Animation = "joy1";
+                                    break;
+                                case 2:
+                                    _persuasion.Animation = "joy3";
+                                    break;
+                                case 3:
+                                    _persuasion.Animation = "joy5";
+                                    break;
+                                default:
+                                    if (robot.OponentPlays > 3)
+                                    {
+                                        _persuasion.Animation = "joy5";
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    break;
+                case 2:
+
+                    //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+                    //prosody intensity is done according to repetition done by the robot that is performing it
+                    //when intensity achieves value 4 the next one starts on 1
+                    switch (robot.ConsecutivePlays % 4)
+                    {
+                        case 1://Intensity = 1
+                            _prosody.Intensity = 1;
+                            break;
+                        case 2://Intensity = 2
+                            _prosody.Intensity = 2;
+                            break;
+                        case 3://Intensity = 3
+                            _prosody.Intensity = 3;
+                            break;
+                        case 0://Intensity = 4
+                            _prosody.Intensity = 4;
+                            break;
+                    }
+                    LoadGazeTime(robot, _persuasion);
+                    _prosody.Lvl = 2;
+                    GetUtteranceLanguage(_prosody);
+                    break;
+                case 3:
+
+                    //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+                    //prosody intensity is done according to repetition done by the robot opposite to the one that is performing it
+                    //when intensity achieves value 4 the next keeps the 4
+                    switch (robot.ConsecutivePlays)
+                    {
+                        case 1://Intensity = 1
+                            _prosody.Intensity = 1;
+                            break;
+                        case 2://Intensity = 2
+                            _prosody.Intensity = 2;
+                            break;
+                        case 3://Intensity = 3
+                            _prosody.Intensity = 3;
+                            break;
+                        case 4://Intensity = 4
+                            _prosody.Intensity = 4;
+                            break;
+                        default://Intensity = 4
+                            if (robot.ConsecutivePlays > 4)
+                            {
+                                _prosody.Intensity = 4;
+                            }
+                            break;
+                    }
+
+                    LoadGazeTime(robot, _persuasion);
+                    _prosody.Lvl = 3;
+
+                    _prosody = GetUtteranceLanguage(_prosody);
+                    break;
+                case 4:
+
+                    //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+                    //prosody intensity is done according to repetition done by the robot opposite to the one that is performing it
+                    //prosody lvl 3 is stronger than lvl2
+                    //when intensity achieves value 4 the next keeps the 4
+                    switch (robot.ConsecutivePlays)
+                    {
+                        case 1://Intensity = 1
+                            _prosody.Intensity = 1;
+                            break;
+                        case 2://Intensity = 2
+                            _prosody.Intensity = 2;
+                            break;
+                        case 3://Intensity = 3
+                            _prosody.Intensity = 3;
+                            break;
+                        case 4://Intensity = 4
+                            _prosody.Intensity = 4;
+                            break;
+                        default://Intensity = 4
+                            if (robot.ConsecutivePlays > 4)
+                            {
+                                _prosody.Intensity = 4;
+                            }
+                            break;
+                    }
+                    LoadGazeTime(robot, _persuasion);
+                    _prosody.Lvl = 4;
+                    GetUtteranceLanguage(_prosody);
+                    break;
+            }
+            robot.Persuasion = _persuasion;
+        }
+
+        private Prosody GetUtteranceLanguage(Prosody prosody)
+        {
+            Prosody p = new Prosody();
+
+            if (Language.Equals(Thalamus.BML.SpeechLanguages.English))
+            {
+                prosody.Language = Prosody.RobotsLanguage.EN;
+
+                p = prosodyLvls.Find(x => x.Language.Equals(Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
+
+            }
+            else
+            {
+                prosody.Language = Prosody.RobotsLanguage.PT;
+                p = prosodyLvls.Find(x => x.Language.Equals(Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
+            }
+
+            prosody.Utterance = p.Utterance;
+
+            return prosody;
+        }
+
+        private void LoadGazeTime(Robot robot, Persuasion _persuasion)
+        {
+            //gaze intensity = 1 gaze to Person and then Button 
+            //gaze intensity = 2 gaze to Person then Button and again to Person
+            //gaze intensity = 2 gaze to Person then Button again to Person and again to Button
+            //  <utterance> <gaze>
+            switch (robot.ConsecutivePlays % 3)
+            {
+                case 1://Intensity = 1
+                    _persuasion.Gaze = "Person-Button";
+                    break;
+                case 2://Intensity = 2
+                    _persuasion.Gaze = "Person-Button-Person";
+                    break;
+                case 0://Intensity = 3
+                    _persuasion.Gaze = "Person-Button-Person-Button";
+                    break;
+            }
+            _persuasion.Time = GetTimeRobotFeature();
+        }
+
+
+        //if return 1 robot will perform more gaze according to his personality (domintant will look more to person, assertive will look less to person)
+        //if return 0 robot will perform random gaze
+        private int GetTimeRobotFeature()
+        {
+            Random random = new Random();
+
+            if (random.NextDouble() <= 0.8)
+                return 1;
+
+            return 0;
         }
 
         internal void EnableBTS(string button)
@@ -301,8 +537,16 @@ namespace StoryOfPersonality
                 selectedDP.TotalAssertive++;
             }
 
+
             StoryHandler.NextScene(EMYS.right, selectedDP);
 
+            /////
+            ///     Load Scene Persuasion for each robot
+            ////
+            ///
+
+            LoadScenePersuasion(leftRobot);
+            LoadScenePersuasion(rightRobot);
 
             stopwatch.Restart();
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
@@ -327,8 +571,10 @@ namespace StoryOfPersonality
             string[] tags = StoryHandler.GetLeftTag().Split(',');
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
 
-            ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + utterance[0] + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            string fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], leftRobot, OptionSide.left);
+
+            ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
         }
         // THE NAME OF THE METHOD CHANGED
         //private void PlayRight_Click(object sender, EventArgs e)
@@ -339,10 +585,92 @@ namespace StoryOfPersonality
             string[] tags = StoryHandler.GetRightTag().Split(',');
             string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
 
-            ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), utterance[0]);
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + utterance[0] + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            string fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], rightRobot, OptionSide.right);
+
+            ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
 
             //ThalamusClientRight.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
+        }
+
+        private string GEtUtteranceAnimationsProsodies(string utterance, Robot robotSide, OptionSide side)
+        {
+            string animation_prosody = "";
+
+            switch (robotSide.Condition)
+            {
+                case 0: //No prosody just Gaze
+                    animation_prosody = GetGaze(robotSide, side);
+                    animation_prosody = utterance + animation_prosody;
+                    break;
+                case 1://  <animation> only for the dominant robot
+                    if (robotSide.Personality.Equals(RobotsPersonality.dominant))
+                    {
+                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><ANIMATE(" + robotSide.Persuasion.Animation + ")>";
+                    }
+                    animation_prosody = utterance + animation_prosody;
+                    break;
+                default:
+                    if (robotSide.Condition > 1) //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+                    {
+                        animation_prosody = GetGaze(robotSide, side);
+                        animation_prosody = utterance + animation_prosody;
+
+                        //animation_prosody = animation_prosody + "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody pitch='" + robotSide.Persuasion.Prosody.Pitch + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume + "'>" + "" + "</prosody></prosody></prosody>";
+                        animation_prosody = animation_prosody + "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume +"'>" + "" +"</prosody></prosody>";
+
+                    }
+                    break;
+                    //case 2: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+                    //    break;
+                    //case 3: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+                    //    break;
+                    //case 4: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+                    //    break;
+            }
+
+            animation_prosody = "<prosody pitch='" + robotSide.Ptich + "'>" + animation_prosody + "</prosody>";
+
+            return animation_prosody;
+        }
+
+        private string GetGaze(Robot robotSide, OptionSide side)
+        {
+            string animation_prosody = "";
+            switch (robotSide.Persuasion.Gaze.Count(x => x == '-'))
+            {
+                case 1://gaze = "Person-Button"
+                    if (side.Equals(OptionSide.right))
+                    {
+                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
+                    }
+                    else
+                    {
+                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
+                    }
+                    break;
+                case 2://gaze = "Person-Button-Person"
+                    if (side.Equals(OptionSide.right))
+                    {
+                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/>";
+                    }
+                    else
+                    {
+                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/>";
+                    }
+                    break;
+                case 3://gaze = "Person-Button-Person-Button"
+                    if (side.Equals(OptionSide.right))
+                    {
+                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
+                    }
+                    else
+                    {
+                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
+                    }
+                    break;
+            }
+            return animation_prosody;
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
@@ -396,9 +724,9 @@ namespace StoryOfPersonality
             string folder = "EN";
             if (language == Thalamus.BML.SpeechLanguages.Portuguese) folder = "PT";
 
-            Console.WriteLine("=========== NEXT AUDIO ==============" + (idScene+1));
+            Console.WriteLine("=========== NEXT AUDIO ==============" + (idScene + 1));
 
-            axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName +@"\\speech\\"+folder+"\\"+(idScene+1)+".wav";
+            axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav";
             axWindowsMediaPlayer1.Ctlcontrols.play();
             Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
 
@@ -435,7 +763,8 @@ namespace StoryOfPersonality
                         PlayRight_Robot();
                     }
                 }
-                else {
+                else
+                {
                     Console.WriteLine("============= END GAME ===============");
                 }
             }

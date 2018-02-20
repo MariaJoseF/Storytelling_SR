@@ -36,7 +36,7 @@ public string[] headMoves = {"<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLef
 
         // persuasion level 4 - The first four is in EN.
         public string[] phrasesToPersuasion4 = { "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>With those decisions, you will lose.</prosody></prosody></prosody>",
-                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>The people is angry.</prosody></prosody></prosody>",
+                                                 "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='medium'>The people are angry.</prosody></prosody></prosody>",
                                                  "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='loud'>Now, there is no solution.</prosody></prosody></prosody>",
                                                  "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='x-loud'>One more decision like this and you will lose.</prosody></prosody></prosody>",
                                                  "<prosody rate='medium'><prosody pitch='x-high'><prosody volume='soft'>Com essas decisões vais perder.</prosody></prosody></prosody>",

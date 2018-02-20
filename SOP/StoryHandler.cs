@@ -30,7 +30,7 @@ namespace StoryOfPersonality
 
         public const string UTTERANCE_DP_FILE = "utterances_dp.csv";
         public const string UTTERANCE_SCENES_FILE = "utterances_scenes.csv";
-       // public const string OUTPUT_FILE = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/choices-";
+        // public const string OUTPUT_FILE = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/choices-";
         public int UserId;
         private Stopwatch stopwatch = new Stopwatch();
 
@@ -66,19 +66,9 @@ namespace StoryOfPersonality
             String decisionPoint = storyNodes[currentStoryNodeId].Before;
 
             clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + selectOption, "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-   
-            if (! decisionPoint.StartsWith("Final"))
-                this.currentStoryNodeId =  side == EMYS.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
 
-
-
-            /////
-            ///     Load Scene Persuasion for each robot
-            ////
-
-
-          //  LoadScenePersuasion(storyWindow.LeftRobot);
-
+            if (!decisionPoint.StartsWith("Final"))
+                this.currentStoryNodeId = side == EMYS.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
 
         }
 
@@ -117,10 +107,11 @@ namespace StoryOfPersonality
 
         internal String GetSceneUtterance(Thalamus.BML.SpeechLanguages language)
         {
-            return (language == Thalamus.BML.SpeechLanguages.English ? storyNodes[currentStoryNodeId].TextEn : storyNodes[currentStoryNodeId].Text).Replace("\\r\\n", ""+ Environment.NewLine).Replace("\\t", Environment.NewLine);
+            return (language == Thalamus.BML.SpeechLanguages.English ? storyNodes[currentStoryNodeId].TextEn : storyNodes[currentStoryNodeId].Text).Replace("\\r\\n", "" + Environment.NewLine).Replace("\\t", Environment.NewLine);
         }
 
-        internal int GetSceneUtteranceId(Thalamus.BML.SpeechLanguages language) {
+        internal int GetSceneUtteranceId(Thalamus.BML.SpeechLanguages language)
+        {
             return (language == Thalamus.BML.SpeechLanguages.English ? storyNodes[currentStoryNodeId].Id : storyNodes[currentStoryNodeId].Id);
         }
 
@@ -129,7 +120,8 @@ namespace StoryOfPersonality
             string decisionPoint = storyNodes[currentStoryNodeId].Before;
             return decisionPoints[decisionPoint].Id.ToString();
         }
-        internal string GetDecisionUtteranceCategory() {
+        internal string GetDecisionUtteranceCategory()
+        {
             return storyNodes[currentStoryNodeId].Before;
         }
 

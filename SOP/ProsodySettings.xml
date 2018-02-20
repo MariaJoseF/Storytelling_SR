@@ -7,27 +7,72 @@
     <rate name="medium" />
     <pitch name="x-high" />
     <volume name="soft" />
+    <utterance name = "ups" />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="2" />
     <intensity name="2" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="medium" />
+    <volume name="medium" />    
+    <utterance name = "hi" />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="2" />
     <intensity name="3" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="loud" />
+    <volume name="loud" />    
+    <utterance name = "aham" />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="2" />
     <intensity name="4" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="x-loud" />
+    <volume name="x-loud" />    
+    <utterance name = "psiu" />
+    <language name = "EN" />
+  </Prosody>
+
+  <Prosody>
+    <lvl name="2" />
+    <intensity name="1" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="soft" />
+    <utterance name = "Oi" />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="2" />
+    <intensity name="2" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="medium" />    
+    <utterance name = "arran" />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="2" />
+    <intensity name="3" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="loud" />    
+    <utterance name = "hei" />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="2" />
+    <intensity name="4" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="x-loud" />    
+    <utterance name = "psiu" />
+    <language name = "PT" />
   </Prosody>
 
   <Prosody>
@@ -35,28 +80,73 @@
     <intensity name="1" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="soft" />
+    <volume name="soft" />    
+    <utterance name = "Did you note?" />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="3" />
     <intensity name="2" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="medium" />
+    <volume name="medium" />    
+    <utterance name = "You should have more attention." />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="3" />
     <intensity name="3" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="loud" />
+    <volume name="loud" />    
+    <utterance name = "That decision was not good." />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="3" />
     <intensity name="4" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="x-loud" />
+    <volume name="x-loud" />    
+    <utterance name = "Come on." />
+    <language name = "EN" />
+  </Prosody>
+
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="1" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="soft" />    
+    <utterance name = "Notastes?" />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="2" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="medium" />    
+    <utterance name = "Deverias ter mais atenção." />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="3" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="loud" />    
+    <utterance name = "Essa decisão não foi boa." />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="3" />
+    <intensity name="4" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="x-loud" />    
+    <utterance name = "Vamos lá!" />
+    <language name = "PT" />
   </Prosody>
 
   <Prosody>
@@ -64,28 +154,72 @@
     <intensity name="1" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="soft" />
+    <volume name="soft" />    
+    <utterance name = "With those decisions, you will lose." />
+    <language name = "EN" />
   </Prosody>
     <Prosody>
     <lvl name="4" />
     <intensity name="2" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="medium" />
+    <volume name="medium" />    
+    <utterance name = "The people are angry." />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="4" />
     <intensity name="3" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="loud" />
+    <volume name="loud" />    
+    <utterance name = "Now, there is no solution." />
+    <language name = "EN" />
   </Prosody>
   <Prosody>
     <lvl name="4" />
     <intensity name="4" />
     <rate name="medium" />
     <pitch name="x-high" />
-    <volume name="x-loud" />
+    <volume name="x-loud" />    <utterance name = "One more decision like this and you will lose." />
+    <language name = "EN" />
+  </Prosody>
+
+  <Prosody>
+    <lvl name="4" />
+    <intensity name="1" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="soft" />    
+    <utterance name = "Com essas decisões vais perder." />
+    <language name = "PT" />
+  </Prosody>
+    <Prosody>
+    <lvl name="4" />
+    <intensity name="2" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="medium" />    
+    <utterance name = "O teu povo está irritado." />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="4" />
+    <intensity name="3" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="loud" />    
+    <utterance name = "Agora não há mais solução." />
+    <language name = "PT" />
+  </Prosody>
+  <Prosody>
+    <lvl name="4" />
+    <intensity name="4" />
+    <rate name="medium" />
+    <pitch name="x-high" />
+    <volume name="x-loud" />    
+    <utterance name = "Mais uma decisão assim e vais perder." />
+    <language name = "PT" />
   </Prosody>
 
 </Prosodies>

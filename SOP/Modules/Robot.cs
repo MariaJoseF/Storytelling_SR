@@ -14,30 +14,24 @@ namespace SOP.Modules
         private int consecutivePlays;
         private int oponentPlays;
         private int condition;
+        private string ptich;
 
-        public Robot(RobotsPersonality robotPersonality)
+        public Robot(RobotsPersonality robotPersonality, string _ptich)
         {
             personality = robotPersonality;
             consecutivePlays = 0;
             this.oponentPlays = 0;
             this.persuasion = new Persuasion();
             this.condition = -1;
+            this.ptich = _ptich;
         }
-
-        //public Robot(RobotsPersonality personality, Persuasion persuasion)
-        //{
-        //    this.personality = personality;
-        //    this.consecutivePlays = 0;
-        //    this.persuasion = persuasion;
-        //    this.condition = -1;
-        //}
 
         public Robot(RobotsPersonality personality, Persuasion persuasion, int condition)
         {
             this.personality = personality;
             this.consecutivePlays = 0;
             this.oponentPlays = 0;
-            this.persuasion = new Persuasion();
+            this.persuasion = persuasion;
             this.condition = condition;
         }
 
@@ -55,6 +49,7 @@ namespace SOP.Modules
         public int ConsecutivePlays { get => consecutivePlays; set => consecutivePlays = value; }
         public int Condition { get => condition; set => condition = value; }
         public int OponentPlays { get => oponentPlays; set => oponentPlays = value; }
+        public string Ptich { get => ptich; set => ptich = value; }
 
         public enum RobotsPersonality
         {
