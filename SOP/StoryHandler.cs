@@ -86,12 +86,29 @@ namespace StoryOfPersonality
             return decisionPoint.StartsWith("Final");
         }
 
+        internal string GetInitialDP()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Initial;
+        }
+
+        internal string GetPrefDP()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Pref;
+        }
+
         internal string GetLeftTag()
         {
             string decisionPoint = storyNodes[currentStoryNodeId].Before;
             return decisionPoints[decisionPoint].Tag1;
         }
 
+        internal string GetLeftPref()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Pref1;
+        }
 
         internal string GetLeftUtterance(Thalamus.BML.SpeechLanguages language)
         {
@@ -104,6 +121,12 @@ namespace StoryOfPersonality
         {
             string decisionPoint = storyNodes[currentStoryNodeId].Before;
             return decisionPoints[decisionPoint].Tag2;
+        }
+
+        internal string GetRightPref()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Pref2;
         }
 
         internal string GetRightUtterance(Thalamus.BML.SpeechLanguages language)
