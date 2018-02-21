@@ -72,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
+    <Compile Include="Function\Logs.cs" />
     <Compile Include="Modules\Prosody.cs" />
     <Compile Include="Modules\Personality.cs" />
     <Compile Include="Modules\Rapport.cs" />
@@ -141,11 +142,25 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Utterances\decision_points_utterances_with_gestrues.csv" />
+    <None Include="Utterances\utterances_dp.csv" />
+    <None Include="Utterances\utterances_scenes.csv" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dlls\EmoteEvents.dll" />
+    <Content Include="dlls\Thalamus.dll" />
+    <Content Include="Logs\StoryChoices\choices-170.txt.txt" />
+    <Content Include="Logs\StoryChoices\choices-1745.txt.txt" />
+    <Content Include="Logs\StoryChoices\choices-606.txt.txt" />
+    <Content Include="Logs\ThalamusClientLeft\leftRobot-170.txt.txt" />
+    <Content Include="Logs\ThalamusClientLeft\leftRobot-1745.txt.txt" />
+    <Content Include="Logs\ThalamusClientLeft\leftRobot-606.txt.txt" />
+    <Content Include="Logs\ThalamusClientRight\rightRobot-170.txt.txt" />
+    <Content Include="Logs\ThalamusClientRight\rightRobot-1745.txt.txt" />
+    <Content Include="Logs\ThalamusClientRight\rightRobot-606.txt.txt" />
     <Content Include="speech\EN\1.wav" />
     <Content Include="speech\EN\10.wav" />
     <Content Include="speech\EN\11.wav" />
@@ -249,6 +264,7 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -239,12 +239,14 @@ namespace StoryOfPersonality
 
             }
 
+            CallUtterancesLeft(1);
 
             StoryHandler.NextScene(EMYS.left, selectedDP);
 
             /////
             ///     Load Scene Persuasion for each robot
             ////
+
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
@@ -280,55 +282,7 @@ namespace StoryOfPersonality
                     LoadGazeTime(robot, _persuasion);
                     break;
                 case 1:
-                    if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
-                    {
-                        //  <animation> only for the dominant robot
-                        //annimation intensity is done according to repetition done by the robot that is performing it
-                        //when intensity achieves value 4 the next keeps 4
-
-                        if (robot.OponentPlays > 0) // Assertive robot was the last option selected
-                        {
-                            switch (robot.OponentPlays)
-                            {
-                                case 1:
-                                    _persuasion.Animation = "anger1";
-                                    break;
-                                case 2:
-                                    _persuasion.Animation = "anger3";
-                                    break;
-                                case 3:
-                                    _persuasion.Animation = "anger5";
-                                    break;
-                                default:
-                                    if (robot.OponentPlays > 3)
-                                    {
-                                        _persuasion.Animation = "anger5";
-                                    }
-                                    break;
-                            }
-                        }
-                        else if (robot.ConsecutivePlays > 0)// Dominant robot was the last option selected
-                        {
-                            switch (robot.ConsecutivePlays)
-                            {
-                                case 1:
-                                    _persuasion.Animation = "joy1";
-                                    break;
-                                case 2:
-                                    _persuasion.Animation = "joy3";
-                                    break;
-                                case 3:
-                                    _persuasion.Animation = "joy5";
-                                    break;
-                                default:
-                                    if (robot.OponentPlays > 3)
-                                    {
-                                        _persuasion.Animation = "joy5";
-                                    }
-                                    break;
-                            }
-                        }
-                    }
+                    _persuasion = LoadGazeDominant(robot, _persuasion);
                     break;
                 case 2:
 
@@ -351,6 +305,7 @@ namespace StoryOfPersonality
                             break;
                     }
                     LoadGazeTime(robot, _persuasion);
+                    _persuasion = LoadGazeDominant(robot, _persuasion);
                     _prosody.Lvl = 2;
                     GetUtteranceLanguage(_prosody);
                     break;
@@ -382,6 +337,7 @@ namespace StoryOfPersonality
                     }
 
                     LoadGazeTime(robot, _persuasion);
+                    _persuasion = LoadGazeDominant(robot, _persuasion);
                     _prosody.Lvl = 3;
 
                     _prosody = GetUtteranceLanguage(_prosody);
@@ -414,11 +370,70 @@ namespace StoryOfPersonality
                             break;
                     }
                     LoadGazeTime(robot, _persuasion);
+                    _persuasion = LoadGazeDominant(robot, _persuasion);
                     _prosody.Lvl = 4;
                     GetUtteranceLanguage(_prosody);
                     break;
             }
+
             robot.Persuasion = _persuasion;
+        }
+
+        private Persuasion LoadGazeDominant(Robot robot, Persuasion _persuasion)
+        {
+            if (robot.Condition > 0)    //Condition 1 code runs also in conditions 2,3 and 4
+            {
+                if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))             //   Ver melhor esta cond~ção pois estava a ter problemas aqui de vez em quando fazia o inverso
+                {
+                    //  <animation> only for the dominant robot
+                    //annimation intensity is done according to repetition done by the robot that is performing it
+                    //when intensity achieves value 4 the next keeps 4
+
+                    if (robot.OponentPlays >= 2) // Assertive robot was the last option selected
+                    {
+                        switch (robot.OponentPlays)
+                        {
+                            case 1:
+                                _persuasion.Animation = "anger1";
+                                break;
+                            case 2:
+                                _persuasion.Animation = "anger3";
+                                break;
+                            case 3:
+                                _persuasion.Animation = "anger5";
+                                break;
+                            default:
+                                if (robot.OponentPlays > 3)
+                                {
+                                    _persuasion.Animation = "anger5";
+                                }
+                                break;
+                        }
+                    }
+                    else if (robot.ConsecutivePlays >= 2)// Dominant robot was the last option selected
+                    {
+                        switch (robot.ConsecutivePlays)
+                        {
+                            case 1:
+                                _persuasion.Animation = "joy1";
+                                break;
+                            case 2:
+                                _persuasion.Animation = "joy3";
+                                break;
+                            case 3:
+                                _persuasion.Animation = "joy5";
+                                break;
+                            default:
+                                if (robot.OponentPlays > 3)
+                                {
+                                    _persuasion.Animation = "joy5";
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+            return _persuasion;
         }
 
         private Prosody GetUtteranceLanguage(Prosody prosody)
@@ -537,6 +552,8 @@ namespace StoryOfPersonality
                 selectedDP.TotalAssertive++;
             }
 
+            CallUtterancesRight(1);
+
 
             StoryHandler.NextScene(EMYS.right, selectedDP);
 
@@ -544,6 +561,7 @@ namespace StoryOfPersonality
             ///     Load Scene Persuasion for each robot
             ////
             ///
+         
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
@@ -568,66 +586,106 @@ namespace StoryOfPersonality
         {
             this.PlayedLeftButton = true;
             this.DisableButtons();
+           
+            CallUtterancesLeft(0);
+
+             }
+
+        private void CallUtterancesLeft(int leftbutton)
+        {
+            string fullUtterance = "";
             string[] tags = StoryHandler.GetLeftTag().Split(',');
-            string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
 
-            string fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], leftRobot, OptionSide.left);
-
+            if (leftbutton == 0)
+            {
+                string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+                fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], leftRobot, OptionSide.left, 0);
+            }
+            else
+            {
+                fullUtterance = GEtUtteranceAnimationsProsodies("", leftRobot, OptionSide.left, 1);
+            }
+            
             ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+
         }
+
         // THE NAME OF THE METHOD CHANGED
         //private void PlayRight_Click(object sender, EventArgs e)
         internal void PlayRight_Robot()
         {
             this.PlayedRightButton = true;
             this.DisableButtons();
-            string[] tags = StoryHandler.GetRightTag().Split(',');
-            string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
 
-            string fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], rightRobot, OptionSide.right);
+            CallUtterancesRight(0); 
+  
+        }
+
+        private void CallUtterancesRight(int rightButton)
+        {
+            string fullUtterance = "";
+            string[] tags = StoryHandler.GetRightTag().Split(',');
+
+            if (rightButton == 0)
+            {
+                string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
+                fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], rightRobot, OptionSide.right, 0);
+            }
+            else
+            {
+                fullUtterance = GEtUtteranceAnimationsProsodies("", rightRobot, OptionSide.right, 1);
+            }
 
             ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
 
-            //ThalamusClientRight.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
         }
 
-        private string GEtUtteranceAnimationsProsodies(string utterance, Robot robotSide, OptionSide side)
+        private string GEtUtteranceAnimationsProsodies(string utterance, Robot robotSide, OptionSide side, int buttonOption)
         {
+            string aux_prosody = "";
             string animation_prosody = "";
 
-            switch (robotSide.Condition)
+            if (buttonOption == 0)
             {
-                case 0: //No prosody just Gaze
-                    animation_prosody = GetGaze(robotSide, side);
-                    animation_prosody = utterance + animation_prosody;
-                    break;
-                case 1://  <animation> only for the dominant robot
-                    if (robotSide.Personality.Equals(RobotsPersonality.dominant))
-                    {
-                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><ANIMATE(" + robotSide.Persuasion.Animation + ")>";
-                    }
-                    animation_prosody = utterance + animation_prosody;
-                    break;
-                default:
-                    if (robotSide.Condition > 1) //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
-                    {
-                        animation_prosody = GetGaze(robotSide, side);
-                        animation_prosody = utterance + animation_prosody;
-
-                        //animation_prosody = animation_prosody + "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody pitch='" + robotSide.Persuasion.Prosody.Pitch + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume + "'>" + "" + "</prosody></prosody></prosody>";
-                        animation_prosody = animation_prosody + "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume +"'>" + "" +"</prosody></prosody>";
-
-                    }
-                    break;
-                    //case 2: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
-                    //    break;
-                    //case 3: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
-                    //    break;
-                    //case 4: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
-                    //    break;
+                //No prosody just Gaze
+                aux_prosody = GetGaze(robotSide, side);
+                animation_prosody = utterance + aux_prosody;
             }
+
+            //  <animation> only for the dominant robot
+            if (buttonOption == 1 && robotSide.ConsecutivePlays > 1 && robotSide.Condition > 0)
+            {
+                if (robotSide.Personality.Equals(RobotsPersonality.dominant))
+                {
+                    aux_prosody = "<Gaze(person3)><break time=\"1s\"/><ANIMATE(" + robotSide.Persuasion.Animation + ")>";
+                }
+                animation_prosody = utterance + aux_prosody;
+            }
+
+            //if buttonOption = 0 <utterance> <gaze> 
+            //if buttonOption = 1 <prosody> <utterance prosody> </prosody>
+            if (robotSide.Condition > 1)
+            {
+                if (buttonOption == 0)
+                {
+                    aux_prosody = GetGaze(robotSide, side);
+                    animation_prosody = utterance + aux_prosody;
+                }
+                else if (robotSide.Personality.Equals(Robot.RobotsPersonality.dominant) && robotSide.ConsecutivePlays > 1)
+                {
+                    animation_prosody = "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume + "'>" + robotSide.Persuasion.Prosody.Utterance + "</prosody></prosody>";
+                }
+            }
+
+            //case 2: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+            //    break;
+            //case 3: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+            //    break;
+            //case 4: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
+            //    break;
+
 
             animation_prosody = "<prosody pitch='" + robotSide.Ptich + "'>" + animation_prosody + "</prosody>";
 
