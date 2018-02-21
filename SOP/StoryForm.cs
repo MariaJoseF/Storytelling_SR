@@ -28,6 +28,7 @@ namespace StoryOfPersonality
         private string UserPersonalitiy;
         public Thalamus.BML.SpeechLanguages Language;
         public StoryHandler StoryHandler;
+        public Personality personality;
 
         public EventHandler ReenableButtonsEvent;
         private bool playedLeftButton, playedRightButton = false;
@@ -105,8 +106,10 @@ namespace StoryOfPersonality
 
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
+            personality = new Personality(this);
+
             //wait until the characters are connected
-            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+            //while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
@@ -161,7 +164,6 @@ namespace StoryOfPersonality
                 //prosodyLvls.Add(new Prosody(lvl, intensity, rate, pitch, volume, utterance, language));
                 prosodyLvls.Add(new Prosody(lvl, intensity, rate, volume, utterance, language));
             }
-
         }
 
         private void LoadLogFiles()
@@ -174,7 +176,6 @@ namespace StoryOfPersonality
         private void CropAndStrechBackImage()
         {
             this.backImage.Size = this.Size;
-
         }
 
         private void DisableButtons()
@@ -219,6 +220,14 @@ namespace StoryOfPersonality
             selectedDP.SideSelected = OptionSide.left;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
+
+            string txt = "";
+            // PERSONALITY
+            personality.BuildPersonality(StoryHandler.GetLeftPref());
+            txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), leftRobot.Personality.ToString());
+
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
+
             if (EMYS.left.Equals(leftRobot.Personality))
             {
                 selectedDP.RobotPersonality = leftRobot.Personality;
@@ -230,15 +239,13 @@ namespace StoryOfPersonality
             }
             else
             {
-                selectedDP.RobotPersonality = rightRobot.Personality;
+                selectedDP.RobotPersonality = leftRobot.Personality;
                 selectedDP.TotalDominant++;
                 leftRobot.ConsecutivePlays = 0;
                 rightRobot.OponentPlays = 0;
                 rightRobot.ConsecutivePlays++;
                 leftRobot.OponentPlays = rightRobot.ConsecutivePlays;
-
             }
-
 
             StoryHandler.NextScene(EMYS.left, selectedDP);
 
@@ -479,6 +486,7 @@ namespace StoryOfPersonality
 
         internal void EnableBTS(string button)
         {
+            Console.WriteLine("===================== PREFS (L-R): " + StoryHandler.GetLeftPref() + " -- " + StoryHandler.GetRightPref());
             switch (button)
             {
                 case "R":
@@ -509,6 +517,14 @@ namespace StoryOfPersonality
             selectedDP.SideSelected = OptionSide.right;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
+            string txt = "";
+
+            // PERSONALITY
+            personality.BuildPersonality(StoryHandler.GetRightPref());
+            txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), rightRobot.Personality.ToString());
+
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
+
             //last time robot played
             if (selectedDP.RobotPersonality.Equals(rightRobot.Personality))
             {
@@ -533,7 +549,7 @@ namespace StoryOfPersonality
             }
             else
             {
-                selectedDP.RobotPersonality = leftRobot.Personality;
+                selectedDP.RobotPersonality = rightRobot.Personality;
                 selectedDP.TotalAssertive++;
             }
 
@@ -779,6 +795,8 @@ namespace StoryOfPersonality
                          "Total Dominant: " + selectedDP.TotalDominant + "\r\n" +
                          "Total Assertivo: " + selectedDP.TotalAssertive + "\r\n" +
                          "============================= \r\n";
+
+            txt += personality.DefineMBTIPersonality();
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
