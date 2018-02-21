@@ -170,7 +170,9 @@ namespace StoryOfPersonality
         {
             ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyPitch;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyPitch;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS;DPPreference;DPPreferenceSelected", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), " ", "Extra Info", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), " ", "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
         }
 
         private void CropAndStrechBackImage()
@@ -227,6 +229,9 @@ namespace StoryOfPersonality
             txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), leftRobot.Personality.ToString());
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
+
+            selectedDP.DPPref = StoryHandler.GetPrefDP();
+            selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
 
             if (EMYS.left.Equals(leftRobot.Personality))
             {
@@ -524,6 +529,9 @@ namespace StoryOfPersonality
             txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), rightRobot.Personality.ToString());
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
+
+            selectedDP.DPPref = StoryHandler.GetPrefDP();
+            selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
 
             //last time robot played
             if (selectedDP.RobotPersonality.Equals(rightRobot.Personality))

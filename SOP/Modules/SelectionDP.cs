@@ -18,6 +18,8 @@ namespace SOP.Modules
         private int totalDominant;
         private int totalAssertive;
         private long elapsedMs;
+        private string dpPref;
+        private string dpPrefSelected;
 
         public SelectionDP()
         {
@@ -29,6 +31,8 @@ namespace SOP.Modules
             this.totalDominant = 0;
             this.totalAssertive = 0;
             this.elapsedMs = 0;
+            this.dpPref = "";
+            this.dpPrefSelected = "";
         }
 
         public int OptionSelected { get => optionSelected; set => optionSelected = value; }
@@ -39,10 +43,12 @@ namespace SOP.Modules
         public RobotsPersonality RobotPersonality { get => robotPersonality; set => robotPersonality = value; }
         public long ElapsedMs { get => elapsedMs; set => elapsedMs = value; }
         public OptionSide SideSelected { get => sideSelected; set => sideSelected = value; }
+        public string DPPref { get => dpPref; set => dpPref = value; }
+        public string DPPrefSelected { get => dpPrefSelected; set => dpPrefSelected = value; }
 
         public override string ToString()
         {
-            return optionSelected + ";" + sideSelected + ";" + robotPersonality + ";" + persLvl + ";" + persIntensity + ";" + totalDominant + ";" + totalAssertive + ";" + elapsedMs;
+            return optionSelected + ";" + sideSelected + ";" + robotPersonality + ";" + persLvl + ";" + persIntensity + ";" + totalDominant + ";" + totalAssertive + ";" + elapsedMs + ";" + DPPref + ";" + DPPrefSelected;
         }
     }
 }
