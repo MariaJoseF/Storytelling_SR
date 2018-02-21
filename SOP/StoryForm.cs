@@ -637,8 +637,12 @@ namespace StoryOfPersonality
                 else
                 {
                     fullUtterance = GEtUtteranceAnimationsProsodies("", rightRobot, OptionSide.right, 1);
-                    ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
-                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "leftRobot-" + this.UserId.ToString() + ".txt");
+                    if (!fullUtterance.Equals(""))
+                    {
+                        ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+                        ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "leftRobot-" + this.UserId.ToString() + ".txt");
+
+                    }
                 }
             }
 
@@ -679,8 +683,12 @@ namespace StoryOfPersonality
                 else
                 {
                     fullUtterance = GEtUtteranceAnimationsProsodies("", leftRobot, OptionSide.left, 1);
-                    ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
-                    ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                    if (!fullUtterance.Equals(""))
+                    {
+                        ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+                        ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+
+                    }
                 }
 
             }
@@ -736,8 +744,15 @@ namespace StoryOfPersonality
             //case 4: //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
             //    break;
 
-
-            animation_prosody = "<prosody pitch='" + robotSide.Ptich + "'>" + animation_prosody + "</prosody>";
+            aux_prosody = animation_prosody;
+            if (aux_prosody.Equals(""))
+            {
+                animation_prosody = "";
+            }
+            else
+            {
+                animation_prosody = "<prosody pitch='" + robotSide.Ptich + "'>" + aux_prosody + "</prosody>";
+            }
 
             return animation_prosody;
         }
