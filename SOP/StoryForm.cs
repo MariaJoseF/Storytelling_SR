@@ -89,6 +89,9 @@ namespace StoryOfPersonality
                 leftRobot.Ptich = "x-low";
             }
 
+            LoadScenePersuasion(leftRobot);
+            LoadScenePersuasion(rightRobot);
+
             this.UserPersonalitiy = aux[2];
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
@@ -109,7 +112,7 @@ namespace StoryOfPersonality
             personality = new Personality(this);
 
             //wait until the characters are connected
-            //while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
@@ -228,7 +231,7 @@ namespace StoryOfPersonality
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
 
-            if (EMYS.left.Equals(leftRobot.Personality))
+            if (leftRobot.Personality.Equals(Robot.RobotsPersonality.assertive))//default left robot = assertive
             {
                 selectedDP.RobotPersonality = leftRobot.Personality;
                 selectedDP.TotalAssertive++;
@@ -237,7 +240,7 @@ namespace StoryOfPersonality
                 rightRobot.ConsecutivePlays = 0;
                 rightRobot.OponentPlays = leftRobot.ConsecutivePlays;
             }
-            else
+            else //default right robot = dominant
             {
                 selectedDP.RobotPersonality = leftRobot.Personality;
                 selectedDP.TotalDominant++;
@@ -247,7 +250,7 @@ namespace StoryOfPersonality
                 leftRobot.OponentPlays = rightRobot.ConsecutivePlays;
             }
 
-            CallUtterancesLeft(1);
+
 
             StoryHandler.NextScene(EMYS.left, selectedDP);
 
@@ -258,6 +261,7 @@ namespace StoryOfPersonality
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
+            CallUtterancesLeft(1);
 
             stopwatch.Restart();
 
@@ -291,6 +295,7 @@ namespace StoryOfPersonality
                     break;
                 case 1:
                     _persuasion = LoadGazeDominant(robot, _persuasion);
+                    LoadGazeTime(robot, _persuasion);
                     break;
                 case 2:
 
@@ -401,17 +406,17 @@ namespace StoryOfPersonality
                     {
                         switch (robot.OponentPlays)
                         {
-                            case 1:
+                            case 2:
                                 _persuasion.Animation = "anger1";
                                 break;
-                            case 2:
+                            case 3:
                                 _persuasion.Animation = "anger3";
                                 break;
-                            case 3:
+                            case 4:
                                 _persuasion.Animation = "anger5";
                                 break;
                             default:
-                                if (robot.OponentPlays > 3)
+                                if (robot.OponentPlays > 4)
                                 {
                                     _persuasion.Animation = "anger5";
                                 }
@@ -422,17 +427,17 @@ namespace StoryOfPersonality
                     {
                         switch (robot.ConsecutivePlays)
                         {
-                            case 1:
+                            case 2:
                                 _persuasion.Animation = "joy1";
                                 break;
-                            case 2:
+                            case 3:
                                 _persuasion.Animation = "joy3";
                                 break;
-                            case 3:
+                            case 4:
                                 _persuasion.Animation = "joy5";
                                 break;
                             default:
-                                if (robot.OponentPlays > 3)
+                                if (robot.OponentPlays > 4)
                                 {
                                     _persuasion.Animation = "joy5";
                                 }
@@ -481,7 +486,14 @@ namespace StoryOfPersonality
                     _persuasion.Gaze = "Person-Button-Person";
                     break;
                 case 0://Intensity = 3
-                    _persuasion.Gaze = "Person-Button-Person-Button";
+                    if (robot.ConsecutivePlays > 0)
+                    {
+                        _persuasion.Gaze = "Person-Button-Person-Button";
+                    }
+                    else
+                    {
+                        _persuasion.Gaze = "Person-Button";
+                    }
                     break;
             }
             _persuasion.Time = GetTimeRobotFeature();
@@ -569,19 +581,17 @@ namespace StoryOfPersonality
                 selectedDP.TotalAssertive++;
             }
 
-            CallUtterancesRight(1);
-
-
             StoryHandler.NextScene(EMYS.right, selectedDP);
 
             /////
             ///     Load Scene Persuasion for each robot
             ////
             ///
-         
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
+
+            CallUtterancesRight(1);
 
             stopwatch.Restart();
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
@@ -603,10 +613,10 @@ namespace StoryOfPersonality
         {
             this.PlayedLeftButton = true;
             this.DisableButtons();
-           
+
             CallUtterancesLeft(0);
 
-             }
+        }
 
         private void CallUtterancesLeft(int leftbutton)
         {
@@ -620,12 +630,23 @@ namespace StoryOfPersonality
             }
             else
             {
-                fullUtterance = GEtUtteranceAnimationsProsodies("", leftRobot, OptionSide.left, 1);
+                if (leftRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
+                {
+                    fullUtterance = GEtUtteranceAnimationsProsodies("", leftRobot, OptionSide.left, 1);
+                }
+                else
+                {
+                    fullUtterance = GEtUtteranceAnimationsProsodies("", rightRobot, OptionSide.right, 1);
+                    ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "leftRobot-" + this.UserId.ToString() + ".txt");
+                }
             }
-            
-            ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
 
+            if (leftRobot.Personality.Equals(Robot.RobotsPersonality.assertive) || leftbutton == 0)
+            {
+                ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+                ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            }
         }
 
         // THE NAME OF THE METHOD CHANGED
@@ -635,8 +656,8 @@ namespace StoryOfPersonality
             this.PlayedRightButton = true;
             this.DisableButtons();
 
-            CallUtterancesRight(0); 
-  
+            CallUtterancesRight(0);
+
         }
 
         private void CallUtterancesRight(int rightButton)
@@ -651,12 +672,24 @@ namespace StoryOfPersonality
             }
             else
             {
-                fullUtterance = GEtUtteranceAnimationsProsodies("", rightRobot, OptionSide.right, 1);
+                if (rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
+                {
+                    fullUtterance = GEtUtteranceAnimationsProsodies("", rightRobot, OptionSide.right, 1);
+                }
+                else
+                {
+                    fullUtterance = GEtUtteranceAnimationsProsodies("", leftRobot, OptionSide.left, 1);
+                    ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+                    ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                }
+
             }
 
-            ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-
+            if (rightRobot.Personality.Equals(Robot.RobotsPersonality.assertive) || rightButton == 0)
+            {
+                ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
+                ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            }
         }
 
         private string GEtUtteranceAnimationsProsodies(string utterance, Robot robotSide, OptionSide side, int buttonOption)
