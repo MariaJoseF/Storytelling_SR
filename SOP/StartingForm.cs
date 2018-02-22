@@ -35,7 +35,7 @@ namespace SOP
 
         private void metroButton4_Click(object sender, EventArgs e)
         {
-            if (metroTextBox1.Text.Count(x => x == '-') == 3)
+            if (metroTextBox1.Text.Count(x => x == '-') == 4)
             {
                 StoryForm s = new StoryForm(metroTextBox1.Text);
                 s.Show();

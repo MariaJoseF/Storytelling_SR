@@ -44,6 +44,8 @@ namespace StoryOfPersonality
         // at the end of the story this must be recorded to a log file. Then, we can note if the dominant robot was more clear than the assertive or not.
         // pos 0 left robot and 1 right robot.
         public int[] listenRobotAgain = new int[2];
+        // 0 = the dominant robot persuade according to participant personality, 1 = different of participant personality, 2 = no persuasion at all.
+        public int conditionPersuasion;
 
         //private enum RobotsPersonality
         //{
@@ -90,6 +92,7 @@ namespace StoryOfPersonality
             }
 
             this.UserPersonalitiy = aux[2];
+            conditionPersuasion = Convert.ToInt32(aux[4]);
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
             ThalamusClientRight = new Client(this, EMYS.right, Language, "Dom");
@@ -99,7 +102,6 @@ namespace StoryOfPersonality
             ThalamusClientLeft = new Client(this, EMYS.left, Language, "Domina");
             ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
             // ThalamusClientLeft.CPublisher.SetLanguage(Language);
-
 
             //backImage.Visible = false;
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
@@ -222,16 +224,26 @@ namespace StoryOfPersonality
             selectedDP.SideSelected = OptionSide.left;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
-
             string txt = "";
-            // PERSONALITY
-            personality.BuildPersonality(StoryHandler.GetLeftPref());
-            txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), leftRobot.Personality.ToString());
 
+            if (SidePerform(StoryHandler.GetLeftPref().ToUpper()).Equals("L"))
+            {
+                // PERSONALITY
+                personality.BuildPersonality(StoryHandler.GetLeftPref());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), leftRobot.Personality.ToString());
+                selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
+            }
+            else
+            {
+                // PERSONALITY
+                personality.BuildPersonality(StoryHandler.GetRightPref());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), leftRobot.Personality.ToString()); ;
+                selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
+            }
+           
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
 
             selectedDP.DPPref = StoryHandler.GetPrefDP();
-            selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
 
             if (EMYS.left.Equals(leftRobot.Personality))
             {
@@ -257,7 +269,6 @@ namespace StoryOfPersonality
             /////
             ///     Load Scene Persuasion for each robot
             ////
-
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
 
@@ -476,7 +487,6 @@ namespace StoryOfPersonality
             _persuasion.Time = GetTimeRobotFeature();
         }
 
-
         //if return 1 robot will perform more gaze according to his personality (domintant will look more to person, assertive will look less to person)
         //if return 0 robot will perform random gaze
         private int GetTimeRobotFeature()
@@ -491,7 +501,15 @@ namespace StoryOfPersonality
 
         internal void EnableBTS(string button)
         {
-            Console.WriteLine("===================== PREFS (L-R): " + StoryHandler.GetLeftPref() + " -- " + StoryHandler.GetRightPref());
+            // ONLY TO SEE IF IS OK, AFTER ALL REMOTE IT
+            if (SidePerform(StoryHandler.GetLeftPref().ToUpper()).Equals("L"))
+            {
+                Console.WriteLine("===================== PREFS (L-R): " + StoryHandler.GetLeftPref() + " -- " + StoryHandler.GetRightPref());
+            } else
+            {
+                Console.WriteLine("===================== PREFS (L-R): " + StoryHandler.GetRightPref() + " -- " + StoryHandler.GetLeftPref());
+            }
+
             switch (button)
             {
                 case "R":
@@ -513,7 +531,6 @@ namespace StoryOfPersonality
             }
         }
 
-
         private void RightButton_Click(object sender, EventArgs e)
         {
             stopwatch.Stop();
@@ -521,18 +538,28 @@ namespace StoryOfPersonality
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.right);
             selectedDP.SideSelected = OptionSide.right;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
-
+            
             string txt = "";
 
-            // PERSONALITY
-            personality.BuildPersonality(StoryHandler.GetRightPref());
-            txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), rightRobot.Personality.ToString());
+            if (SidePerform(StoryHandler.GetRightPref().ToUpper()).Equals("R"))
+            {
+                // PERSONALITY
+                personality.BuildPersonality(StoryHandler.GetRightPref());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), rightRobot.Personality.ToString());
+                selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
+            }
+            else
+            {
+                // PERSONALITY
+                personality.BuildPersonality(StoryHandler.GetLeftPref());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), rightRobot.Personality.ToString());
+                selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
+            }           
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
 
             selectedDP.DPPref = StoryHandler.GetPrefDP();
-            selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
-
+            
             //last time robot played
             if (selectedDP.RobotPersonality.Equals(rightRobot.Personality))
             {
@@ -593,7 +620,17 @@ namespace StoryOfPersonality
             this.PlayedLeftButton = true;
             this.DisableButtons();
             string[] tags = StoryHandler.GetLeftTag().Split(',');
+
             string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+
+            if (SidePerform(StoryHandler.GetLeftPref().ToUpper()).Equals("L"))
+            {
+                utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+            }
+            else
+            {
+                utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
+            }
 
             string fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], leftRobot, OptionSide.left);
 
@@ -607,7 +644,15 @@ namespace StoryOfPersonality
             this.PlayedRightButton = true;
             this.DisableButtons();
             string[] tags = StoryHandler.GetRightTag().Split(',');
+
             string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
+            if (SidePerform(StoryHandler.GetRightPref().ToUpper()).Equals("R"))
+            {
+                utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
+            } else
+            {
+                utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+            }           
 
             string fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], rightRobot, OptionSide.right);
 
@@ -615,6 +660,49 @@ namespace StoryOfPersonality
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
 
             //ThalamusClientRight.StartUtteranceFromLibrary(StoryHandler.GetDecisionUtteranceId(), StoryHandler.GetDecisionUtteranceCategory(), tags, ReenableButtonsEvent);
+        }
+
+        private string SidePerform(string prefUtterance)
+        {
+            string side = "";
+            UserPersonalitiy = UserPersonalitiy.ToUpper();
+            //Console.WriteLine("===== USER PERSONALITY: " + UserPersonalitiy);
+            //Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
+            //Console.WriteLine("===== Pref utterance side? : " + prefUtterance);
+
+            if (StoryHandler.GetInitialDP().Contains("DP"))
+            {
+                if (UserPersonalitiy.Contains(prefUtterance))
+                {
+                    if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
+                    {
+                        side = "L";
+                    } else
+                    {
+                        side = "R";
+                    }
+                }
+                else 
+                {
+                    if (rightRobot.Personality.Equals(RobotsPersonality.dominant))
+                    {
+                        side = "L";
+                    } else
+                    {
+                        side = "R";
+                    }
+                }
+                Console.WriteLine("===== Condition persuasion : " + conditionPersuasion + " Side: " + side);
+                if (conditionPersuasion.Equals(1))
+                {
+                    if (side.Equals("L")) side = "R"; else side = "L";
+                }
+            } else
+            {
+                side = prefUtterance.ToUpper();
+            }
+            Console.WriteLine("===== Side : " + side);
+            return side;
         }
 
         private string GEtUtteranceAnimationsProsodies(string utterance, Robot robotSide, OptionSide side)
