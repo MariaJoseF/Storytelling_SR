@@ -39,10 +39,6 @@ namespace StoryOfPersonality
             this.prosody = prosody;
         }
 
-
-
-       
-
         public string Gaze { get => gaze; set => gaze = value; }
         public int Time { get => time; set => time = value; }
         public string Animation { get => animation; set => animation = value; }

@@ -10,12 +10,6 @@ using System.IO;
 
 namespace StoryOfPersonality
 {
-    public enum EMYS
-    {
-        left = 0,
-        right = 1
-    }
-
     public interface IClient : Thalamus.BML.ISpeakEvents { }
 
     public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions
@@ -95,10 +89,10 @@ namespace StoryOfPersonality
         public StoryForm storyWindow;
 
         public Thalamus.BML.SpeechLanguages Language { get; private set; }
-        private EMYS Side;
+        private StoryForm.OptionSide Side;
         private EventHandler endUtteranceEvent;
 
-        public Client(StoryForm window, EMYS side, Thalamus.BML.SpeechLanguages language, string character)
+        public Client(StoryForm window, StoryForm.OptionSide side, Thalamus.BML.SpeechLanguages language, string character)
             : base(character, character)
 
         {

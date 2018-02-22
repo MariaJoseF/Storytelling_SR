@@ -89,17 +89,14 @@ namespace StoryOfPersonality
                 leftRobot.Pitch = "x-low";
             }
 
-            LoadScenePersuasion(leftRobot);
-            LoadScenePersuasion(rightRobot);
-
             this.UserPersonalitiy = aux[2];
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
-            ThalamusClientRight = new Client(this, EMYS.right, Language, "Dom");
+            ThalamusClientRight = new Client(this, OptionSide.right, Language, "Dom");
             ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
             // ThalamusClientRight.CPublisher.SetLanguage(Language);
 
-            ThalamusClientLeft = new Client(this, EMYS.left, Language, "Domina");
+            ThalamusClientLeft = new Client(this, OptionSide.left, Language, "Domina");
             ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
             // ThalamusClientLeft.CPublisher.SetLanguage(Language);
 
@@ -117,8 +114,13 @@ namespace StoryOfPersonality
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
 
+
             LoadLogFiles();
             LoadPersuasionLvlIntensity();
+
+            LoadScenePersuasion(leftRobot);
+            LoadScenePersuasion(rightRobot);
+
             selectedDP = new SelectionDP();
             instance = this;
         }
@@ -242,16 +244,21 @@ namespace StoryOfPersonality
             if (leftRobot.Personality.Equals(Robot.RobotsPersonality.assertive))//default left robot = assertive
             {
                 selectedDP.TotalAssertive++;
+                rightRobot.Persuasion.Prosody.Intensity++;
             }
             else //default right robot = dominant
             {
                 selectedDP.TotalDominant++;
+                leftRobot.Persuasion.Prosody.Intensity = 1;
             }
 
             leftRobot.TotalDominant = selectedDP.TotalDominant;
             leftRobot.TotalAssertive = selectedDP.TotalAssertive;
 
-            StoryHandler.NextScene(EMYS.left, selectedDP);
+            rightRobot.TotalDominant = selectedDP.TotalDominant;
+            rightRobot.TotalAssertive = selectedDP.TotalAssertive;
+
+            StoryHandler.NextScene(OptionSide.left, selectedDP);
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
@@ -308,13 +315,21 @@ namespace StoryOfPersonality
                             _prosody.Intensity = 3;
                             break;
                         case 0://Intensity = 4
-                            _prosody.Intensity = 4;
+                            if (robot.ConsecutivePlays == 0)
+                            {
+                                _prosody.Intensity = 1;
+                            }
+                            else
+                            {
+                                _prosody.Intensity = 4;
+                            }
+                            
                             break;
                     }
                     LoadGazeTime(robot, _persuasion);
                     _persuasion = LoadGazeDominant(robot, _persuasion);
                     _prosody.Lvl = 2;
-                    GetUtteranceLanguage(_prosody);
+                    _prosody = GetUtteranceLanguage(_prosody);
                     break;
                 case 3:
 
@@ -323,6 +338,7 @@ namespace StoryOfPersonality
                     //when intensity achieves value 4 the next keeps the 4
                     switch (robot.ConsecutivePlays)
                     {
+                        case 0:
                         case 1://Intensity = 1
                             _prosody.Intensity = 1;
                             break;
@@ -336,10 +352,7 @@ namespace StoryOfPersonality
                             _prosody.Intensity = 4;
                             break;
                         default://Intensity = 4
-                            if (robot.ConsecutivePlays > 4)
-                            {
-                                _prosody.Intensity = 4;
-                            }
+                            _prosody.Intensity = 4;
                             break;
                     }
 
@@ -357,6 +370,7 @@ namespace StoryOfPersonality
                     //when intensity achieves value 4 the next keeps the 4
                     switch (robot.ConsecutivePlays)
                     {
+                        case 0:
                         case 1://Intensity = 1
                             _prosody.Intensity = 1;
                             break;
@@ -370,16 +384,13 @@ namespace StoryOfPersonality
                             _prosody.Intensity = 4;
                             break;
                         default://Intensity = 4
-                            if (robot.ConsecutivePlays > 4)
-                            {
-                                _prosody.Intensity = 4;
-                            }
+                            _prosody.Intensity = 4;
                             break;
                     }
                     LoadGazeTime(robot, _persuasion);
                     _persuasion = LoadGazeDominant(robot, _persuasion);
                     _prosody.Lvl = 4;
-                    GetUtteranceLanguage(_prosody);
+                    _prosody = GetUtteranceLanguage(_prosody);
                     break;
             }
 
@@ -451,13 +462,13 @@ namespace StoryOfPersonality
             {
                 prosody.Language = Prosody.RobotsLanguage.EN;
 
-                p = prosodyLvls.Find(x => x.Language.Equals(Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
+                p = prosodyLvls.Find(x => x.Language.Equals(prosody.Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
 
             }
             else
             {
                 prosody.Language = Prosody.RobotsLanguage.PT;
-                p = prosodyLvls.Find(x => x.Language.Equals(Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
+                p = prosodyLvls.Find(x => x.Language.Equals(prosody.Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
             }
 
             prosody.Utterance = p.Utterance;
@@ -494,8 +505,8 @@ namespace StoryOfPersonality
         }
 
 
-        //if return 1 robot will perform more gaze according to his personality (domintant will look more to person, assertive will look less to person)
-        //if return 0 robot will perform random gaze
+        //if return 1 robot will perform more gaze according to his personality such as: domintant will look more to person, assertive will look less to person 
+        //if return 0 robot will perform gaze such as: domintant will look less to person,  assertive will look more to person
         private int GetTimeRobotFeature()
         {
             Random random = new Random();
@@ -557,16 +568,21 @@ namespace StoryOfPersonality
             if (rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))//default right robot = dominant
             {
                 selectedDP.TotalDominant++;
+                rightRobot.Persuasion.Prosody.Intensity = 1;
             }
             else //default left robot = assertive
             {
                 selectedDP.TotalAssertive++;
+                leftRobot.Persuasion.Prosody.Intensity++;
             }
 
             rightRobot.TotalDominant = selectedDP.TotalDominant;
             rightRobot.TotalAssertive = selectedDP.TotalAssertive;
 
-            StoryHandler.NextScene(EMYS.left, selectedDP);
+            leftRobot.TotalDominant = selectedDP.TotalDominant;
+            leftRobot.TotalAssertive = selectedDP.TotalAssertive;
+
+            StoryHandler.NextScene(OptionSide.right, selectedDP);
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
@@ -601,7 +617,7 @@ namespace StoryOfPersonality
         private void CallUtterancesLeft(int leftbutton)
         {
             string fullUtterance = "";
-           // string[] tags = StoryHandler.GetLeftTag().Split(',');
+            // string[] tags = StoryHandler.GetLeftTag().Split(',');
 
             if (leftbutton == 0)
             {
@@ -698,7 +714,7 @@ namespace StoryOfPersonality
             }
 
             //  <animation> only for the dominant robot
-            if (buttonOption == 1 && (robotSide.ConsecutivePlays > 1 || robotSide.OponentPlays >1) && robotSide.Condition > 0)
+            if (buttonOption == 1 && (robotSide.ConsecutivePlays > 1 || robotSide.OponentPlays > 1) && robotSide.Condition > 0)
             {
                 if (robotSide.Personality.Equals(RobotsPersonality.dominant))
                 {
@@ -746,40 +762,73 @@ namespace StoryOfPersonality
         private string GetGaze(Robot robotSide, OptionSide side)
         {
             string animation_prosody = "";
+            string animation_person = GetPersonOrRandomGaze(robotSide);
+
             switch (robotSide.Persuasion.Gaze.Count(x => x == '-'))
             {
                 case 1://gaze = "Person-Button"
                     if (side.Equals(OptionSide.right))
                     {
-                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
+                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
                     }
                     else
                     {
-                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
+                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
                     }
                     break;
                 case 2://gaze = "Person-Button-Person"
                     if (side.Equals(OptionSide.right))
                     {
-                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/>";
+                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/>";
                     }
                     else
                     {
-                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/>";
+                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/>";
                     }
                     break;
                 case 3://gaze = "Person-Button-Person-Button"
                     if (side.Equals(OptionSide.right))
                     {
-                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
+                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
                     }
                     else
                     {
-                        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(person3)><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
+                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
                     }
                     break;
             }
             return animation_prosody;
+        }
+
+        private string GetPersonOrRandomGaze(Robot robotSide)
+        {
+            //if return 1 robot will perform more gaze according to his personality such as: domintant will look more to person, assertive will look less to person 
+            //if return 0 robot will perform gaze such as: domintant will look less to person,  assertive will look more to person
+            string gazeTo = "";
+
+            if (robotSide.Persuasion.Time.Equals(1))//robot will perform gaze 80% of the time
+            {
+                if (robotSide.Personality.Equals(Robot.RobotsPersonality.dominant))
+                {
+                    gazeTo = "person3";
+                }
+                else
+                {
+                    gazeTo = "random";
+                }
+            }
+            else//robot will perform gaze 20% of time
+            {
+                if (robotSide.Personality.Equals(Robot.RobotsPersonality.dominant))
+                {
+                    gazeTo = "random";
+                }
+                else
+                {
+                    gazeTo = "person3";
+                }
+            }
+            return gazeTo;
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
