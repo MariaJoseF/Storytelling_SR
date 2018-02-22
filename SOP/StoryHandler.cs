@@ -98,11 +98,11 @@ namespace StoryOfPersonality
             return decisionPoints[decisionPoint].Pref;
         }
 
-        internal string GetLeftTag()
-        {
-            string decisionPoint = storyNodes[currentStoryNodeId].Before;
-            return decisionPoints[decisionPoint].Tag1;
-        }
+        //internal string GetLeftTag()
+        //{
+        //    string decisionPoint = storyNodes[currentStoryNodeId].Before;
+        //    return decisionPoints[decisionPoint].Tag1;
+        //}
 
         internal string GetLeftPref()
         {
@@ -117,11 +117,11 @@ namespace StoryOfPersonality
             return (language == Thalamus.BML.SpeechLanguages.English ? decisionPoints[decisionPoint].Textp1En : decisionPoints[decisionPoint].Textp1);
         }
 
-        internal string GetRightTag()
-        {
-            string decisionPoint = storyNodes[currentStoryNodeId].Before;
-            return decisionPoints[decisionPoint].Tag2;
-        }
+        //internal string GetRightTag()
+        //{
+        //    string decisionPoint = storyNodes[currentStoryNodeId].Before;
+        //    return decisionPoints[decisionPoint].Tag2;
+        //}
 
         internal string GetRightPref()
         {

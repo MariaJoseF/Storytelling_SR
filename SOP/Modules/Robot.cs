@@ -14,7 +14,10 @@ namespace SOP.Modules
         private int consecutivePlays;
         private int oponentPlays;
         private int condition;
-        private string ptich;
+        private string pitch;
+        private int totalDominant;
+        private int totalAssertive;
+
 
         public Robot(RobotsPersonality robotPersonality, string _ptich)
         {
@@ -23,7 +26,7 @@ namespace SOP.Modules
             this.oponentPlays = 0;
             this.persuasion = new Persuasion();
             this.condition = -1;
-            this.ptich = _ptich;
+            this.pitch = _ptich;
         }
 
         public Robot(RobotsPersonality personality, Persuasion persuasion, int condition)
@@ -49,7 +52,9 @@ namespace SOP.Modules
         public int ConsecutivePlays { get => consecutivePlays; set => consecutivePlays = value; }
         public int Condition { get => condition; set => condition = value; }
         public int OponentPlays { get => oponentPlays; set => oponentPlays = value; }
-        public string Ptich { get => ptich; set => ptich = value; }
+        public string Pitch { get => pitch; set => pitch = value; }
+        public int TotalDominant { get => totalDominant; set => totalDominant = value; }
+        public int TotalAssertive { get => totalAssertive; set => totalAssertive = value; }
 
         public enum RobotsPersonality
         {
@@ -61,7 +66,8 @@ namespace SOP.Modules
         public override string ToString()
         {
            // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
-            return "" + personality + ";" + persuasion + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
+            //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
+            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalAssertive + ";" + pitch + ";" + persuasion.ToString() + ";" + condition;
 
         }
     }

@@ -189,14 +189,13 @@ namespace StoryOfPersonality
         string filePath = CPublisher.fileName + @"\Logs\" + aux_path + @"\";
             string filename = filePath + name_file + ".txt";
 
-
-            Console.WriteLine(filePath);
+            //Console.WriteLine(filePath);
             try
             {
                 if (!Directory.Exists(filePath))
                 {
                     Directory.CreateDirectory(filePath);
-                    Console.WriteLine(filePath);
+                    //Console.WriteLine(filePath);
                 }
             }
             catch (IOException ex)
