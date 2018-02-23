@@ -394,6 +394,7 @@ namespace StoryOfPersonality
                     break;
             }
 
+            _persuasion.Prosody = _prosody;
             robot.Persuasion = _persuasion;
         }
 
@@ -471,7 +472,7 @@ namespace StoryOfPersonality
                 p = prosodyLvls.Find(x => x.Language.Equals(prosody.Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
             }
 
-            prosody.Utterance = p.Utterance;
+            prosody = p;
 
             return prosody;
         }
