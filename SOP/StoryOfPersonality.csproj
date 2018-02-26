@@ -104,6 +104,12 @@
     <Compile Include="StartingForm.Designer.cs">
       <DependentUpon>StartingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="StartAdventure.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartAdventure.Designer.cs">
+      <DependentUpon>StartAdventure.cs</DependentUpon>
+    </Compile>
     <Compile Include="StoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StartingForm.resx">
       <DependentUpon>StartingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartAdventure.resx">
+      <DependentUpon>StartAdventure.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StoryForm.resx">
       <DependentUpon>StoryForm.cs</DependentUpon>

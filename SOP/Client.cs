@@ -89,10 +89,10 @@ namespace StoryOfPersonality
         public StoryForm storyWindow;
 
         public Thalamus.BML.SpeechLanguages Language { get; private set; }
-        private StoryForm.OptionSide Side;
+        private StartAdventure.OptionSide Side;
         private EventHandler endUtteranceEvent;
 
-        public Client(StoryForm window, StoryForm.OptionSide side, Thalamus.BML.SpeechLanguages language, string character)
+        public Client(StartAdventure.OptionSide side, Thalamus.BML.SpeechLanguages language, string character)
             : base(character, character)
 
         {
@@ -102,8 +102,13 @@ namespace StoryOfPersonality
             Language = language;
             Side = side;
 
+            //this.storyWindow = window;
+        }
+        public void StoryWindow (StoryForm window)
+        {
             this.storyWindow = window;
         }
+
         public void StartUtteranceFromLibrary(string id, string category, string[] tags, EventHandler endUtteranceEvent = null)
         {
             string[] values = new string[tags.Length];

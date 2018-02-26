@@ -19,6 +19,7 @@ namespace SOP
             InitializeComponent();
             this.UserID = new Random().Next(9999);
             this.metroLabel1.Text = this.metroLabel1.Text + this.UserID.ToString();
+            this.metroTextBox1.Text = this.UserID.ToString() + "-";
         }
 
         private void metroButton1_Click(object sender, EventArgs e)
@@ -37,7 +38,8 @@ namespace SOP
         {
             if (metroTextBox1.Text.Count(x => x == '-') == 4)
             {
-                StoryForm s = new StoryForm(metroTextBox1.Text);
+                //StoryForm s = new StoryForm(metroTextBox1.Text);
+                StartAdventure s = new StartAdventure(metroTextBox1.Text);
                 s.Show();
                 this.Hide();
             }

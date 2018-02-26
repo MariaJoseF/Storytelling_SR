@@ -70,52 +70,30 @@ namespace StoryOfPersonality
         internal Robot RightRobot { get => rightRobot; set => rightRobot = value; }
         public List<Prosody> ProsodyLvls { get => prosodyLvls; set => prosodyLvls = value; }
 
-        public StoryForm(string UserId)
+        public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot)
         {
             InitializeComponent();
+
+            this.ThalamusClientRight = ThalamusClientRight;
+            this.ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
+
+            this.ThalamusClientLeft = ThalamusClientLeft;
+            this.ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
+
+            this.RightRobot = rightRobot;
+            this.LeftRobot = leftRobot;
+
+            StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
+
             string[] aux = UserId.Split('-');
             this.UserId = Convert.ToInt32(aux[0]);
-
-            if (Convert.ToChar(aux[1][0]).Equals('1'))
-            {
-                rightRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
-                rightRobot.Pitch = "x-low";
-                leftRobot = new Robot(Robot.RobotsPersonality.assertive, Convert.ToInt32(aux[3]));
-                leftRobot.Pitch = "x-high";
-            }
-            else
-            {
-                rightRobot = new Robot(Robot.RobotsPersonality.assertive, Convert.ToInt32(aux[3]));
-                rightRobot.Pitch = "x-high";
-                leftRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
-                leftRobot.Pitch = "x-low";
-            }
 
             this.UserPersonalitiy = aux[2];
             conditionPersuasion = Convert.ToInt32(aux[4]);
 
-            this.Language = Thalamus.BML.SpeechLanguages.English;
-            ThalamusClientRight = new Client(this, OptionSide.right, Language, "Dom");
-            ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
-            // ThalamusClientRight.CPublisher.SetLanguage(Language);
-
-            ThalamusClientLeft = new Client(this, OptionSide.left, Language, "Domina");
-            ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
-            // ThalamusClientLeft.CPublisher.SetLanguage(Language);
-
-            //backImage.Visible = false;
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
 
-            StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
-
             personality = new Personality(this);
-
-            //wait until the characters are connected
-            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
-
-            //set language to English by default
-            languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
-
 
             LoadLogFiles();
             LoadPersuasionLvlIntensity();
@@ -209,7 +187,6 @@ namespace StoryOfPersonality
 
         private void StoryForm_Load(object sender, EventArgs e)
         {
-            this.languageSelector.Text = "English"; // put this as default
             this.leftButton.Enabled = this.rightButton.Enabled = false;
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
@@ -246,7 +223,7 @@ namespace StoryOfPersonality
                 selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
             }
            
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "PathInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "PathInfo-" + this.UserId.ToString() + ".txt");
 
             selectedDP.RobotPersonality = leftRobot.Personality;
             leftRobot.ConsecutivePlays++;
@@ -299,7 +276,6 @@ namespace StoryOfPersonality
 
         public void LoadScenePersuasion(Robot robot)
         {
-
             Persuasion _persuasion = new Persuasion();
             Prosody _prosody = new Prosody();
             _persuasion.Prosody = _prosody;
@@ -478,9 +454,7 @@ namespace StoryOfPersonality
             if (Language.Equals(Thalamus.BML.SpeechLanguages.English))
             {
                 prosody.Language = Prosody.RobotsLanguage.EN;
-
                 p = prosodyLvls.Find(x => x.Language.Equals(prosody.Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity);
-
             }
             else
             {
@@ -520,7 +494,6 @@ namespace StoryOfPersonality
             }
             _persuasion.Time = GetTimeRobotFeature();
         }
-
 
         //if return 1 robot will perform more gaze according to his personality such as: domintant will look more to person, assertive will look less to person 
         //if return 0 robot will perform gaze such as: domintant will look less to person,  assertive will look more to person
@@ -593,7 +566,6 @@ namespace StoryOfPersonality
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "PathInfo-" + this.UserId.ToString() + ".txt");
 
-
             selectedDP.RobotPersonality = rightRobot.Personality;
             rightRobot.ConsecutivePlays++;
             rightRobot.OponentPlays = 0;
@@ -642,14 +614,12 @@ namespace StoryOfPersonality
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
-        //private void PlayLeft_Click(object sender, EventArgs e)
         internal void PlayLeft_Robot()
         {
             this.PlayedLeftButton = true;
             this.DisableButtons();
 
             CallUtterancesLeft(0);
-
         }
 
         private void CallUtterancesLeft(int leftbutton)
@@ -690,8 +660,6 @@ namespace StoryOfPersonality
             }
         }
 
-        // THE NAME OF THE METHOD CHANGED
-        //private void PlayRight_Click(object sender, EventArgs e)
         internal void PlayRight_Robot()
         {
             this.PlayedRightButton = true;
@@ -725,10 +693,8 @@ namespace StoryOfPersonality
                         ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
                         ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
                         ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-
                     }
                 }
-
             }
 
             if (rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant) || rightButton == 0)
@@ -803,7 +769,6 @@ namespace StoryOfPersonality
                 }
                 animation_prosody = utterance + aux_prosody;
             }
-
 
             //if buttonOption = 0 <utterance> <gaze> 
             //if buttonOption = 1 <prosody> <utterance prosody> </prosody>
@@ -914,30 +879,9 @@ namespace StoryOfPersonality
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            //ThalamusClientLeft.Disconnect("Dom");
             ThalamusClientLeft.Shutdown();
-            //ThalamusClientRight.Disconnect("Domina");
             ThalamusClientRight.Shutdown();
             Application.Exit();
-        }
-
-        private void LanguageSelector_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            if (languageSelector.Text == "English")
-            {
-                this.Language = Thalamus.BML.SpeechLanguages.English;
-                ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
-                ThalamusClientRight.CPublisher.SetLanguage(this.Language);
-            }
-            else
-            {
-                this.Language = Thalamus.BML.SpeechLanguages.Portuguese;
-                ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
-                ThalamusClientRight.CPublisher.SetLanguage(this.Language);
-            }
-            this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
-
         }
 
         internal Prosody SearchProsodyLvl(int lvl, int intensity)
@@ -963,12 +907,11 @@ namespace StoryOfPersonality
             string folder = "EN";
             if (language == Thalamus.BML.SpeechLanguages.Portuguese) folder = "PT";
 
-            Console.WriteLine("=========== NEXT AUDIO ==============" + (idScene + 1));
+            Console.WriteLine("=========== NEXT AUDIO ============== " + (idScene + 1));
 
             axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav";
             axWindowsMediaPlayer1.Ctlcontrols.play();
             Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
-
         }
 
         private void playLeft_Click(object sender, EventArgs e)
@@ -1021,7 +964,7 @@ namespace StoryOfPersonality
 
             txt += personality.DefineMBTIPersonality();
 
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "Extra Info", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
     }
 }
