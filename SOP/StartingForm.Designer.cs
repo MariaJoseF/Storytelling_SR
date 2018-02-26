@@ -39,7 +39,6 @@
             // 
             // metroButton1
             // 
-            this.metroButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButton1.Location = new System.Drawing.Point(487, 355);
             this.metroButton1.Name = "metroButton1";
             this.metroButton1.Size = new System.Drawing.Size(107, 51);
@@ -50,7 +49,6 @@
             // 
             // metroButton2
             // 
-            this.metroButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButton2.Location = new System.Drawing.Point(62, 229);
             this.metroButton2.Name = "metroButton2";
             this.metroButton2.Size = new System.Drawing.Size(107, 51);
@@ -61,7 +59,6 @@
             // 
             // metroButton3
             // 
-            this.metroButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButton3.Location = new System.Drawing.Point(408, 229);
             this.metroButton3.Name = "metroButton3";
             this.metroButton3.Size = new System.Drawing.Size(107, 51);
@@ -72,7 +69,6 @@
             // 
             // metroButton4
             // 
-            this.metroButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.metroButton4.Location = new System.Drawing.Point(237, 229);
             this.metroButton4.Name = "metroButton4";
             this.metroButton4.Size = new System.Drawing.Size(107, 51);
@@ -138,7 +134,6 @@
             this.Resizable = false;
             this.Text = "Storytelling with Robots";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.ResumeLayout(false);
             this.PerformLayout();
 

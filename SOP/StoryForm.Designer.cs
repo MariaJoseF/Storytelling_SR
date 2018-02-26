@@ -181,7 +181,6 @@ namespace StoryOfPersonality
             this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Story";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.StoryForm_Load);
             this.Resize += new System.EventHandler(this.StoryForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.backImage)).EndInit();
