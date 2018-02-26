@@ -774,9 +774,6 @@ namespace StoryOfPersonality
                 }
                 else if (robotSide.Personality.Equals(Robot.RobotsPersonality.dominant) && (robotSide.ConsecutivePlays > 1 || robotSide.OponentPlays > 1))
                 {
-
-                    ------- Verificar se esta condição faz sentido  para o oponente----- 
-
                     animation_prosody = "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume + "'>" + robotSide.Persuasion.Prosody.Utterance + "</prosody></prosody>";
                 }
             }
