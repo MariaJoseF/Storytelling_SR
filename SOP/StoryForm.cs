@@ -244,7 +244,11 @@ namespace StoryOfPersonality
             if (leftRobot.Personality.Equals(Robot.RobotsPersonality.assertive))//default left robot = assertive
             {
                 selectedDP.TotalAssertive++;
-                rightRobot.Persuasion.Prosody.Intensity++;
+                if (rightRobot.Persuasion.Prosody.Intensity < 4)
+                {
+                    rightRobot.Persuasion.Prosody.Intensity++;
+                }
+
             }
             else //default right robot = dominant
             {
@@ -323,7 +327,7 @@ namespace StoryOfPersonality
                             {
                                 _prosody.Intensity = 4;
                             }
-                            
+
                             break;
                     }
                     LoadGazeTime(robot, _persuasion);
@@ -574,7 +578,10 @@ namespace StoryOfPersonality
             else //default left robot = assertive
             {
                 selectedDP.TotalAssertive++;
-                leftRobot.Persuasion.Prosody.Intensity++;
+                if (leftRobot.Persuasion.Prosody.Intensity < 4)
+                {
+                    leftRobot.Persuasion.Prosody.Intensity++;
+                }
             }
 
             rightRobot.TotalDominant = selectedDP.TotalDominant;
