@@ -782,7 +782,7 @@ namespace StoryOfPersonality
             return side;
         }
 
-        private string GEtUtteranceAnimationsProsodies(string utterance, Robot robotSide, OptionSide side)
+        private string GEtUtteranceAnimationsProsodies(string utterance, Robot robotSide, OptionSide side, int buttonOption)
         {
             string aux_prosody = "";
             string animation_prosody = "";
