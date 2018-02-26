@@ -248,7 +248,6 @@ namespace StoryOfPersonality
                 {
                     rightRobot.Persuasion.Prosody.Intensity++;
                 }
-
             }
             else //default right robot = dominant
             {
