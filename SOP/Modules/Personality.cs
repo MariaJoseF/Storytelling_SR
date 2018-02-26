@@ -57,7 +57,7 @@ namespace StoryOfPersonality
 
         public string RecordPathPersonality(string dp, string pref, string prefSelected, string robotInfluenced)
         {
-            string txt = dp + " - " + pref + " - " + prefSelected + " - " + robotInfluenced + "\r\n";
+            string txt = dp + ";" + pref + ";" + prefSelected + ";" + robotInfluenced;
             Console.WriteLine("=== Decisions: " + dp + " - " + pref + " - " + prefSelected + " - " + robotInfluenced);
 
             string arraySum = "";

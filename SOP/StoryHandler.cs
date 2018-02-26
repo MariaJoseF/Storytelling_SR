@@ -65,19 +65,16 @@ namespace StoryOfPersonality
 
             this.clientThalamus = thalamusClient;
 
-
-
         }
 
-        internal void NextScene(EMYS side, SelectionDP selectOption)
+        internal void NextScene(StoryForm.OptionSide side, SelectionDP selectOption)
         {
             String decisionPoint = storyNodes[currentStoryNodeId].Before;
 
             clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + selectOption, "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
 
             if (!decisionPoint.StartsWith("Final"))
-                this.currentStoryNodeId = side == EMYS.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
-
+                this.currentStoryNodeId = side == StoryForm.OptionSide.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
         }
 
         internal bool isEnding()
@@ -98,11 +95,11 @@ namespace StoryOfPersonality
             return decisionPoints[decisionPoint].Pref;
         }
 
-        internal string GetLeftTag()
-        {
-            string decisionPoint = storyNodes[currentStoryNodeId].Before;
-            return decisionPoints[decisionPoint].Tag1;
-        }
+        //internal string GetLeftTag()
+        //{
+        //    string decisionPoint = storyNodes[currentStoryNodeId].Before;
+        //    return decisionPoints[decisionPoint].Tag1;
+        //}
 
         internal string GetLeftPref()
         {
@@ -117,11 +114,11 @@ namespace StoryOfPersonality
             return (language == Thalamus.BML.SpeechLanguages.English ? decisionPoints[decisionPoint].Textp1En : decisionPoints[decisionPoint].Textp1);
         }
 
-        internal string GetRightTag()
-        {
-            string decisionPoint = storyNodes[currentStoryNodeId].Before;
-            return decisionPoints[decisionPoint].Tag2;
-        }
+        //internal string GetRightTag()
+        //{
+        //    string decisionPoint = storyNodes[currentStoryNodeId].Before;
+        //    return decisionPoints[decisionPoint].Tag2;
+        //}
 
         internal string GetRightPref()
         {
