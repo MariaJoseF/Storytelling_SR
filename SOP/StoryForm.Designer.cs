@@ -35,14 +35,14 @@ namespace StoryOfPersonality
             this.leftButton = new MetroFramework.Controls.MetroButton();
             this.rightButton = new MetroFramework.Controls.MetroButton();
             this.sceneBox = new MetroFramework.Controls.MetroTextBox();
-            this.backImage = new System.Windows.Forms.PictureBox();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.playRight = new MetroFramework.Controls.MetroTile();
             this.playLeft = new MetroFramework.Controls.MetroTile();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            ((System.ComponentModel.ISupportInitialize)(this.backImage)).BeginInit();
+            this.backImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.backImage)).BeginInit();
             this.SuspendLayout();
             // 
             // closeButton
@@ -94,20 +94,6 @@ namespace StoryOfPersonality
             this.sceneBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.sceneBox.Theme = MetroFramework.MetroThemeStyle.Dark;
             // 
-            // backImage
-            // 
-            this.backImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.backImage.BackgroundImage = global::SOP.Properties.Resources.castle;
-            this.backImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.backImage.Location = new System.Drawing.Point(0, 0);
-            this.backImage.Margin = new System.Windows.Forms.Padding(6);
-            this.backImage.Name = "backImage";
-            this.backImage.Size = new System.Drawing.Size(2738, 1290);
-            this.backImage.TabIndex = 14;
-            this.backImage.TabStop = false;
-            // 
             // axWindowsMediaPlayer1
             // 
             this.axWindowsMediaPlayer1.Enabled = true;
@@ -158,17 +144,30 @@ namespace StoryOfPersonality
             this.groupBox1.Controls.Add(this.playRight);
             this.groupBox1.Controls.Add(this.rightButton);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(40, 1310);
+            this.groupBox1.Location = new System.Drawing.Point(40, 1229);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(2660, 587);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             // 
+            // backImage
+            // 
+            this.backImage.BackgroundImage = global::SOP.Properties.Resources.castle;
+            this.backImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.backImage.Location = new System.Drawing.Point(-3, 4);
+            this.backImage.Margin = new System.Windows.Forms.Padding(6);
+            this.backImage.Name = "backImage";
+            this.backImage.Size = new System.Drawing.Size(2737, 1237);
+            this.backImage.TabIndex = 14;
+            this.backImage.TabStop = false;
+            // 
             // StoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2740, 1935);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(2740, 1854);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.axWindowsMediaPlayer1);
@@ -181,17 +180,17 @@ namespace StoryOfPersonality
             this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Story";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.StoryForm_Load);
             this.Resize += new System.EventHandler(this.StoryForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.backImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.backImage)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox backImage;
         private MetroFramework.Controls.MetroButton closeButton;
         private MetroFramework.Controls.MetroButton leftButton;
         private MetroFramework.Controls.MetroButton rightButton;
@@ -200,6 +199,7 @@ namespace StoryOfPersonality
         private MetroTile playRight;
         private MetroTile playLeft;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.PictureBox backImage;
     }
 }
 

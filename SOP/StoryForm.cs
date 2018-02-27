@@ -919,12 +919,12 @@ namespace StoryOfPersonality
             Application.Exit();
         }
 
-        internal Prosody SearchProsodyLvl(int lvl, int intensity)
+        internal Prosody SearchProsodyLvl(RobotsLanguage language, int lvl, int intensity)
         {
             Prosody correct = new Prosody();
             try
             {
-                
+
                 foreach (Prosody p in ProsodyLvls)
                 {
                     if (p.Lvl == lvl && p.Intensity == intensity && p.Language.Equals(language))
@@ -943,6 +943,7 @@ namespace StoryOfPersonality
 
             return correct;
         }
+
 
         internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)
         {
