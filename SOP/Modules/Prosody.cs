@@ -58,8 +58,6 @@ namespace SOP.Modules
             //return "Level: " + lvl + " Intensity: " + intensity + " Rate: " + rate + " Pitch: " + pitch + " Volume: " + volume + " Utterance: " + utterance + " Language: " + language;
             //return "" + lvl + ";" + intensity + ";" + rate + ";" + pitch + ";" + volume + ";" + utterance + ";" + language;
             return "" + lvl + ";" + intensity + ";" + rate + ";" + volume + ";" + utterance + ";" + language;
-
-
         }
     }
 }

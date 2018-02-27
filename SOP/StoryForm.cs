@@ -20,7 +20,6 @@ namespace StoryOfPersonality
 {
     public partial class StoryForm : MetroFramework.Forms.MetroForm
     {
-
         private static StoryForm instance = null;
 
         public Client ThalamusClientLeft;
@@ -47,13 +46,6 @@ namespace StoryOfPersonality
         public int[] listenRobotAgain = new int[2];
         // 0 = the dominant robot persuade according to participant personality, 1 = different of participant personality, 2 = no persuasion at all.
         public int conditionPersuasion;
-
-        //private enum RobotsPersonality
-        //{
-        //    none = -1,
-        //    assertive = 0,
-        //    dominant = 1
-        //}
 
         public enum OptionSide
         {
@@ -271,8 +263,6 @@ namespace StoryOfPersonality
 
             CallUtterancesLeft(1);
 
-
-
             stopwatch.Restart();
 
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
@@ -292,13 +282,12 @@ namespace StoryOfPersonality
 
         public void LoadScenePersuasion(Robot robot)
         {
-
             //Persuasion _persuasion = new Persuasion();
             //Prosody _prosody = new Prosody();
-          //  Persuasion _persuasion = robot.Persuasion;
-         //   Prosody _prosody = robot.Persuasion.Prosody;
-         //   _persuasion.Prosody = _prosody;
-
+            //  Persuasion _persuasion = robot.Persuasion;
+            //   Prosody _prosody = robot.Persuasion.Prosody;
+            //   _persuasion.Prosody = _prosody;
+            Console.WriteLine("===== ROBOT CONSECUTIVE PLAYS: " + robot.ConsecutivePlays);
             switch (robot.Condition)
             {
                 case 0:
@@ -334,7 +323,6 @@ namespace StoryOfPersonality
                             {
                                 robot.Persuasion.Prosody.Intensity = 4;
                             }
-
                             break;
                     }
                     LoadGazeTime(robot, robot.Persuasion);
@@ -484,7 +472,6 @@ namespace StoryOfPersonality
             }
 
          //   prosody = p;
-
             return p;
         }
 
@@ -584,7 +571,6 @@ namespace StoryOfPersonality
                 txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), rightRobot.Personality.ToString());
                 selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
             }           
-
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "PathInfo-" + this.UserId.ToString() + ".txt");
 
             selectedDP.RobotPersonality = rightRobot.Personality;
@@ -664,8 +650,15 @@ namespace StoryOfPersonality
 
             if (leftbutton == 0)
             {
-                string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
-                fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], leftRobot, OptionSide.left, 0);
+                if (SidePerform(StoryHandler.GetLeftPref().ToUpper()).Equals("L"))
+                {
+                    string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+                    fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], leftRobot, OptionSide.left, 0);
+                } else
+                {
+                    string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
+                    fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], leftRobot, OptionSide.left, 0);
+                }
             }
             else
             {
@@ -701,7 +694,6 @@ namespace StoryOfPersonality
             this.DisableButtons();
 
             CallUtterancesRight(0);
-
         }
 
         private void CallUtterancesRight(int rightButton)
@@ -711,8 +703,15 @@ namespace StoryOfPersonality
 
             if (rightButton == 0)
             {
-                string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
-                fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], rightRobot, OptionSide.right, 0);
+                if (SidePerform(StoryHandler.GetRightPref().ToUpper()).Equals("R"))
+                {
+                    string[] utterance = StoryHandler.GetRightUtterance(this.Language).Split(',');
+                    fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], rightRobot, OptionSide.right, 0);
+                } else
+                {
+                    string[] utterance = StoryHandler.GetLeftUtterance(this.Language).Split(',');
+                    fullUtterance = GEtUtteranceAnimationsProsodies(utterance[0], rightRobot, OptionSide.right, 0);
+                }
             }
             else
             {
@@ -744,9 +743,9 @@ namespace StoryOfPersonality
         {
             string side = "";
             UserPersonalitiy = UserPersonalitiy.ToUpper();
-            //Console.WriteLine("===== USER PERSONALITY: " + UserPersonalitiy);
-            //Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
-            //Console.WriteLine("===== Pref utterance side? : " + prefUtterance);
+            Console.WriteLine("===== USER PERSONALITY: " + UserPersonalitiy);
+            Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
+            Console.WriteLine("===== Pref utterance side? : " + prefUtterance);
 
             if (StoryHandler.GetInitialDP().Contains("DP"))
             {
@@ -924,7 +923,6 @@ namespace StoryOfPersonality
             Prosody correct = new Prosody();
             try
             {
-
                 foreach (Prosody p in ProsodyLvls)
                 {
                     if (p.Lvl == lvl && p.Intensity == intensity && p.Language.Equals(language))
@@ -933,17 +931,13 @@ namespace StoryOfPersonality
                         break;
                     }
                 }
-
             }
             catch (Exception)
             {
-
                 throw;
             }
-
             return correct;
         }
-
 
         internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)
         {
