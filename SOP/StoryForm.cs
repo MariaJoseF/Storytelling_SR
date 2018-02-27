@@ -37,7 +37,7 @@ namespace StoryOfPersonality
         public Stopwatch stopwatch = new Stopwatch();
 
         private static List<Prosody> prosodyLvls = new List<Prosody>();
-        
+
         public SelectionDP selectedDP;
         private Robot leftRobot;
         private Robot rightRobot;
@@ -109,7 +109,7 @@ namespace StoryOfPersonality
             personality = new Personality(this);
 
             //wait until the characters are connected
-            while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+            // while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
@@ -244,7 +244,7 @@ namespace StoryOfPersonality
             if (leftRobot.Personality.Equals(Robot.RobotsPersonality.assertive))//default left robot = assertive
             {
                 selectedDP.TotalAssertive++;
-                if (rightRobot.Persuasion.Prosody.Intensity < 4)
+                if (rightRobot.Persuasion.Prosody.Intensity == 0)
                 {
                     rightRobot.Persuasion.Prosody.Intensity++;
                 }
@@ -305,9 +305,9 @@ namespace StoryOfPersonality
 
             //Persuasion _persuasion = new Persuasion();
             //Prosody _prosody = new Prosody();
-          //  Persuasion _persuasion = robot.Persuasion;
-         //   Prosody _prosody = robot.Persuasion.Prosody;
-         //   _persuasion.Prosody = _prosody;
+            //  Persuasion _persuasion = robot.Persuasion;
+            //   Prosody _prosody = robot.Persuasion.Prosody;
+            //   _persuasion.Prosody = _prosody;
 
             switch (robot.Condition)
             {
@@ -316,7 +316,8 @@ namespace StoryOfPersonality
                     LoadGazeTime(robot, robot.Persuasion);
                     break;
                 case 1:
-                    /*_persuasion = */LoadGazeDominant(robot);
+                    /*_persuasion = */
+                    LoadGazeDominant(robot);
                     LoadGazeTime(robot, robot.Persuasion);
                     break;
                 case 2:
@@ -324,61 +325,48 @@ namespace StoryOfPersonality
                     //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
                     //prosody intensity is done according to repetition done by the robot that is performing it
                     //when intensity achieves value 4 the next one starts on 1
-                    switch (robot.ConsecutivePlays % 4)
-                    {
-                        case 1://Intensity = 1
-                            robot.Persuasion.Prosody.Intensity = 1;
-                            break;
-                        case 2://Intensity = 2
-                            robot.Persuasion.Prosody.Intensity = 2;
-                            break;
-                        case 3://Intensity = 3
-                            robot.Persuasion.Prosody.Intensity = 3;
-                            break;
-                        case 0://Intensity = 4
-                            if (robot.ConsecutivePlays == 0)
-                            {
-                                robot.Persuasion.Prosody.Intensity = 1;
-                            }
-                            else
-                            {
-                                robot.Persuasion.Prosody.Intensity = 4;
-                            }
 
-                            break;
+                    if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
+                    {
+                        //if (robot.ConsecutivePlays > 0)
+                        //{
+                            LoadIntensityLvl1(robot, 0);
+                        //}
+                        //else
+                        //{
+                        //    LoadIntensityLvl1(robot, 1);
+                        //}
                     }
+                    else
+                    {
+                        LoadIntensityLvl1(robot, 1);
+                    }
+
                     LoadGazeTime(robot, robot.Persuasion);
-                   /* _persuasion =*/ LoadGazeDominant(robot);
+                    /* _persuasion =*/
+                    LoadGazeDominant(robot);
                     robot.Persuasion.Prosody.Lvl = 2;
-                   /* robot.Persuasion.Prosody =*/  GetUtteranceLanguage(robot.Persuasion.Prosody);
+                    /* robot.Persuasion.Prosody =*/
+                    GetUtteranceLanguage(robot.Persuasion.Prosody);
                     break;
                 case 3:
 
                     //  <utterance> <gaze> <prosody> <utterance prosody> </prosody>
                     //prosody intensity is done according to repetition done by the robot opposite to the one that is performing it
                     //when intensity achieves value 4 the next keeps the 4
-                    switch (robot.ConsecutivePlays)
+
+                    if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
                     {
-                        case 0:
-                        case 1://Intensity = 1
-                            robot.Persuasion.Prosody.Intensity = 1;
-                            break;
-                        case 2://Intensity = 2
-                            robot.Persuasion.Prosody.Intensity = 2;
-                            break;
-                        case 3://Intensity = 3
-                            robot.Persuasion.Prosody.Intensity = 3;
-                            break;
-                        case 4://Intensity = 4
-                            robot.Persuasion.Prosody.Intensity = 4;
-                            break;
-                        default://Intensity = 4
-                            robot.Persuasion.Prosody.Intensity = 4;
-                            break;
+                        LoadIntensityLvl2Lvl3(robot, 0);
+                    }
+                    else
+                    {
+                        LoadIntensityLvl2Lvl3(robot, 1);
                     }
 
                     LoadGazeTime(robot, robot.Persuasion);
-                    /*_persuasion =*/ LoadGazeDominant(robot);
+                    /*_persuasion =*/
+                    LoadGazeDominant(robot);
                     robot.Persuasion.Prosody.Lvl = 3;
 
                     robot.Persuasion.Prosody = GetUtteranceLanguage(robot.Persuasion.Prosody);
@@ -389,34 +377,97 @@ namespace StoryOfPersonality
                     //prosody intensity is done according to repetition done by the robot opposite to the one that is performing it
                     //prosody lvl 3 is stronger than lvl2
                     //when intensity achieves value 4 the next keeps the 4
-                    switch (robot.ConsecutivePlays)
+
+                    if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
                     {
-                        case 0:
-                        case 1://Intensity = 1
-                            robot.Persuasion.Prosody.Intensity = 1;
-                            break;
-                        case 2://Intensity = 2
-                            robot.Persuasion.Prosody.Intensity = 2;
-                            break;
-                        case 3://Intensity = 3
-                            robot.Persuasion.Prosody.Intensity = 3;
-                            break;
-                        case 4://Intensity = 4
-                            robot.Persuasion.Prosody.Intensity = 4;
-                            break;
-                        default://Intensity = 4
-                            robot.Persuasion.Prosody.Intensity = 4;
-                            break;
+                        LoadIntensityLvl2Lvl3(robot, 0);
                     }
+                    else
+                    {
+                        LoadIntensityLvl2Lvl3(robot, 1);
+                    }
+
                     LoadGazeTime(robot, robot.Persuasion);
-                    /*_persuasion =*/ LoadGazeDominant(robot);
+                    /*_persuasion =*/
+                    LoadGazeDominant(robot);
                     robot.Persuasion.Prosody.Lvl = 4;
                     robot.Persuasion.Prosody = GetUtteranceLanguage(robot.Persuasion.Prosody);
                     break;
             }
 
-          //  _persuasion.Prosody = robot.Persuasion.Prosody;
-          //  robot.Persuasion = _persuasion;
+            //  _persuasion.Prosody = robot.Persuasion.Prosody;
+            //  robot.Persuasion = _persuasion;
+        }
+
+        private void LoadIntensityLvl1(Robot robot, int oponent)
+        {
+            int robotPlays = 0;
+
+            if (oponent == 1)
+            {
+                robotPlays = robot.OponentPlays;
+            }
+            else
+            {
+                robotPlays = robot.ConsecutivePlays;
+            }
+
+            switch (robotPlays % 4)
+            {
+                case 1://Intensity = 1
+                    robot.Persuasion.Prosody.Intensity = 1;
+                    break;
+                case 2://Intensity = 2
+                    robot.Persuasion.Prosody.Intensity = 2;
+                    break;
+                case 3://Intensity = 3
+                    robot.Persuasion.Prosody.Intensity = 3;
+                    break;
+                case 0://Intensity = 4
+                    if (robotPlays == 0)
+                    {
+                        robot.Persuasion.Prosody.Intensity = 1;
+                    }
+                    else
+                    {
+                        robot.Persuasion.Prosody.Intensity = 4;
+                    }
+                    break;
+            }
+        }
+
+        private void LoadIntensityLvl2Lvl3(Robot robot, int oponent)
+        {
+            int robotPlays = 0;
+
+            if (oponent == 1)
+            {
+                robotPlays = robot.OponentPlays;
+            }
+            else
+            {
+                robotPlays = robot.ConsecutivePlays;
+            }
+
+            switch (robotPlays)
+            {
+                case 0:
+                case 1://Intensity = 1
+                    robot.Persuasion.Prosody.Intensity = 1;
+                    break;
+                case 2://Intensity = 2
+                    robot.Persuasion.Prosody.Intensity = 2;
+                    break;
+                case 3://Intensity = 3
+                    robot.Persuasion.Prosody.Intensity = 3;
+                    break;
+                case 4://Intensity = 4
+                    robot.Persuasion.Prosody.Intensity = 4;
+                    break;
+                default://Intensity = 4
+                    robot.Persuasion.Prosody.Intensity = 4;
+                    break;
+            }
         }
 
         private void LoadGazeDominant(Robot robot)
@@ -490,10 +541,10 @@ namespace StoryOfPersonality
             {
                 p.Language = Prosody.RobotsLanguage.PT;
                 //p = ProsodyLvls.Find(x => (x.Language.Equals(prosody.Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity));
-                p = SearchProsodyLvl(p.Language,prosody.Lvl, prosody.Intensity);
+                p = SearchProsodyLvl(p.Language, prosody.Lvl, prosody.Intensity);
             }
 
-         //   prosody = p;
+            //   prosody = p;
 
             return p;
         }
@@ -595,7 +646,7 @@ namespace StoryOfPersonality
             else //default left robot = assertive
             {
                 selectedDP.TotalAssertive++;
-                if (leftRobot.Persuasion.Prosody.Intensity < 4)
+                if (leftRobot.Persuasion.Prosody.Intensity == 0)
                 {
                     leftRobot.Persuasion.Prosody.Intensity++;
                 }
@@ -726,10 +777,8 @@ namespace StoryOfPersonality
                         ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
                         ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
                         ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-
                     }
                 }
-
             }
 
             if (rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant) || rightButton == 0)
@@ -774,9 +823,6 @@ namespace StoryOfPersonality
                 }
                 else if (robotSide.Personality.Equals(Robot.RobotsPersonality.dominant) && (robotSide.ConsecutivePlays > 1 || robotSide.OponentPlays > 1))
                 {
-
-                    ------- Verificar se esta condição faz sentido  para o oponente----- 
-
                     animation_prosody = "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume + "'>" + robotSide.Persuasion.Prosody.Utterance + "</prosody></prosody>";
                 }
             }
@@ -906,7 +952,7 @@ namespace StoryOfPersonality
             Prosody correct = new Prosody();
             try
             {
-                
+
                 foreach (Prosody p in ProsodyLvls)
                 {
                     if (p.Lvl == lvl && p.Intensity == intensity && p.Language.Equals(language))
