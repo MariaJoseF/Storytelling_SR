@@ -59,6 +59,7 @@ namespace StoryOfPersonality
             // 
             // leftButton
             // 
+            this.leftButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.leftButton.Location = new System.Drawing.Point(512, 417);
             this.leftButton.Margin = new System.Windows.Forms.Padding(6);
             this.leftButton.Name = "leftButton";
@@ -70,6 +71,7 @@ namespace StoryOfPersonality
             // 
             // rightButton
             // 
+            this.rightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rightButton.Location = new System.Drawing.Point(1908, 417);
             this.rightButton.Margin = new System.Windows.Forms.Padding(6);
             this.rightButton.Name = "rightButton";
@@ -108,6 +110,7 @@ namespace StoryOfPersonality
             // 
             // playRight
             // 
+            this.playRight.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.playRight.Enabled = false;
             this.playRight.Location = new System.Drawing.Point(2204, 417);
             this.playRight.Margin = new System.Windows.Forms.Padding(6);
@@ -123,6 +126,7 @@ namespace StoryOfPersonality
             // 
             // playLeft
             // 
+            this.playLeft.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.playLeft.Enabled = false;
             this.playLeft.Location = new System.Drawing.Point(340, 417);
             this.playLeft.Margin = new System.Windows.Forms.Padding(6);

@@ -79,11 +79,12 @@ namespace StoryOfPersonality
             // 
             // metroButton4
             // 
-            this.metroButton4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.metroButton4.Location = new System.Drawing.Point(1319, 1312);
+            this.metroButton4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.metroButton4.AutoSize = true;
+            this.metroButton4.Location = new System.Drawing.Point(1161, 642);
             this.metroButton4.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(214, 98);
+            this.metroButton4.Size = new System.Drawing.Size(576, 176);
             this.metroButton4.TabIndex = 22;
             this.metroButton4.Text = "STORY";
             this.metroButton4.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -111,6 +112,7 @@ namespace StoryOfPersonality
             this.Resize += new System.EventHandler(this.StoryForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.backImage)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

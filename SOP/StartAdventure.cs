@@ -110,7 +110,11 @@ namespace StoryOfPersonality
 
         private void LanguageSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            
+            this.metroButton4.Left = (this.ClientSize.Width - this.metroButton4.Width) / 2;
+            this.metroButton4.Top = (this.ClientSize.Height - this.metroButton4.Height) / 2;
+            int newSize = 40;
+            this.metroButton4.Font = new Font(this.metroButton4.Font.FontFamily, newSize);
             if (languageSelector.Text == "English")
             {
                 this.metroButton4.Text = txtButton;
