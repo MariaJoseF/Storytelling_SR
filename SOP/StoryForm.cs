@@ -785,6 +785,14 @@ namespace StoryOfPersonality
                 {
                     aux_prosody = "<Gaze(person3)><break time=\"1s\"/><ANIMATE(" + robotSide.Persuasion.Animation + ")>";
                     animation_prosody = utterance + aux_prosody;
+
+
+
+
+
+
+                    //ver se ele altera ou se depois não altera
+                    robotSide.Persuasion.Animation = "-";
                 }
             }
 
