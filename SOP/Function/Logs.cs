@@ -34,7 +34,8 @@ namespace StoryOfPersonality
             if (idFile == NameOfFiles.StoryChoices) aux_path = "StoryChoices";
             else if (idFile == NameOfFiles.ThalamusClientLeft) aux_path = "ThalamusClientLeft";
             else if (idFile == NameOfFiles.ThalamusClientRight) aux_path = "ThalamusClientRight";
-            else if (idFile == NameOfFiles.PlayerConfig) aux_path = "PlayerConfig";
+            else if (idFile == NameOfFiles.PlayerConfig) aux_path = "ExtraInfo";
+            else if (idFile == NameOfFiles.PlayerConfig) aux_path = "ThalamusClientsFull";
 
             string filePath = storyHandler.clientThalamus.CPublisher.fileName + @"\Logs\" + aux_path + @"\";
             string filename = filePath + storyHandler.UserId.ToString() + ".txt";

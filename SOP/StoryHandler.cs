@@ -146,7 +146,12 @@ namespace StoryOfPersonality
         internal string GetDecisionUtteranceId()
         {
             string decisionPoint = storyNodes[currentStoryNodeId].Before;
-            return decisionPoints[decisionPoint].Id.ToString();
+
+            if (!decisionPoint.StartsWith("Final"))
+            {
+                return decisionPoints[decisionPoint].Id.ToString();
+            }
+            else { return "0"; }
         }
         internal string GetDecisionUtteranceCategory()
         {

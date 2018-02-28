@@ -75,10 +75,10 @@ namespace StoryOfPersonality
             this.RightRobot = rightRobot;
             this.LeftRobot = leftRobot;
 
-            StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
-
             string[] aux = UserId.Split('-');
             this.UserId = Convert.ToInt32(aux[0]);
+
+            StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
             this.UserPersonalitiy = aux[2];
             conditionPersuasion = Convert.ToInt32(aux[4]);
@@ -244,22 +244,23 @@ namespace StoryOfPersonality
             rightRobot.TotalAssertive = selectedDP.TotalAssertive;
 
             StoryHandler.NextScene(OptionSide.left, selectedDP);
-            Console.WriteLine("---------------------                   --------------------");
+
+            /*Console.WriteLine("---------------------                   --------------------");
 
             Console.WriteLine("----- Antes leftRobot: " + leftRobot.ToString());
             Console.WriteLine("----- Antes rightRobot: " + rightRobot.ToString());
 
-            Console.WriteLine("---------------------                   --------------------");
+            Console.WriteLine("---------------------                   --------------------");*/
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
 
-            Console.WriteLine("---------------------                   --------------------");
+            /*Console.WriteLine("---------------------                   --------------------");
 
             Console.WriteLine("----- Depois leftRobot: " + leftRobot.ToString());
             Console.WriteLine("----- Depois rightRobot: " + rightRobot.ToString());
 
-            Console.WriteLine("---------------------                   --------------------");
+            Console.WriteLine("---------------------                   --------------------");*/
 
             CallUtterancesLeft(1);
 
@@ -271,12 +272,12 @@ namespace StoryOfPersonality
             this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
             this.playRight.Enabled = this.playLeft.Enabled = true;
             this.playLeft.Style = this.playRight.Style = MetroFramework.MetroColorStyle.Green;
+
             if (StoryHandler.isEnding())
             {
                 this.DisableButtons();
                 recordFinalLog();
             }
-
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
@@ -517,14 +518,14 @@ namespace StoryOfPersonality
 
         internal void EnableBTS(string button)
         {
-            // ONLY TO SEE IF IS OK, AFTER ALL REMOTE IT
+            /* ONLY TO SEE IF IS OK, AFTER ALL REMOTE IT
             if (SidePerform(StoryHandler.GetLeftPref().ToUpper()).Equals("L"))
             {
                 Console.WriteLine("===================== PREFS (L-R): " + StoryHandler.GetLeftPref() + " -- " + StoryHandler.GetRightPref());
             } else
             {
                 Console.WriteLine("===================== PREFS (L-R): " + StoryHandler.GetRightPref() + " -- " + StoryHandler.GetLeftPref());
-            }
+            }*/
 
             switch (button)
             {
@@ -601,22 +602,22 @@ namespace StoryOfPersonality
 
             StoryHandler.NextScene(OptionSide.right, selectedDP);
 
-            Console.WriteLine("---------------------                   --------------------");
+            /*Console.WriteLine("---------------------                   --------------------");
 
             Console.WriteLine("----- Antes leftRobot: " + leftRobot.ToString());
             Console.WriteLine("----- Antes rightRobot: " + rightRobot.ToString());
 
-            Console.WriteLine("---------------------                   --------------------");
+            Console.WriteLine("---------------------                   --------------------");*/
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
 
-            Console.WriteLine("---------------------                   --------------------");
+            /*Console.WriteLine("---------------------                   --------------------");
 
             Console.WriteLine("----- Depois leftRobot: " + leftRobot.ToString());
             Console.WriteLine("----- Depois rightRobot: " + rightRobot.ToString());
 
-            Console.WriteLine("---------------------                   --------------------");
+            Console.WriteLine("---------------------                   --------------------");*/
 
             CallUtterancesRight(1);
 
@@ -632,6 +633,7 @@ namespace StoryOfPersonality
                 this.DisableButtons();
                 recordFinalLog();
             }
+
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
@@ -743,9 +745,9 @@ namespace StoryOfPersonality
         {
             string side = "";
             UserPersonalitiy = UserPersonalitiy.ToUpper();
-            Console.WriteLine("===== USER PERSONALITY: " + UserPersonalitiy);
+            /*Console.WriteLine("===== USER PERSONALITY: " + UserPersonalitiy);
             Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
-            Console.WriteLine("===== Pref utterance side? : " + prefUtterance);
+            Console.WriteLine("===== Pref utterance side? : " + prefUtterance); */
 
             if (StoryHandler.GetInitialDP().Contains("DP"))
             {
