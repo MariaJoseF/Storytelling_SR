@@ -1,4 +1,5 @@
-﻿using MetroFramework.Controls;
+﻿using System;
+using MetroFramework.Controls;
 
 namespace StoryOfPersonality
 {
@@ -93,7 +94,7 @@ namespace StoryOfPersonality
             // 
             // sceneBox
             // 
-            this.sceneBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.sceneBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sceneBox.FontSize = MetroFramework.MetroTextBoxSize.Tall;
             this.sceneBox.Location = new System.Drawing.Point(173, 690);
@@ -198,4 +199,3 @@ namespace StoryOfPersonality
         private MetroTile playLeft;
     }
 }
-

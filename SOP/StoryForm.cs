@@ -109,7 +109,7 @@ namespace StoryOfPersonality
             personality = new Personality(this);
 
             //wait until the characters are connected
-            // while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
+             while (!(ThalamusClientLeft.IsConnected && ThalamusClientRight.IsConnected)) { }
 
             //set language to English by default
             languageSelector.SelectedIndex = languageSelector.Items.IndexOf("English");
@@ -262,26 +262,11 @@ namespace StoryOfPersonality
             rightRobot.TotalAssertive = selectedDP.TotalAssertive;
 
             StoryHandler.NextScene(OptionSide.left, selectedDP);
-            Console.WriteLine("---------------------                   --------------------");
-
-            Console.WriteLine("----- Antes leftRobot: " + leftRobot.ToString());
-            Console.WriteLine("----- Antes rightRobot: " + rightRobot.ToString());
-
-            Console.WriteLine("---------------------                   --------------------");
 
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
 
-            Console.WriteLine("---------------------                   --------------------");
-
-            Console.WriteLine("----- Depois leftRobot: " + leftRobot.ToString());
-            Console.WriteLine("----- Depois rightRobot: " + rightRobot.ToString());
-
-            Console.WriteLine("---------------------                   --------------------");
-
             CallUtterancesLeft(1);
-
-
 
             stopwatch.Restart();
 
@@ -328,26 +313,16 @@ namespace StoryOfPersonality
 
                     if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
                     {
-                        //if (robot.ConsecutivePlays > 0)
-                        //{
-                            LoadIntensityLvl1(robot, 0);
-                        //}
-                        //else
-                        //{
-                        //    LoadIntensityLvl1(robot, 1);
-                        //}
+                        LoadIntensityLvl1(robot);
                     }
-                    else
-                    {
-                        LoadIntensityLvl1(robot, 1);
-                    }
+
 
                     LoadGazeTime(robot, robot.Persuasion);
                     /* _persuasion =*/
                     LoadGazeDominant(robot);
                     robot.Persuasion.Prosody.Lvl = 2;
                     /* robot.Persuasion.Prosody =*/
-                    GetUtteranceLanguage(robot.Persuasion.Prosody);
+                    GetUtteranceLanguage(robot);
                     break;
                 case 3:
 
@@ -357,19 +332,16 @@ namespace StoryOfPersonality
 
                     if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
                     {
-                        LoadIntensityLvl2Lvl3(robot, 0);
+                        LoadIntensityLvl2Lvl3(robot);
                     }
-                    else
-                    {
-                        LoadIntensityLvl2Lvl3(robot, 1);
-                    }
+
 
                     LoadGazeTime(robot, robot.Persuasion);
                     /*_persuasion =*/
                     LoadGazeDominant(robot);
                     robot.Persuasion.Prosody.Lvl = 3;
 
-                    robot.Persuasion.Prosody = GetUtteranceLanguage(robot.Persuasion.Prosody);
+                    GetUtteranceLanguage(robot);
                     break;
                 case 4:
 
@@ -380,18 +352,15 @@ namespace StoryOfPersonality
 
                     if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
                     {
-                        LoadIntensityLvl2Lvl3(robot, 0);
+                        LoadIntensityLvl2Lvl3(robot);
                     }
-                    else
-                    {
-                        LoadIntensityLvl2Lvl3(robot, 1);
-                    }
+
 
                     LoadGazeTime(robot, robot.Persuasion);
                     /*_persuasion =*/
                     LoadGazeDominant(robot);
                     robot.Persuasion.Prosody.Lvl = 4;
-                    robot.Persuasion.Prosody = GetUtteranceLanguage(robot.Persuasion.Prosody);
+                    GetUtteranceLanguage(robot);
                     break;
             }
 
@@ -399,18 +368,26 @@ namespace StoryOfPersonality
             //  robot.Persuasion = _persuasion;
         }
 
-        private void LoadIntensityLvl1(Robot robot, int oponent)
+        private void LoadIntensityLvl1(Robot robot)
         {
             int robotPlays = 0;
 
-            if (oponent == 1)
+            if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
             {
-                robotPlays = robot.OponentPlays;
+                if (robot.ConsecutivePlays > 0)
+                {
+                    robotPlays = robot.ConsecutivePlays;
+                }
+                else if (robot.OponentPlays > 1)
+                {
+                    robotPlays = robot.OponentPlays;
+                }
             }
-            else
-            {
-                robotPlays = robot.ConsecutivePlays;
-            }
+
+            Console.WriteLine("");
+            Console.WriteLine("         robot.ConsecutivePlays = " + robot.ConsecutivePlays + " robot.OponentPlays= " + robot.OponentPlays);
+            Console.WriteLine("");
+
 
             switch (robotPlays % 4)
             {
@@ -436,17 +413,17 @@ namespace StoryOfPersonality
             }
         }
 
-        private void LoadIntensityLvl2Lvl3(Robot robot, int oponent)
+        private void LoadIntensityLvl2Lvl3(Robot robot)
         {
             int robotPlays = 0;
 
-            if (oponent == 1)
+            if (robot.ConsecutivePlays > 0)
             {
-                robotPlays = robot.OponentPlays;
+                robotPlays = robot.ConsecutivePlays;
             }
             else
             {
-                robotPlays = robot.ConsecutivePlays;
+                robotPlays = robot.OponentPlays;
             }
 
             switch (robotPlays)
@@ -526,27 +503,22 @@ namespace StoryOfPersonality
             }
         }
 
-        private Prosody GetUtteranceLanguage(Prosody prosody)
+        private void GetUtteranceLanguage(Robot robot)
         {
-            Prosody p = new Prosody();
 
             if (Language.Equals(Thalamus.BML.SpeechLanguages.English))
             {
-                p.Language = Prosody.RobotsLanguage.EN;
+                robot.Persuasion.Prosody.Language = Prosody.RobotsLanguage.EN;
 
                 //p = ProsodyLvls.Find(x => (x.Language.Equals(prosody.Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity));
-                p = SearchProsodyLvl(p.Language, prosody.Lvl, prosody.Intensity);
+                SearchProsodyLvl(robot);
             }
             else
             {
-                p.Language = Prosody.RobotsLanguage.PT;
+                robot.Persuasion.Prosody.Language = Prosody.RobotsLanguage.PT;
                 //p = ProsodyLvls.Find(x => (x.Language.Equals(prosody.Language) && x.Lvl == prosody.Lvl && x.Intensity == prosody.Intensity));
-                p = SearchProsodyLvl(p.Language, prosody.Lvl, prosody.Intensity);
+                SearchProsodyLvl(robot);
             }
-
-            //   prosody = p;
-
-            return p;
         }
 
         private void LoadGazeTime(Robot robot, Persuasion _persuasion)
@@ -660,22 +632,8 @@ namespace StoryOfPersonality
 
             StoryHandler.NextScene(OptionSide.right, selectedDP);
 
-            Console.WriteLine("---------------------                   --------------------");
-
-            Console.WriteLine("----- Antes leftRobot: " + leftRobot.ToString());
-            Console.WriteLine("----- Antes rightRobot: " + rightRobot.ToString());
-
-            Console.WriteLine("---------------------                   --------------------");
-
             LoadScenePersuasion(leftRobot);
             LoadScenePersuasion(rightRobot);
-
-            Console.WriteLine("---------------------                   --------------------");
-
-            Console.WriteLine("----- Depois leftRobot: " + leftRobot.ToString());
-            Console.WriteLine("----- Depois rightRobot: " + rightRobot.ToString());
-
-            Console.WriteLine("---------------------                   --------------------");
 
             CallUtterancesRight(1);
 
@@ -947,17 +905,16 @@ namespace StoryOfPersonality
 
         }
 
-        internal Prosody SearchProsodyLvl(RobotsLanguage language, int lvl, int intensity)
+        internal void SearchProsodyLvl(Robot robot)
         {
-            Prosody correct = new Prosody();
             try
             {
 
                 foreach (Prosody p in ProsodyLvls)
                 {
-                    if (p.Lvl == lvl && p.Intensity == intensity && p.Language.Equals(language))
+                    if (p.Lvl == robot.Persuasion.Prosody.Lvl && p.Intensity == robot.Persuasion.Prosody.Intensity && p.Language.Equals(robot.Persuasion.Prosody.Language))
                     {
-                        correct = p;
+                        robot.Persuasion.Prosody.Utterance = p.Utterance;
                         break;
                     }
                 }
@@ -968,8 +925,6 @@ namespace StoryOfPersonality
 
                 throw;
             }
-
-            return correct;
         }
 
         internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)

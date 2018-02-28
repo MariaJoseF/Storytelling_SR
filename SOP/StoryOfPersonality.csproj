@@ -34,16 +34,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AxInterop.WMPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="AxInterop.WMPLib">
       <HintPath>dlls\AxInterop.WMPLib.dll</HintPath>
     </Reference>
     <Reference Include="CookComputing.XmlRpcV2">
-      <HintPath>..\..\SERA\Skene\CookComputing.XmlRpcV2.dll</HintPath>
+      <HintPath>..\..\..\SERA\Skene\CookComputing.XmlRpcV2.dll</HintPath>
     </Reference>
     <Reference Include="EmoteEvents, Version=1.0.5877.35032, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\EmoteEvents.dll</HintPath>
+      <HintPath>..\..\..\SERA\Skene\EmoteEvents.dll</HintPath>
     </Reference>
     <Reference Include="MetroFramework, Version=1.2.0.3, Culture=neutral, PublicKeyToken=5f91a84759bf584a, processorArchitecture=MSIL">
       <HintPath>..\packages\MetroFramework.RunTime.1.2.0.3\lib\net40-Client\MetroFramework.dll</HintPath>
@@ -70,7 +69,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="Thalamus, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>dlls\Thalamus.dll</HintPath>
+      <HintPath>..\..\..\SERA\Thalamus\Thalamus.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -250,14 +249,6 @@
     <Content Include="MetroFramework.txt" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="AxWMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>aximp</WrapperTool>
-      <Isolated>False</Isolated>
-    </COMReference>
     <COMReference Include="WMPLib">
       <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
       <VersionMajor>1</VersionMajor>
