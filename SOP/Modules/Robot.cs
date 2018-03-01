@@ -16,7 +16,7 @@ namespace SOP.Modules
         private int condition;
         private string pitch;
         private int totalDominant;
-        private int totalAssertive;
+        private int totalMeek;
 
 
         public Robot(RobotsPersonality robotPersonality, string _ptich)
@@ -54,12 +54,12 @@ namespace SOP.Modules
         public int OponentPlays { get => oponentPlays; set => oponentPlays = value; }
         public string Pitch { get => pitch; set => pitch = value; }
         public int TotalDominant { get => totalDominant; set => totalDominant = value; }
-        public int TotalAssertive { get => totalAssertive; set => totalAssertive = value; }
+        public int TotalMeek { get => totalMeek; set => totalMeek = value; }
 
         public enum RobotsPersonality
         {
             none = -1,
-            assertive = 0,
+            meek = 0,
             dominant = 1
         }
 
@@ -67,7 +67,7 @@ namespace SOP.Modules
         {
            // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalAssertive + ";" + pitch + ";" + persuasion.ToString() + ";" + condition;
+            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + condition;
 
         }
     }

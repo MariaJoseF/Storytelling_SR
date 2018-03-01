@@ -57,12 +57,12 @@ namespace StoryOfPersonality
             {
                 rightRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
                 rightRobot.Pitch = "x-low";
-                leftRobot = new Robot(Robot.RobotsPersonality.assertive, Convert.ToInt32(aux[3]));
+                leftRobot = new Robot(Robot.RobotsPersonality.meek, Convert.ToInt32(aux[3]));
                 leftRobot.Pitch = "x-high";
             }
             else
             {
-                rightRobot = new Robot(Robot.RobotsPersonality.assertive, Convert.ToInt32(aux[3]));
+                rightRobot = new Robot(Robot.RobotsPersonality.meek, Convert.ToInt32(aux[3]));
                 rightRobot.Pitch = "x-high";
                 leftRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
                 leftRobot.Pitch = "x-low";
@@ -124,7 +124,7 @@ namespace StoryOfPersonality
             }
             else
             {
-                this.metroButton4.Text = "Vamos começar!";
+                this.metroButton4.Text = "VAMOS COMEÇAR!";
                 this.Language = Thalamus.BML.SpeechLanguages.Portuguese;
                 ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
                 ThalamusClientRight.CPublisher.SetLanguage(this.Language); 

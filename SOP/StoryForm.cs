@@ -41,11 +41,12 @@ namespace StoryOfPersonality
         private Robot leftRobot;
         private Robot rightRobot;
 
-        // at the end of the story this must be recorded to a log file. Then, we can note if the dominant robot was more clear than the assertive or not.
+        // at the end of the story this must be recorded to a log file. Then, we can note if the dominant robot was more clear than the Meek or not.
         // pos 0 left robot and 1 right robot.
         public int[] listenRobotAgain = new int[2];
         // 0 = the dominant robot persuade according to participant personality, 1 = different of participant personality, 2 = no persuasion at all.
         public int conditionPersuasion;
+        private int robotPlays = 0;
 
         public enum OptionSide
         {
@@ -65,6 +66,15 @@ namespace StoryOfPersonality
         public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot)
         {
             InitializeComponent();
+
+            if (this.Language.Equals(Thalamus.BML.SpeechLanguages.English))
+            {
+                this.lblResearcher.Text = "Call the Researcher please.";
+            }
+            else
+            {
+                this.lblResearcher.Text = "Chame o investigador por favor.";
+            }
 
             this.ThalamusClientRight = ThalamusClientRight;
             this.ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
@@ -145,11 +155,11 @@ namespace StoryOfPersonality
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalAssertive;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalAssertive;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalAssertive;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalAssertive;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality", "ExtraInfo", "PathInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalMeek;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
 
         private void CropAndStrechBackImage()
@@ -215,7 +225,7 @@ namespace StoryOfPersonality
                 selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
             }
 
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "PathInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
             selectedDP.RobotPersonality = leftRobot.Personality;
             leftRobot.ConsecutivePlays++;
@@ -223,20 +233,21 @@ namespace StoryOfPersonality
             rightRobot.ConsecutivePlays = 0;
             rightRobot.OponentPlays = leftRobot.ConsecutivePlays;
 
-            if (leftRobot.Personality.Equals(Robot.RobotsPersonality.assertive))//default left robot = assertive
+            if (leftRobot.Personality.Equals(Robot.RobotsPersonality.meek))//default left robot = Meek
             {
-                selectedDP.TotalAssertive++;
+                selectedDP.TotalMeek++;
             }
             else //default right robot = dominant
             {
+                robotPlays = 0;
                 selectedDP.TotalDominant++;
             }
 
             leftRobot.TotalDominant = selectedDP.TotalDominant;
-            leftRobot.TotalAssertive = selectedDP.TotalAssertive;
+            leftRobot.TotalMeek = selectedDP.TotalMeek;
 
             rightRobot.TotalDominant = selectedDP.TotalDominant;
-            rightRobot.TotalAssertive = selectedDP.TotalAssertive;
+            rightRobot.TotalMeek = selectedDP.TotalMeek;
 
             StoryHandler.NextScene(OptionSide.left, selectedDP);
 
@@ -301,7 +312,6 @@ namespace StoryOfPersonality
                     //prosody intensity is done according to repetition done by the robot opposite to the one that is performing it
                     //when intensity achieves value 4 the next keeps the 4
 
-
                     LoadGazeTime(robot, robot.Persuasion);
                     LoadAnimationDominant(robot);
                     robot.Persuasion.Prosody.Lvl = 3;
@@ -342,17 +352,18 @@ namespace StoryOfPersonality
 
             switch (robotPlays)
             {
-                case 0:
+                case 0://Intensity = 1
                 case 1://Intensity = 1
+                case 2://Intensity = 1
                     robot.Persuasion.Prosody.Intensity = 1;
                     break;
-                case 2://Intensity = 2
+                case 3://Intensity = 2
                     robot.Persuasion.Prosody.Intensity = 2;
                     break;
-                case 3://Intensity = 3
+                case 4://Intensity = 3
                     robot.Persuasion.Prosody.Intensity = 3;
                     break;
-                case 4://Intensity = 4
+                case 5://Intensity = 4
                     robot.Persuasion.Prosody.Intensity = 4;
                     break;
                 default://Intensity = 4
@@ -371,7 +382,7 @@ namespace StoryOfPersonality
                     //annimation intensity is done according to repetition done by the robot that is performing it
                     //when intensity achieves value 4 the next keeps 4
 
-                    if (robot.OponentPlays >= 2) // Assertive robot was the last option selected
+                    if (robot.OponentPlays >= 2) // Meek robot was the last option selected
                     {
                         switch (robot.OponentPlays)
                         {
@@ -443,7 +454,7 @@ namespace StoryOfPersonality
             int robotPlays = 0;
 
 
-            robotPlays = robot.TotalAssertive + robot.TotalDominant;
+            robotPlays = robot.TotalMeek + robot.TotalDominant;
 
 
             switch (robotPlays % 3)
@@ -465,11 +476,24 @@ namespace StoryOfPersonality
                     }
                     break;
             }
-            _persuasion.Time = GetTimeRobotFeature();
+
+            if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
+            {
+                _persuasion.Time = GetTimeRobotFeature();
+
+                if (rightRobot.Personality.Equals(Robot.RobotsPersonality.meek))
+                {
+                    rightRobot.Persuasion.Time = (1 - leftRobot.Persuasion.Time);
+                }
+                else
+                {
+                    leftRobot.Persuasion.Time = (1 - rightRobot.Persuasion.Time);
+                }
+            }
         }
 
-        //if return 1 robot will perform more gaze according to his personality such as: domintant will look more to person, assertive will look less to person 
-        //if return 0 robot will perform gaze such as: domintant will look less to person,  assertive will look more to person
+        //if return 1 robot will perform more gaze according to his personality such as: domintant will look more to person, Meek will look less to person 
+        //if return 0 robot will perform gaze such as: domintant will look less to person,  Meek will look more to person
         private int GetTimeRobotFeature()
         {
             Random random = new Random();
@@ -536,7 +560,7 @@ namespace StoryOfPersonality
                 txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), rightRobot.Personality.ToString());
                 selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
             }
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "PathInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
             selectedDP.RobotPersonality = rightRobot.Personality;
             rightRobot.ConsecutivePlays++;
@@ -546,18 +570,19 @@ namespace StoryOfPersonality
 
             if (rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))//default right robot = dominant
             {
+                robotPlays = 0;
                 selectedDP.TotalDominant++;
             }
-            else //default left robot = assertive
+            else //default left robot = Meek
             {
-                selectedDP.TotalAssertive++;
+                selectedDP.TotalMeek++;
             }
 
             rightRobot.TotalDominant = selectedDP.TotalDominant;
-            rightRobot.TotalAssertive = selectedDP.TotalAssertive;
+            rightRobot.TotalMeek = selectedDP.TotalMeek;
 
             leftRobot.TotalDominant = selectedDP.TotalDominant;
-            leftRobot.TotalAssertive = selectedDP.TotalAssertive;
+            leftRobot.TotalMeek = selectedDP.TotalMeek;
 
             StoryHandler.NextScene(OptionSide.right, selectedDP);
 
@@ -565,6 +590,10 @@ namespace StoryOfPersonality
             LoadScenePersuasion(rightRobot);
 
             CallUtterancesRight(1);
+            leftRobot.Persuasion.Animation = "-";
+            leftRobot.Persuasion.Prosody.Utterance = "-";
+            rightRobot.Persuasion.Animation = "-";
+            rightRobot.Persuasion.Prosody.Utterance = "-";
 
             stopwatch.Restart();
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
@@ -763,7 +792,7 @@ namespace StoryOfPersonality
 
 
                     //ver se ele altera ou se depois não altera
-                    robotSide.Persuasion.Animation = "-";
+                    //   robotSide.Persuasion.Animation = "-";
                 }
             }
 
@@ -813,49 +842,25 @@ namespace StoryOfPersonality
 
         private void LoadPersuasionLvl2(Robot robot)
         {
-            int robotPlays = 0;
-
+            
             robot.Persuasion.Prosody.Lvl = 2;
 
             if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
             {
-                if (robot.ConsecutivePlays > 0)
+                if (robot.OponentPlays > 1)
                 {
-                    robotPlays = robot.ConsecutivePlays;
-                }
-                else if (robot.OponentPlays > 1)
-                {
-                    robotPlays = robot.OponentPlays;
-                }
-            }
-
-            Console.WriteLine("");
-            Console.WriteLine("        Robot " + robot.Personality + " ConsecutivePlays = " + robot.ConsecutivePlays + " OponentPlays= " + robot.OponentPlays);
-            Console.WriteLine("");
-
-
-            switch (robotPlays % 4)
-            {
-                case 1://Intensity = 1
-                    robot.Persuasion.Prosody.Intensity = 1;
-                    break;
-                case 2://Intensity = 2
-                    robot.Persuasion.Prosody.Intensity = 2;
-                    break;
-                case 3://Intensity = 3
-                    robot.Persuasion.Prosody.Intensity = 3;
-                    break;
-                case 0://Intensity = 4
-                    if (robotPlays == 0)
+                    if (robotPlays == 4)
                     {
-                        robot.Persuasion.Prosody.Intensity = 1;
+                        robotPlays = 1;
                     }
                     else
                     {
-                        robot.Persuasion.Prosody.Intensity = 4;
+                        robotPlays++;
                     }
-                    break;
+                    robot.Persuasion.Prosody.Intensity = robotPlays;
+                }
             }
+
         }
 
         private string GetGaze(Robot robotSide, OptionSide side)
@@ -901,8 +906,8 @@ namespace StoryOfPersonality
 
         private string GetPersonOrRandomGaze(Robot robotSide)
         {
-            //if return 1 robot will perform more gaze according to his personality such as: domintant will look more to person, assertive will look less to person 
-            //if return 0 robot will perform gaze such as: domintant will look less to person,  assertive will look more to person
+            //if return 1 robot will perform more gaze according to his personality such as: domintant will look more to person, Meek will look less to person 
+            //if return 0 robot will perform gaze such as: domintant will look less to person,  Meek will look more to person
             string gazeTo = "";
 
             if (robotSide.Persuasion.Time.Equals(1))//robot will perform gaze 80% of the time
@@ -932,6 +937,13 @@ namespace StoryOfPersonality
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            Console.WriteLine("============= CLOSE GAME ===============");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+
             ThalamusClientLeft.Shutdown();
             ThalamusClientRight.Shutdown();
             Application.Exit();
@@ -1005,6 +1017,20 @@ namespace StoryOfPersonality
                 else
                 {
                     Console.WriteLine("============= END GAME ===============");
+                    ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+
+
+                    sceneBox.Visible = false;
+                    rightButton.Visible = false;
+                    playRight.Visible = false;
+                    leftButton.Visible = false;
+                    playLeft.Visible = false;
+                    lblResearcher.Visible = true;
+                    //  lblResearcher.Enabled = true;
                 }
             }
         }
@@ -1016,7 +1042,7 @@ namespace StoryOfPersonality
                          "Right Robot Again: " + listenRobotAgain[1] + "\r\n" +
                          "============================= \r\n" +
                          "Total Dominant: " + selectedDP.TotalDominant + "\r\n" +
-                         "Total Assertive: " + selectedDP.TotalAssertive + "\r\n" +
+                         "Total Meek: " + selectedDP.TotalMeek + "\r\n" +
                          "============================= \r\n";
 
             txt += personality.DefineMBTIPersonality();

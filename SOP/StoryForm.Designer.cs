@@ -39,6 +39,7 @@ namespace StoryOfPersonality
             this.playRight = new MetroFramework.Controls.MetroTile();
             this.playLeft = new MetroFramework.Controls.MetroTile();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblResearcher = new System.Windows.Forms.Label();
             this.backImage = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -48,10 +49,9 @@ namespace StoryOfPersonality
             // closeButton
             // 
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeButton.Location = new System.Drawing.Point(2532, 25);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(6);
+            this.closeButton.Location = new System.Drawing.Point(1266, 13);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(184, 79);
+            this.closeButton.Size = new System.Drawing.Size(92, 41);
             this.closeButton.TabIndex = 15;
             this.closeButton.Text = "CLOSE";
             this.closeButton.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -60,10 +60,9 @@ namespace StoryOfPersonality
             // leftButton
             // 
             this.leftButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.leftButton.Location = new System.Drawing.Point(512, 417);
-            this.leftButton.Margin = new System.Windows.Forms.Padding(6);
+            this.leftButton.Location = new System.Drawing.Point(256, 217);
             this.leftButton.Name = "leftButton";
-            this.leftButton.Size = new System.Drawing.Size(284, 146);
+            this.leftButton.Size = new System.Drawing.Size(142, 76);
             this.leftButton.TabIndex = 17;
             this.leftButton.Text = "◀";
             this.leftButton.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -72,10 +71,9 @@ namespace StoryOfPersonality
             // rightButton
             // 
             this.rightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.rightButton.Location = new System.Drawing.Point(1908, 417);
-            this.rightButton.Margin = new System.Windows.Forms.Padding(6);
+            this.rightButton.Location = new System.Drawing.Point(954, 217);
             this.rightButton.Name = "rightButton";
-            this.rightButton.Size = new System.Drawing.Size(284, 146);
+            this.rightButton.Size = new System.Drawing.Size(142, 76);
             this.rightButton.TabIndex = 18;
             this.rightButton.Text = "▶";
             this.rightButton.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -85,13 +83,13 @@ namespace StoryOfPersonality
             // 
             this.sceneBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.sceneBox.Enabled = false;
             this.sceneBox.FontSize = MetroFramework.MetroTextBoxSize.Tall;
-            this.sceneBox.Location = new System.Drawing.Point(340, 24);
-            this.sceneBox.Margin = new System.Windows.Forms.Padding(6);
+            this.sceneBox.Location = new System.Drawing.Point(170, 12);
             this.sceneBox.Multiline = true;
             this.sceneBox.Name = "sceneBox";
             this.sceneBox.ReadOnly = true;
-            this.sceneBox.Size = new System.Drawing.Size(2024, 381);
+            this.sceneBox.Size = new System.Drawing.Size(1012, 198);
             this.sceneBox.TabIndex = 22;
             this.sceneBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.sceneBox.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -100,7 +98,7 @@ namespace StoryOfPersonality
             // 
             this.axWindowsMediaPlayer1.Enabled = true;
             this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(18, 64);
-            this.axWindowsMediaPlayer1.Margin = new System.Windows.Forms.Padding(4);
+            this.axWindowsMediaPlayer1.Margin = new System.Windows.Forms.Padding(2);
             this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
             this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(75, 23);
@@ -112,10 +110,9 @@ namespace StoryOfPersonality
             // 
             this.playRight.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.playRight.Enabled = false;
-            this.playRight.Location = new System.Drawing.Point(2204, 417);
-            this.playRight.Margin = new System.Windows.Forms.Padding(6);
+            this.playRight.Location = new System.Drawing.Point(1102, 217);
             this.playRight.Name = "playRight";
-            this.playRight.Size = new System.Drawing.Size(160, 146);
+            this.playRight.Size = new System.Drawing.Size(80, 76);
             this.playRight.Style = MetroFramework.MetroColorStyle.Green;
             this.playRight.TabIndex = 24;
             this.playRight.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -128,10 +125,9 @@ namespace StoryOfPersonality
             // 
             this.playLeft.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.playLeft.Enabled = false;
-            this.playLeft.Location = new System.Drawing.Point(340, 417);
-            this.playLeft.Margin = new System.Windows.Forms.Padding(6);
+            this.playLeft.Location = new System.Drawing.Point(170, 217);
             this.playLeft.Name = "playLeft";
-            this.playLeft.Size = new System.Drawing.Size(160, 146);
+            this.playLeft.Size = new System.Drawing.Size(80, 76);
             this.playLeft.Style = MetroFramework.MetroColorStyle.Green;
             this.playLeft.TabIndex = 23;
             this.playLeft.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -142,46 +138,63 @@ namespace StoryOfPersonality
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblResearcher);
             this.groupBox1.Controls.Add(this.playLeft);
             this.groupBox1.Controls.Add(this.leftButton);
             this.groupBox1.Controls.Add(this.sceneBox);
             this.groupBox1.Controls.Add(this.playRight);
             this.groupBox1.Controls.Add(this.rightButton);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(40, 1229);
+            this.groupBox1.Location = new System.Drawing.Point(20, 508);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(2660, 587);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(1330, 305);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
+            // 
+            // lblResearcher
+            // 
+            this.lblResearcher.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblResearcher.AutoSize = true;
+            this.lblResearcher.Enabled = false;
+            this.lblResearcher.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResearcher.Location = new System.Drawing.Point(615, 103);
+            this.lblResearcher.Name = "lblResearcher";
+            this.lblResearcher.Size = new System.Drawing.Size(310, 29);
+            this.lblResearcher.TabIndex = 25;
+            this.lblResearcher.Text = "Call the Researcher please.";
+            this.lblResearcher.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblResearcher.Visible = false;
             // 
             // backImage
             // 
             this.backImage.BackgroundImage = global::SOP.Properties.Resources.castle;
             this.backImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.backImage.Location = new System.Drawing.Point(-3, 4);
-            this.backImage.Margin = new System.Windows.Forms.Padding(6);
+            this.backImage.Location = new System.Drawing.Point(-2, 2);
             this.backImage.Name = "backImage";
-            this.backImage.Size = new System.Drawing.Size(2737, 1237);
+            this.backImage.Size = new System.Drawing.Size(1368, 643);
             this.backImage.TabIndex = 14;
             this.backImage.TabStop = false;
             // 
             // StoryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(2740, 1854);
+            this.ClientSize = new System.Drawing.Size(1370, 833);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.backImage);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StoryForm";
-            this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Story";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -189,6 +202,7 @@ namespace StoryOfPersonality
             this.Resize += new System.EventHandler(this.StoryForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backImage)).EndInit();
             this.ResumeLayout(false);
 
@@ -204,6 +218,7 @@ namespace StoryOfPersonality
         private MetroTile playLeft;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox backImage;
+        private System.Windows.Forms.Label lblResearcher;
     }
 }
 
