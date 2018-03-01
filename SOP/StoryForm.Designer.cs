@@ -39,8 +39,8 @@ namespace StoryOfPersonality
             this.playRight = new MetroFramework.Controls.MetroTile();
             this.playLeft = new MetroFramework.Controls.MetroTile();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblResearcher = new System.Windows.Forms.Label();
             this.backImage = new System.Windows.Forms.PictureBox();
+            this.lblResearcher = new MetroFramework.Controls.MetroTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backImage)).BeginInit();
@@ -167,10 +167,9 @@ namespace StoryOfPersonality
             this.lblResearcher.AutoSize = true;
             this.lblResearcher.Enabled = false;
             this.lblResearcher.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResearcher.Location = new System.Drawing.Point(1230, 198);
-            this.lblResearcher.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.lblResearcher.Location = new System.Drawing.Point(615, 103);
             this.lblResearcher.Name = "lblResearcher";
-            this.lblResearcher.Size = new System.Drawing.Size(617, 55);
+            this.lblResearcher.Size = new System.Drawing.Size(310, 29);
             this.lblResearcher.TabIndex = 25;
             this.lblResearcher.Text = "Call the Researcher please.";
             this.lblResearcher.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -186,6 +185,20 @@ namespace StoryOfPersonality
             this.backImage.Size = new System.Drawing.Size(2736, 1237);
             this.backImage.TabIndex = 14;
             this.backImage.TabStop = false;
+            // 
+            // lblResearcher
+            // 
+            this.lblResearcher.Enabled = false;
+            this.lblResearcher.FontSize = MetroFramework.MetroTextBoxSize.Tall;
+            this.lblResearcher.Location = new System.Drawing.Point(395, 53);
+            this.lblResearcher.Multiline = true;
+            this.lblResearcher.Name = "lblResearcher";
+            this.lblResearcher.ReadOnly = true;
+            this.lblResearcher.Size = new System.Drawing.Size(517, 93);
+            this.lblResearcher.TabIndex = 25;
+            this.lblResearcher.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.lblResearcher.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.lblResearcher.Visible = false;
             // 
             // StoryForm
             // 
@@ -211,7 +224,6 @@ namespace StoryOfPersonality
             this.Resize += new System.EventHandler(this.StoryForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backImage)).EndInit();
             this.ResumeLayout(false);
 
@@ -227,7 +239,7 @@ namespace StoryOfPersonality
         private MetroTile playLeft;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox backImage;
-        private System.Windows.Forms.Label lblResearcher;
+        private MetroTextBox lblResearcher;
     }
 }
 
