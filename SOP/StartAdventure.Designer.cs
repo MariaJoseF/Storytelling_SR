@@ -41,10 +41,11 @@ namespace StoryOfPersonality
             // 
             // closeButton
             // 
-            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeButton.Location = new System.Drawing.Point(1266, 13);
+            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.closeButton.Location = new System.Drawing.Point(2532, 25);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(92, 41);
+            this.closeButton.Size = new System.Drawing.Size(184, 79);
             this.closeButton.TabIndex = 15;
             this.closeButton.Text = "CLOSE";
             this.closeButton.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -57,9 +58,10 @@ namespace StoryOfPersonality
             this.languageSelector.Items.AddRange(new object[] {
             "English",
             "Portuguese"});
-            this.languageSelector.Location = new System.Drawing.Point(9, 13);
+            this.languageSelector.Location = new System.Drawing.Point(18, 25);
+            this.languageSelector.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.languageSelector.Name = "languageSelector";
-            this.languageSelector.Size = new System.Drawing.Size(121, 29);
+            this.languageSelector.Size = new System.Drawing.Size(238, 29);
             this.languageSelector.TabIndex = 21;
             this.languageSelector.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.languageSelector.SelectedIndexChanged += new System.EventHandler(this.LanguageSelector_SelectedIndexChanged);
@@ -69,17 +71,19 @@ namespace StoryOfPersonality
             this.backImage.BackgroundImage = global::SOP.Properties.Resources.castle;
             this.backImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.backImage.Location = new System.Drawing.Point(0, 0);
+            this.backImage.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.backImage.Name = "backImage";
-            this.backImage.Size = new System.Drawing.Size(1358, 671);
+            this.backImage.Size = new System.Drawing.Size(2716, 1290);
             this.backImage.TabIndex = 14;
             this.backImage.TabStop = false;
             // 
             // metroButton4
             // 
             this.metroButton4.AutoSize = true;
-            this.metroButton4.Location = new System.Drawing.Point(580, 334);
+            this.metroButton4.Location = new System.Drawing.Point(1160, 642);
+            this.metroButton4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(288, 92);
+            this.metroButton4.Size = new System.Drawing.Size(576, 177);
             this.metroButton4.TabIndex = 22;
             this.metroButton4.Text = "STORY";
             this.metroButton4.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -87,18 +91,19 @@ namespace StoryOfPersonality
             // 
             // StartAdventure
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1370, 833);
+            this.ClientSize = new System.Drawing.Size(2740, 1602);
             this.ControlBox = false;
             this.Controls.Add(this.metroButton4);
             this.Controls.Add(this.languageSelector);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.backImage);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StartAdventure";
+            this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Text = "Story";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
