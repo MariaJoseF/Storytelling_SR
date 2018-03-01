@@ -443,36 +443,7 @@ namespace StoryOfPersonality
             int robotPlays = 0;
 
 
-
-
-
-
-
-            /////////////
-            /////////////
-            //                      Faz sentido esta consição??
-            /////////////
-            /////////////
-
-            //if (robot.ConsecutivePlays > 0)
-            //{
-            //    robotPlays = robot.ConsecutivePlays;
-            //}
-            //else
-            //{
-            //    robotPlays = robot.OponentPlays;
-            //}
-
-
-
-
-
-
-
-
-
-
-
+            robotPlays = robot.TotalAssertive + robot.TotalDominant;
 
 
             switch (robotPlays % 3)
