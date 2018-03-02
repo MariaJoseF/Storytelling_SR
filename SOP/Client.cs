@@ -89,8 +89,11 @@ namespace StoryOfPersonality
         public StoryForm storyWindow;
 
         public Thalamus.BML.SpeechLanguages Language { get; private set; }
+        public bool ActivateAudio { get => activateAudio; set => activateAudio = value; }
+
         private StartAdventure.OptionSide Side;
         private EventHandler endUtteranceEvent;
+        private bool activateAudio;
 
         public Client(StartAdventure.OptionSide side, Thalamus.BML.SpeechLanguages language, string character)
             : base(character, character)
@@ -142,6 +145,13 @@ namespace StoryOfPersonality
             //Console.WriteLine("--------------------------------------- CurrentUtterance:" + currentUtterance);
             //Console.WriteLine("--------------------------------------- Dialog:");
             //    NextUtterance();
+
+            if (storyWindow.playSceneAnger == 1)
+            {
+                //storyWindow.playStoryScene(storyWindow.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                activateAudio = true;
+            }
+
             if (storyWindow.PlayedLeftButton && storyWindow.PlayedRightButton)
             {
                 storyWindow.Invoke((Action)(() =>

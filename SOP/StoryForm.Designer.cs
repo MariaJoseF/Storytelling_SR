@@ -48,7 +48,7 @@ namespace StoryOfPersonality
             // 
             // closeButton
             // 
-            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.Location = new System.Drawing.Point(1266, 13);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(92, 41);
@@ -98,7 +98,7 @@ namespace StoryOfPersonality
             // 
             this.axWindowsMediaPlayer1.Enabled = true;
             this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(18, 64);
-            this.axWindowsMediaPlayer1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.axWindowsMediaPlayer1.Margin = new System.Windows.Forms.Padding(2);
             this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
             this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(75, 23);
@@ -146,9 +146,9 @@ namespace StoryOfPersonality
             this.groupBox1.Controls.Add(this.lblResearcher);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox1.Location = new System.Drawing.Point(20, 508);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(1330, 305);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
@@ -159,15 +159,15 @@ namespace StoryOfPersonality
             this.lblResearcher.Enabled = false;
             this.lblResearcher.FontSize = MetroFramework.MetroTextBoxSize.Tall;
             this.lblResearcher.Location = new System.Drawing.Point(2, 15);
-            this.lblResearcher.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lblResearcher.Margin = new System.Windows.Forms.Padding(2);
             this.lblResearcher.Multiline = true;
             this.lblResearcher.Name = "lblResearcher";
             this.lblResearcher.ReadOnly = true;
             this.lblResearcher.Size = new System.Drawing.Size(1326, 288);
+            this.lblResearcher.Style = MetroFramework.MetroColorStyle.Silver;
             this.lblResearcher.TabIndex = 25;
             this.lblResearcher.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lblResearcher.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.lblResearcher.Visible = false;
             // 
             // backImage
             // 
@@ -191,7 +191,7 @@ namespace StoryOfPersonality
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.backImage);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StoryForm";
