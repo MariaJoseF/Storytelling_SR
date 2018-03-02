@@ -453,9 +453,7 @@ namespace StoryOfPersonality
             //  <utterance> <gaze>
             int robotPlays = 0;
 
-
             robotPlays = robot.TotalMeek + robot.TotalDominant;
-
 
             switch (robotPlays % 3)
             {
@@ -590,6 +588,7 @@ namespace StoryOfPersonality
             LoadScenePersuasion(rightRobot);
 
             CallUtterancesRight(1);
+
             leftRobot.Persuasion.Animation = "-";
             leftRobot.Persuasion.Prosody.Utterance = "-";
             rightRobot.Persuasion.Animation = "-";
@@ -602,6 +601,7 @@ namespace StoryOfPersonality
             this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
             this.playRight.Enabled = this.playLeft.Enabled = true;
             this.playLeft.Style = this.playRight.Style = MetroFramework.MetroColorStyle.Green;
+
             if (StoryHandler.isEnding())
             {
                 this.DisableButtons();
@@ -786,11 +786,6 @@ namespace StoryOfPersonality
                     aux_prosody = "<Gaze(person3)><break time=\"1s\"/><ANIMATE(" + robotSide.Persuasion.Animation + ")>";
                     animation_prosody = utterance + aux_prosody;
 
-
-
-
-
-
                     //ver se ele altera ou se depois não altera
                     //   robotSide.Persuasion.Animation = "-";
                 }
@@ -841,8 +836,7 @@ namespace StoryOfPersonality
         }
 
         private void LoadPersuasionLvl2(Robot robot)
-        {
-            
+        {  
             robot.Persuasion.Prosody.Lvl = 2;
 
             if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
@@ -860,7 +854,6 @@ namespace StoryOfPersonality
                     robot.Persuasion.Prosody.Intensity = robotPlays;
                 }
             }
-
         }
 
         private string GetGaze(Robot robotSide, OptionSide side)
@@ -951,7 +944,6 @@ namespace StoryOfPersonality
 
         internal void SearchProsodyLvl(Robot robot)
         {
-
             try
             {
                 foreach (Prosody p in ProsodyLvls)
@@ -967,12 +959,12 @@ namespace StoryOfPersonality
             {
                 throw;
             }
-
         }
 
         internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)
         {
-            DisableButtons();
+            DisableButtons();      
+
             string folder = "EN";
             if (language == Thalamus.BML.SpeechLanguages.Portuguese) folder = "PT";
 
@@ -1022,7 +1014,6 @@ namespace StoryOfPersonality
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
-
 
                     sceneBox.Visible = false;
                     rightButton.Visible = false;

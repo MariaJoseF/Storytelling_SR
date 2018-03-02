@@ -18,6 +18,8 @@ namespace SOP.Modules
         private int totalDominant;
         private int totalMeek;
 
+        private RobotsPosture posture;
+
 
         public Robot(RobotsPersonality robotPersonality, string _ptich)
         {
@@ -55,6 +57,7 @@ namespace SOP.Modules
         public string Pitch { get => pitch; set => pitch = value; }
         public int TotalDominant { get => totalDominant; set => totalDominant = value; }
         public int TotalMeek { get => totalMeek; set => totalMeek = value; }
+        public RobotsPosture Posture { get => posture; set => posture = value; }
 
         public enum RobotsPersonality
         {
@@ -62,6 +65,19 @@ namespace SOP.Modules
             meek = 0,
             dominant = 1
         }
+
+        public enum RobotsPosture
+        {
+            admiration = 0,
+            anger = 1,
+            contempt = 2,
+            disappointment = 3,
+            hope = 4,
+            joy = 5,
+            pride = 6,
+            satisfaction = 7
+        }
+
 
         public override string ToString()
         {

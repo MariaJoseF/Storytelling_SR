@@ -57,24 +57,29 @@ namespace StoryOfPersonality
             {
                 rightRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
                 rightRobot.Pitch = "x-low";
+                rightRobot.Posture = RobotsPosture.pride;
                 leftRobot = new Robot(Robot.RobotsPersonality.meek, Convert.ToInt32(aux[3]));
                 leftRobot.Pitch = "x-high";
+                leftRobot.Posture = RobotsPosture.contempt;
             }
             else
             {
                 rightRobot = new Robot(Robot.RobotsPersonality.meek, Convert.ToInt32(aux[3]));
                 rightRobot.Pitch = "x-high";
+                rightRobot.Posture = RobotsPosture.contempt;
                 leftRobot = new Robot(Robot.RobotsPersonality.dominant, Convert.ToInt32(aux[3]));
                 leftRobot.Pitch = "x-low";
+                leftRobot.Posture = RobotsPosture.pride;
             }
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
             ThalamusClientRight = new Client(OptionSide.right, Language, "Dom");
             ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
-            // ThalamusClientRight.CPublisher.SetLanguage(Language);
+            ThalamusClientRight.CPublisher.SetPosture("", rightRobot.Posture.ToString());
 
             ThalamusClientLeft = new Client(OptionSide.left, Language, "Domina");
             ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
+            ThalamusClientLeft.CPublisher.SetPosture("", leftRobot.Posture.ToString());
 
             this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);
 

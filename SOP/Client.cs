@@ -12,7 +12,7 @@ namespace StoryOfPersonality
 {
     public interface IClient : Thalamus.BML.ISpeakEvents { }
 
-    public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions
+    public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions, Thalamus.BML.IPostureActions
     {
     }
 
@@ -82,6 +82,18 @@ namespace StoryOfPersonality
             public void ChangeLibrary(string file)
             {
                 publisher.ChangeLibrary(file);
+            }
+            #endregion
+
+            #region posture
+            public void SetPosture(string id, string posture, double percent = 1, double decay = 1)
+            {
+                publisher.SetPosture(id, posture, percent, decay);
+            }
+
+            public void ResetPose()
+            {
+                publisher.ResetPose();
             }
             #endregion
         }
