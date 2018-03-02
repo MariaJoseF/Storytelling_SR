@@ -159,22 +159,6 @@ namespace StoryOfPersonality
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             // 
-            // lblResearcher
-            // 
-            this.lblResearcher.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblResearcher.AutoSize = true;
-            this.lblResearcher.Enabled = false;
-            this.lblResearcher.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResearcher.Location = new System.Drawing.Point(615, 103);
-            this.lblResearcher.Name = "lblResearcher";
-            this.lblResearcher.Size = new System.Drawing.Size(310, 29);
-            this.lblResearcher.TabIndex = 25;
-            this.lblResearcher.Text = "Call the Researcher please.";
-            this.lblResearcher.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblResearcher.Visible = false;
-            // 
             // backImage
             // 
             this.backImage.BackgroundImage = global::SOP.Properties.Resources.castle;
