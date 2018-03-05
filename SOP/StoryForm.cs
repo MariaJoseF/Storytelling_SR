@@ -47,6 +47,7 @@ namespace StoryOfPersonality
         // 0 = the dominant robot persuade according to participant personality, 1 = different of participant personality, 2 = no persuasion at all.
         public int conditionPersuasion;
         private int robotPlays = 0;
+        public int playSceneAnger = 0;
 
         public enum OptionSide
         {
@@ -204,6 +205,8 @@ namespace StoryOfPersonality
         {
             stopwatch.Stop();
 
+            DisableButtons();
+
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.left);
             selectedDP.SideSelected = OptionSide.left;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
@@ -266,10 +269,7 @@ namespace StoryOfPersonality
 
             CallUtterancesLeft(1);
 
-            leftRobot.Persuasion.Animation = "-";
-            leftRobot.Persuasion.Prosody.Utterance = "-";
-            rightRobot.Persuasion.Animation = "-";
-            rightRobot.Persuasion.Prosody.Utterance = "-";
+           
 
             stopwatch.Restart();
 
@@ -285,7 +285,37 @@ namespace StoryOfPersonality
                 this.DisableButtons();
                 recordFinalLog();
             }
-            playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+
+            if (leftRobot.Persuasion.Animation.Contains("anger") && !leftRobot.Persuasion.Prosody.Utterance.Equals(""))
+            {
+                playSceneAnger = 1;
+                while (ThalamusClientLeft.ActivateAudio == false)
+                {
+
+                }
+                playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientLeft.ActivateAudio = false;
+            }
+            else if (rightRobot.Persuasion.Animation.Contains("anger") && !rightRobot.Persuasion.Prosody.Utterance.Equals(""))
+            {
+                playSceneAnger = 1;
+                while (ThalamusClientRight.ActivateAudio == false)
+                {
+
+                }
+                playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientRight.ActivateAudio = false;
+            }
+            else
+            {
+                playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                playSceneAnger = 0;
+            }
+
+            leftRobot.Persuasion.Animation = "-";
+            leftRobot.Persuasion.Prosody.Utterance = "-";
+            rightRobot.Persuasion.Animation = "-";
+            rightRobot.Persuasion.Prosody.Utterance = "-";
         }
 
         public void LoadScenePersuasion(Robot robot)
@@ -548,6 +578,8 @@ namespace StoryOfPersonality
         {
             stopwatch.Stop();
 
+            DisableButtons();
+
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.right);
             selectedDP.SideSelected = OptionSide.right;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
@@ -608,7 +640,6 @@ namespace StoryOfPersonality
             LoadScenePersuasion(rightRobot);
 
             CallUtterancesRight(1);
-
             leftRobot.Persuasion.Animation = "-";
             leftRobot.Persuasion.Prosody.Utterance = "-";
             rightRobot.Persuasion.Animation = "-";
@@ -628,7 +659,36 @@ namespace StoryOfPersonality
                 recordFinalLog();
             }
 
-            playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+            if (leftRobot.Persuasion.Animation.Contains("anger") && !leftRobot.Persuasion.Prosody.Utterance.Equals(""))
+            {
+                playSceneAnger = 1;
+                while (ThalamusClientLeft.ActivateAudio == false)
+                {
+
+                }
+                playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientLeft.ActivateAudio = false;
+            }
+            else if (rightRobot.Persuasion.Animation.Contains("anger") && !rightRobot.Persuasion.Prosody.Utterance.Equals(""))
+            {
+                playSceneAnger = 1;
+                while (ThalamusClientRight.ActivateAudio == false)
+                {
+
+                }
+                playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientRight.ActivateAudio = false;
+            }
+            else
+            {
+                playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                playSceneAnger = 0;
+            }
+
+            leftRobot.Persuasion.Animation = "-";
+            leftRobot.Persuasion.Prosody.Utterance = "-";
+            rightRobot.Persuasion.Animation = "-";
+            rightRobot.Persuasion.Prosody.Utterance = "-";
         }
 
         internal void PlayLeft_Robot()
