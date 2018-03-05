@@ -55,10 +55,10 @@ namespace StoryOfPersonality
             }
         }
 
-        public string RecordPathPersonality(string dp, string pref, string prefSelected, string robotInfluenced)
+        public string RecordPathPersonality(string dp, string pref, string prefSelected, string robotInfluenced, string conditionPersuasion)
         {
-            string txt = dp + ";" + pref + ";" + prefSelected + ";" + robotInfluenced;
-            Console.WriteLine("=== Decisions: " + dp + " - " + pref + " - " + prefSelected + " - " + robotInfluenced);
+            string txt = dp + ";" + pref + ";" + prefSelected + ";" + robotInfluenced + ";" + conditionPersuasion;
+            //Console.WriteLine("=== Decisions: " + dp + " - " + pref + " - " + prefSelected + " - " + robotInfluenced + " - " + conditionPersuasion);
 
             string arraySum = "";
             for (int i = 0; i < sumOfDecisions.Length; i++)

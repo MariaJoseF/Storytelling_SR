@@ -17,9 +17,12 @@ namespace SOP.Modules
         private string pitch;
         private int totalDominant;
         private int totalMeek;
+        private string decisionPoint;
+        private string preferencePair;
+        private string preferenceSelected;
+        private string persuasionCondition;
 
         private RobotsPosture posture;
-
 
         public Robot(RobotsPersonality robotPersonality, string _ptich)
         {
@@ -29,6 +32,10 @@ namespace SOP.Modules
             this.persuasion = new Persuasion();
             this.condition = -1;
             this.pitch = _ptich;
+            decisionPoint = "-";
+            preferencePair = "-";
+            preferenceSelected = "-";
+            persuasionCondition = "-";
         }
 
         public Robot(RobotsPersonality personality, Persuasion persuasion, int condition)
@@ -38,6 +45,10 @@ namespace SOP.Modules
             this.oponentPlays = 0;
             this.persuasion = persuasion;
             this.condition = condition;
+            decisionPoint = "-";
+            preferencePair = "-";
+            preferenceSelected = "-";
+            persuasionCondition = "-";
         }
 
         public Robot(RobotsPersonality personality, int condition)
@@ -47,6 +58,10 @@ namespace SOP.Modules
             this.oponentPlays = 0;
             this.persuasion = new Persuasion();
             this.condition = condition;
+            decisionPoint = "-";
+            preferencePair = "-";
+            preferenceSelected = "-";
+            persuasionCondition = "-";
         }
 
         public RobotsPersonality Personality { get => personality; set => personality = value; }
@@ -58,6 +73,10 @@ namespace SOP.Modules
         public int TotalDominant { get => totalDominant; set => totalDominant = value; }
         public int TotalMeek { get => totalMeek; set => totalMeek = value; }
         public RobotsPosture Posture { get => posture; set => posture = value; }
+        public string DecisionPoint { get => decisionPoint; set => decisionPoint = value; }
+        public string PreferencePair { get => preferencePair; set => preferencePair = value; }
+        public string PreferenceSelected { get => preferenceSelected; set => preferenceSelected = value; }
+        public string PersuasionCondition { get => persuasionCondition; set => persuasionCondition = value; }
 
         public enum RobotsPersonality
         {
@@ -83,7 +102,7 @@ namespace SOP.Modules
         {
            // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + condition;
+            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + preferenceSelected + ";" + persuasionCondition + ";" + condition;
 
         }
     }

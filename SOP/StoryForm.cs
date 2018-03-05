@@ -155,11 +155,11 @@ namespace StoryOfPersonality
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelected;ConditionPersuasion;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalMeek;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality;ConditionPersuasion", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
 
         private void CropAndStrechBackImage()
@@ -214,15 +214,17 @@ namespace StoryOfPersonality
             {
                 // PERSONALITY
                 personality.BuildPersonality(StoryHandler.GetLeftPref());
-                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), leftRobot.Personality.ToString());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), leftRobot.Personality.ToString(), conditionPersuasion.ToString());
                 selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
+                leftRobot.PreferenceSelected = StoryHandler.GetLeftPref();
             }
             else
             {
                 // PERSONALITY
                 personality.BuildPersonality(StoryHandler.GetRightPref());
-                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), leftRobot.Personality.ToString()); ;
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), leftRobot.Personality.ToString(), conditionPersuasion.ToString());
                 selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
+                leftRobot.PreferenceSelected = StoryHandler.GetRightPref();
             }
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
@@ -232,6 +234,14 @@ namespace StoryOfPersonality
             leftRobot.OponentPlays = 0;
             rightRobot.ConsecutivePlays = 0;
             rightRobot.OponentPlays = leftRobot.ConsecutivePlays;
+
+            leftRobot.DecisionPoint = StoryHandler.GetInitialDP();
+            leftRobot.PreferencePair = StoryHandler.GetPrefDP();
+            leftRobot.PersuasionCondition = conditionPersuasion.ToString();
+            rightRobot.PreferencePair = "-";
+            rightRobot.PreferenceSelected = "-";
+
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
 
             if (leftRobot.Personality.Equals(Robot.RobotsPersonality.meek))//default left robot = Meek
             {
@@ -548,15 +558,17 @@ namespace StoryOfPersonality
             {
                 // PERSONALITY
                 personality.BuildPersonality(StoryHandler.GetRightPref());
-                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), rightRobot.Personality.ToString());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), rightRobot.Personality.ToString(), conditionPersuasion.ToString());
                 selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
+                rightRobot.PreferenceSelected = StoryHandler.GetRightPref();
             }
             else
             {
                 // PERSONALITY
                 personality.BuildPersonality(StoryHandler.GetLeftPref());
-                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), rightRobot.Personality.ToString());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), rightRobot.Personality.ToString(), conditionPersuasion.ToString());
                 selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
+                rightRobot.PreferenceSelected = StoryHandler.GetLeftPref();
             }
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
@@ -566,6 +578,14 @@ namespace StoryOfPersonality
             leftRobot.ConsecutivePlays = 0;
             leftRobot.OponentPlays = rightRobot.ConsecutivePlays;
 
+            rightRobot.DecisionPoint = StoryHandler.GetInitialDP();
+            rightRobot.PreferencePair = StoryHandler.GetPrefDP();
+            rightRobot.PersuasionCondition = conditionPersuasion.ToString();
+            leftRobot.PreferencePair = "-";
+            leftRobot.PreferenceSelected = "-";
+
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            
             if (rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))//default right robot = dominant
             {
                 robotPlays = 0;
