@@ -205,6 +205,8 @@ namespace StoryOfPersonality
         {
             stopwatch.Stop();
 
+            DisableButtons();
+
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.left);
             selectedDP.SideSelected = OptionSide.left;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
@@ -282,6 +284,7 @@ namespace StoryOfPersonality
 
                 }
                 playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientLeft.ActivateAudio = false;
             }
             else if (rightRobot.Persuasion.Animation.Contains("anger") && !rightRobot.Persuasion.Prosody.Utterance.Equals(""))
             {
@@ -291,6 +294,7 @@ namespace StoryOfPersonality
 
                 }
                 playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientRight.ActivateAudio = false;
             }
             else
             {
@@ -566,6 +570,8 @@ namespace StoryOfPersonality
         {
             stopwatch.Stop();
 
+            DisableButtons();
+
             selectedDP.OptionSelected = Convert.ToInt32(OptionSide.right);
             selectedDP.SideSelected = OptionSide.right;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
@@ -638,6 +644,7 @@ namespace StoryOfPersonality
 
                 }
                 playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientLeft.ActivateAudio = false;
             }
             else if (rightRobot.Persuasion.Animation.Contains("anger") && !rightRobot.Persuasion.Prosody.Utterance.Equals(""))
             {
@@ -647,6 +654,7 @@ namespace StoryOfPersonality
 
                 }
                 playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+                ThalamusClientRight.ActivateAudio = false;
             }
             else
             {

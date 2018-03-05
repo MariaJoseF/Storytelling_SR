@@ -150,6 +150,7 @@ namespace StoryOfPersonality
             {
                 //storyWindow.playStoryScene(storyWindow.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
                 activateAudio = true;
+                storyWindow.playSceneAnger = 0;
             }
 
             if (storyWindow.PlayedLeftButton && storyWindow.PlayedRightButton)
