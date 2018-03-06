@@ -13,61 +13,106 @@ namespace SOP.Modules
         private Persuasion persuasion;
         private int consecutivePlays;
         private int oponentPlays;
-        private int condition;
         private string pitch;
         private int totalDominant;
         private int totalMeek;
         private string decisionPoint;
         private string preferencePair;
         private string preferenceSelected;
-        private string persuasionCondition;
-
+        private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
+        private bool enable;
+        private RobotSide side;
 
-        public Robot(RobotsPersonality robotPersonality, string _ptich)
-        {
-            personality = robotPersonality;
-            consecutivePlays = 0;
-            this.oponentPlays = 0;
-            this.persuasion = new Persuasion();
-            this.condition = -1;
-            this.pitch = _ptich;
-            decisionPoint = "-";
-            preferencePair = "-";
-            preferenceSelected = "-";
-            persuasionCondition = "-";
-        }
-
-        public Robot(RobotsPersonality personality, Persuasion persuasion, int condition)
+        public Robot(RobotsPersonality personality, Persuasion persuasion)
         {
             this.personality = personality;
             this.consecutivePlays = 0;
             this.oponentPlays = 0;
             this.persuasion = persuasion;
-            this.condition = condition;
+            this.persuasionCondition = RobotsPersuasion.none;
+            this.totalDominant = 0;
+            this.totalMeek = 0;
+            this.enable = false;
+            this.side = RobotSide.none;
             decisionPoint = "-";
             preferencePair = "-";
             preferenceSelected = "-";
-            persuasionCondition = "-";
+            if (personality.Equals(RobotsPersonality.dominant))
+            {
+                this.pitch = "x-high";
+                this.posture = RobotsPosture.pride;
+            }
+            else
+            {
+                this.pitch = "x-low";
+                this.posture = RobotsPosture.contempt;
+            }
         }
 
-        public Robot(RobotsPersonality personality, int condition)
+        public Robot(RobotsPersonality personality)
         {
             this.personality = personality;
             this.consecutivePlays = 0;
             this.oponentPlays = 0;
             this.persuasion = new Persuasion();
-            this.condition = condition;
-            decisionPoint = "-";
-            preferencePair = "-";
-            preferenceSelected = "-";
-            persuasionCondition = "-";
+            this.persuasionCondition = RobotsPersuasion.none;
+            this.totalDominant = 0;
+            this.totalMeek = 0;
+            this.enable = false;
+            this.decisionPoint = "-";
+            this.preferencePair = "-";
+            this.preferenceSelected = "-";
+
+            if (personality.Equals(RobotsPersonality.dominant))
+            {
+                this.pitch = "x-high";
+            }
+            else
+            {
+                this.pitch = "x-low";
+            }
+        }
+
+        public Robot(RobotSide side)
+        {
+            this.personality = RobotsPersonality.none;
+            this.consecutivePlays = 0;
+            this.oponentPlays = 0;
+            this.persuasion = new Persuasion();
+            this.persuasionCondition = RobotsPersuasion.none;
+            this.totalDominant = 0;
+            this.totalMeek = 0;
+            this.enable = false;
+            this.side = side;
+            this.decisionPoint = "-";
+            this.preferencePair = "-";
+            this.preferenceSelected = "-";
+            this.pitch = "";
+
+        }
+
+        public Robot()
+        {
+            this.personality = RobotsPersonality.none;
+            this.consecutivePlays = 0;
+            this.oponentPlays = 0;
+            this.persuasion = new Persuasion();
+            this.persuasionCondition = RobotsPersuasion.none;
+            this.totalDominant = 0;
+            this.totalMeek = 0;
+            this.enable = false;
+            this.side = RobotSide.none;
+            this.decisionPoint = "-";
+            this.preferencePair = "-";
+            this.preferenceSelected = "-";
+            this.pitch = "";
+
         }
 
         public RobotsPersonality Personality { get => personality; set => personality = value; }
         public Persuasion Persuasion { get => persuasion; set => persuasion = value; }
         public int ConsecutivePlays { get => consecutivePlays; set => consecutivePlays = value; }
-        public int Condition { get => condition; set => condition = value; }
         public int OponentPlays { get => oponentPlays; set => oponentPlays = value; }
         public string Pitch { get => pitch; set => pitch = value; }
         public int TotalDominant { get => totalDominant; set => totalDominant = value; }
@@ -76,13 +121,29 @@ namespace SOP.Modules
         public string DecisionPoint { get => decisionPoint; set => decisionPoint = value; }
         public string PreferencePair { get => preferencePair; set => preferencePair = value; }
         public string PreferenceSelected { get => preferenceSelected; set => preferenceSelected = value; }
-        public string PersuasionCondition { get => persuasionCondition; set => persuasionCondition = value; }
+        public RobotsPersuasion PersuasionCondition { get => persuasionCondition; set => persuasionCondition = value; }
+        public bool Enable { get => enable; set => enable = value; }
+        public RobotSide Side { get => side; set => side = value; }
 
         public enum RobotsPersonality
         {
             none = -1,
             meek = 0,
             dominant = 1
+        }
+
+        public enum RobotsPersuasion
+        {
+            none = -1,
+            favour = 0,
+            againts = 1
+        }
+
+        public enum RobotSide
+        {
+            none = -1,
+            left = 0,
+            right = 1
         }
 
         public enum RobotsPosture
@@ -100,9 +161,9 @@ namespace SOP.Modules
 
         public override string ToString()
         {
-           // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
+            // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + preferenceSelected + ";" + persuasionCondition + ";" + condition;
+            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + preferenceSelected + ";" + persuasionCondition;
 
         }
     }

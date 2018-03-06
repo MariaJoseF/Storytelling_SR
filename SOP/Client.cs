@@ -165,14 +165,7 @@ namespace StoryOfPersonality
                 storyWindow.playSceneAnger = 0;
             }
 
-            if (storyWindow.PlayedLeftButton && storyWindow.PlayedRightButton)
-            {
-                storyWindow.Invoke((Action)(() =>
-                {//this refer to form in WPF application 
-                    storyWindow.EnableBTS("LR");
-                }));
-            }
-            else if (storyWindow.PlayedLeftButton)
+            if (storyWindow.PlayedLeftButton)
             {
                 storyWindow.Invoke((Action)(() =>
                 {//this refer to form in WPF application 

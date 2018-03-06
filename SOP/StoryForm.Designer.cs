@@ -36,11 +36,10 @@ namespace StoryOfPersonality
             this.rightButton = new MetroFramework.Controls.MetroButton();
             this.sceneBox = new MetroFramework.Controls.MetroTextBox();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
-            this.playRight = new MetroFramework.Controls.MetroTile();
-            this.playLeft = new MetroFramework.Controls.MetroTile();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblResearcher = new MetroFramework.Controls.MetroTextBox();
             this.backImage = new System.Windows.Forms.PictureBox();
+            this.btConfirm = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backImage)).BeginInit();
@@ -106,42 +105,11 @@ namespace StoryOfPersonality
             this.axWindowsMediaPlayer1.Visible = false;
             this.axWindowsMediaPlayer1.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer1_PlayStateChange_1);
             // 
-            // playRight
-            // 
-            this.playRight.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.playRight.Enabled = false;
-            this.playRight.Location = new System.Drawing.Point(1102, 217);
-            this.playRight.Name = "playRight";
-            this.playRight.Size = new System.Drawing.Size(80, 76);
-            this.playRight.Style = MetroFramework.MetroColorStyle.Green;
-            this.playRight.TabIndex = 24;
-            this.playRight.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.playRight.TileImage = global::SOP.Properties.Resources.sound;
-            this.playRight.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.playRight.UseTileImage = true;
-            this.playRight.Click += new System.EventHandler(this.playRight_Click);
-            // 
-            // playLeft
-            // 
-            this.playLeft.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.playLeft.Enabled = false;
-            this.playLeft.Location = new System.Drawing.Point(170, 217);
-            this.playLeft.Name = "playLeft";
-            this.playLeft.Size = new System.Drawing.Size(80, 76);
-            this.playLeft.Style = MetroFramework.MetroColorStyle.Green;
-            this.playLeft.TabIndex = 23;
-            this.playLeft.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.playLeft.TileImage = global::SOP.Properties.Resources.sound;
-            this.playLeft.TileImageAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.playLeft.UseTileImage = true;
-            this.playLeft.Click += new System.EventHandler(this.playLeft_Click);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.playLeft);
+            this.groupBox1.Controls.Add(this.btConfirm);
             this.groupBox1.Controls.Add(this.leftButton);
             this.groupBox1.Controls.Add(this.sceneBox);
-            this.groupBox1.Controls.Add(this.playRight);
             this.groupBox1.Controls.Add(this.rightButton);
             this.groupBox1.Controls.Add(this.lblResearcher);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -179,6 +147,20 @@ namespace StoryOfPersonality
             this.backImage.TabIndex = 14;
             this.backImage.TabStop = false;
             // 
+            // btConfirm
+            // 
+            this.btConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btConfirm.Location = new System.Drawing.Point(597, 217);
+            this.btConfirm.Name = "btConfirm";
+            this.btConfirm.Size = new System.Drawing.Size(142, 76);
+            this.btConfirm.TabIndex = 26;
+            this.btConfirm.Text = "CONFIRM";
+            this.btConfirm.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btConfirm.Visible = false;
+            this.btConfirm.Click += new System.EventHandler(this.btConfirm_Click);
+            // 
             // StoryForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -213,11 +195,10 @@ namespace StoryOfPersonality
         private MetroFramework.Controls.MetroButton rightButton;
         private MetroFramework.Controls.MetroTextBox sceneBox;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
-        private MetroTile playRight;
-        private MetroTile playLeft;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox backImage;
         private MetroTextBox lblResearcher;
+        private MetroButton btConfirm;
     }
 }
 
