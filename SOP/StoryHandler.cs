@@ -114,6 +114,139 @@ namespace StoryOfPersonality
             return (language == Thalamus.BML.SpeechLanguages.English ? decisionPoints[decisionPoint].Textp1En : decisionPoints[decisionPoint].Textp1);
         }
 
+        internal void LoadPreferences(List<Robot> preferenceEI, List<Robot> preferenceJP, List<Robot> preferenceSN, List<Robot> preferenceTF, List<Robot> preferenceDG)
+        {
+
+            int prefEI = 0;
+            int prefJP = 0;
+            int prefSN = 0;
+            int prefTF = 0;
+            int prefDG = 0;
+
+            prefEI = CountPreference("EI", "IE",prefEI);//fazer para IE também quando está dentro
+            prefJP = CountPreference("JP", "PJ",prefJP);
+            prefSN = CountPreference("SN", "NS",prefSN);
+            prefTF = CountPreference("TF", "FT",prefTF);
+            prefDG = CountPreference("-", "-",prefDG);
+
+
+            LoadPreferencesPairs(preferenceEI, prefEI);
+            LoadPreferencesPairs(preferenceJP, prefJP);
+            LoadPreferencesPairs(preferenceSN, prefSN);
+            LoadPreferencesPairs(preferenceTF, prefTF);
+            LoadPreferencesPairs(preferenceDG, prefDG);
+
+        }
+
+        private void LoadPreferencesPairs(List<Robot> preferencePair, int preftotal)
+        {
+            int generateDom = -1;
+            int generateMeek = -1;
+
+            int generateFavour = -1;
+            int genereateAgaints = -1;
+
+            Robot rDominat; Robot rMeek;
+
+            for (int i = 0; i < preftotal; i+=2)
+            {
+                generateDom = GetRandom();
+                generateMeek = 1 - generateDom;
+
+                if (generateDom == 1)
+                {
+                    rDominat = new Robot(Robot.RobotsPersonality.dominant);
+                }
+                else
+                {
+                    rDominat = new Robot(Robot.RobotsPersonality.meek);
+                }
+
+                if (generateMeek == 0)
+                {
+                    rMeek = new Robot(Robot.RobotsPersonality.meek);
+                }
+                else
+                {
+                    rMeek = new Robot(Robot.RobotsPersonality.dominant);
+                }
+
+                if (preferencePair.Count < preftotal)
+                {
+                    preferencePair.Add(rDominat);
+                }
+                else
+                {
+                    break;
+                }
+               
+                if (preferencePair.Count < preftotal)
+                {
+                    preferencePair.Add(rMeek);
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+            foreach (var pair in preferencePair)
+            {
+                if (pair.PersuasionCondition.Equals(Robot.RobotsPersuasion.none))
+                {
+                    generateFavour = GetRandom();
+                    genereateAgaints = 1 - generateFavour;
+
+                    if (generateFavour == 1)
+                    {
+                        pair.PersuasionCondition = Robot.RobotsPersuasion.favour;
+                    }
+                    else
+                    {
+                        pair.PersuasionCondition = Robot.RobotsPersuasion.againts;
+                    }
+
+                    foreach (var pair_next in preferencePair)
+                    {
+                        if (pair_next.Personality.Equals(pair.Personality) && pair_next.PersuasionCondition.Equals(Robot.RobotsPersuasion.none))
+                        {
+                            if (genereateAgaints == 0)
+                            {
+                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.againts;
+                            }
+                            else
+                            {
+                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.favour;
+                            }
+                            break;
+                        }
+                    }
+                }
+            } 
+        }
+
+        private int CountPreference(string pref1, string pref2, int preftotal)
+        {
+            int prefPairTotal = 0;
+            foreach (var decision in decisionPoints)
+            {
+                if (decision.Value.Pref.Equals(pref1, StringComparison.CurrentCultureIgnoreCase) || decision.Value.Pref.Equals(pref2, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    prefPairTotal++;
+                }
+            }
+            return prefPairTotal;
+        }
+
+        private int GetRandom()
+        {
+            Random random = new Random();
+            int  n = random.Next(0, 2);
+            return n;
+
+        }
+
         //internal string GetRightTag()
         //{
         //    string decisionPoint = storyNodes[currentStoryNodeId].Before;

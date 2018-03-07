@@ -47,10 +47,11 @@ namespace StoryOfPersonality
         // 0 = the dominant robot persuade according to participant personality, 1 = different of participant personality, 2 = no persuasion at all.
         public int playSceneAnger = 0;
         private bool btConfirmEnable = true;
-        private List<Robot> PreferenceEI;
-        private List<Robot> PreferenceTF;
-        private List<Robot> PreferenceJP;
-        private List<Robot> PreferenceSN;
+        private List<Robot> PreferenceEI = new List<Robot>();
+        private List<Robot> PreferenceTF = new List<Robot>();
+        private List<Robot> PreferenceJP = new List<Robot>();
+        private List<Robot> PreferenceSN = new List<Robot>();
+        private List<Robot> preferenceDG = new List<Robot>();
 
         public enum OptionSide
         {
@@ -103,13 +104,21 @@ namespace StoryOfPersonality
             personality = new Personality(this);
 
             LoadLogFiles();
+
+
+            StoryHandler.LoadPreferences(PreferenceEI, PreferenceJP, PreferenceSN, PreferenceTF, preferenceDG);
             //   LoadPersuasionLvlIntensity();
 
-            LoadScenePersuasion(leftRobot);
-            LoadScenePersuasion(rightRobot);
+            //   LoadScenePersuasion(leftRobot);
+            //     LoadScenePersuasion(rightRobot);
 
             selectedDP = new SelectionDP();
             instance = this;
+        }
+
+        private void LoadPreferences()
+        {
+
         }
 
         //private void LoadPersuasionLvlIntensity()
@@ -839,11 +848,11 @@ namespace StoryOfPersonality
                         side = "R";
                     }
                 }
-                Console.WriteLine("===== Condition persuasion : " + conditionPersuasion + " Side: " + side);
-                if (conditionPersuasion.Equals(1))
-                {
-                    if (side.Equals("L")) side = "R"; else side = "L";
-                }
+                //Console.WriteLine("===== Condition persuasion : " + conditionPersuasion + " Side: " + side);
+                //if (conditionPersuasion.Equals(1))
+                //{
+                //    if (side.Equals("L")) side = "R"; else side = "L";
+                //}
             }
             else
             {
