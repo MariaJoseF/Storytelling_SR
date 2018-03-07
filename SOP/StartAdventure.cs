@@ -59,12 +59,12 @@ namespace StoryOfPersonality
 
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
-            ThalamusClientRight = new Client(OptionSide.right, Language, "Dom");
-            ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
+            ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
+            //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
             
 
-            ThalamusClientLeft = new Client(OptionSide.left, Language, "Domina");
-            ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
+            ThalamusClientLeft = new Client(OptionSide.left, Language, "Meek");
+            //ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
                 
 
             this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);

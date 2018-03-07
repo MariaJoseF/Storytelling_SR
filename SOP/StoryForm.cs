@@ -116,10 +116,6 @@ namespace StoryOfPersonality
             instance = this;
         }
 
-        private void LoadPreferences()
-        {
-
-        }
 
         //private void LoadPersuasionLvlIntensity()
         //{
@@ -221,6 +217,18 @@ namespace StoryOfPersonality
             else
             {
                 ChoiceIntention(rightRobot, OptionSide.left);
+            }
+        }
+
+        private void RightButton_Click(object sender, EventArgs e)
+        {
+            if (rightRobot.Enable)
+            {
+                ChoiceIntention(rightRobot, OptionSide.right);
+            }
+            else
+            {
+                ChoiceIntention(leftRobot, OptionSide.right);
             }
         }
 
@@ -351,16 +359,23 @@ namespace StoryOfPersonality
             switch (auxPreferenceSide)
             {
                 case "ei":
+                case "ie":
                     per_per = PreferenceEI.First();
                     break;
                 case "tf":
+                case "ft":
                     per_per = PreferenceTF.First();
                     break;
                 case "jp":
+                case "pj":
                     per_per = PreferenceJP.First();
                     break;
                 case "sn":
+                case "ns":
                     per_per = PreferenceSN.First();
+                    break;
+                case "-":
+                    per_per = preferenceDG.First();
                     break;
             }
 
@@ -634,97 +649,6 @@ namespace StoryOfPersonality
         //    }
         //}
 
-        private void RightButton_Click(object sender, EventArgs e)
-        {
-            if (rightRobot.Enable)
-            {
-                ChoiceIntention(rightRobot, OptionSide.right);
-            }
-            else
-            {
-                ChoiceIntention(leftRobot, OptionSide.right);
-            }
-            //this.btConfirm.Visible = true;
-            //this.btConfirm.Enabled = false;
-            //this.leftButton.Enabled = this.rightButton.Enabled = false;
-
-            //if (btConfirmEnable)
-            //{
-            //    btConfirmEnable = false;
-            //    AwakeRobot(rightRobot);
-
-            //    //gravar qual a opção que ele escolheu
-            //    //gravar quantas vez este robô mudou a opção a favor
-            //    //gravar quantas vez este robô mudou a opção a contra
-
-            //}
-            //else
-            //{
-
-            //    btConfirmEnable = true;
-
-            //    stopwatch.Stop();
-            //    DisableButtons();
-
-            //    selectedDP.OptionSelected = Convert.ToInt32(OptionSide.right);
-            //    selectedDP.SideSelected = OptionSide.right;
-            //    selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
-
-            //    string txt = "";
-
-            //    if (SidePerform(StoryHandler.GetRightPref().ToUpper()).Equals("R"))
-            //    {
-            //        // PERSONALITY
-            //        personality.BuildPersonality(StoryHandler.GetRightPref());
-            //        txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetRightPref(), rightRobot.Personality.ToString(), conditionPersuasion.ToString());
-            //        selectedDP.DPPrefSelected = StoryHandler.GetRightPref();
-            //        rightRobot.PreferenceSelected = StoryHandler.GetRightPref();
-            //    }
-            //    else
-            //    {
-            //        // PERSONALITY
-            //        personality.BuildPersonality(StoryHandler.GetLeftPref());
-            //        txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), StoryHandler.GetLeftPref(), rightRobot.Personality.ToString(), conditionPersuasion.ToString());
-            //        selectedDP.DPPrefSelected = StoryHandler.GetLeftPref();
-            //        rightRobot.PreferenceSelected = StoryHandler.GetLeftPref();
-            //    }
-
-            //    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
-
-            //    selectedDP.RobotPersonality = rightRobot.Personality;
-            //    rightRobot.ConsecutivePlays++;
-            //    rightRobot.OponentPlays = 0;
-            //    leftRobot.ConsecutivePlays = 0;
-            //    leftRobot.OponentPlays = rightRobot.ConsecutivePlays;
-
-            //    rightRobot.DecisionPoint = StoryHandler.GetInitialDP();
-            //    rightRobot.PreferencePair = StoryHandler.GetPrefDP();
-            //    rightRobot.PersuasionCondition = conditionPersuasion.ToString();
-            //    leftRobot.PreferencePair = "-";
-            //    leftRobot.PreferenceSelected = "-";
-
-            //    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-
-            //    if (rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))//default right robot = dominant
-            //    {
-            //        selectedDP.TotalDominant++;
-            //    }
-            //    else //default left robot = Meek
-            //    {
-            //        selectedDP.TotalMeek++;
-            //    }
-
-            //    rightRobot.TotalDominant = selectedDP.TotalDominant;
-            //    rightRobot.TotalMeek = selectedDP.TotalMeek;
-
-            //    leftRobot.TotalDominant = selectedDP.TotalDominant;
-            //    leftRobot.TotalMeek = selectedDP.TotalMeek;
-
-            //    StoryHandler.NextScene(OptionSide.right, selectedDP);
-
-            //    CallNextScene();
-            //}
-        }
 
         internal void PlayLeft_Robot()
         {
@@ -1111,6 +1035,36 @@ namespace StoryOfPersonality
         {
             btConfirmEnable = true;
             this.btConfirm.Visible = false;
+            DeletePreferenceUsed();
+        }
+
+        private void DeletePreferenceUsed()
+        {
+            string preferenceSelected = StoryHandler.GetPrefDP();
+
+            switch (preferenceSelected)
+            {
+                case "ei":
+                case "ie":
+                    PreferenceEI.RemoveAt(0);
+                    break;
+                case "si":
+                case "is":
+                    PreferenceSN.RemoveAt(0);
+                    break;
+                case "tf":
+                case "ft":
+                    PreferenceTF.RemoveAt(0);
+                    break;
+                case "jp":
+                case "pj":
+                    PreferenceJP.RemoveAt(0);
+                    break;
+                case "-":
+                    preferenceDG.RemoveAt(0);
+                    break;
+
+            }
         }
 
         private void recordFinalLog()
