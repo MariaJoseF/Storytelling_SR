@@ -22,7 +22,7 @@ namespace StoryOfPersonality
     {
 
         private static StartAdventure instance = null;
-        private int UserId;
+        private string UserId;
         private string txtButton = "Let's Begin";
 
         public Client ThalamusClientLeft;
@@ -50,11 +50,8 @@ namespace StoryOfPersonality
         {
             InitializeComponent();
 
-            string[] aux = UserId.Split('-');
-            this.UserId = Convert.ToInt32(aux[0]);
-
-            rightRobot = new Robot(Robot.RobotSide.right);
-            leftRobot = new Robot(Robot.RobotSide.left);
+            //string[] aux = UserId.Split('-');
+            this.UserId = UserId;
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
             ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
@@ -63,9 +60,6 @@ namespace StoryOfPersonality
 
             ThalamusClientLeft = new Client(OptionSide.left, Language, "Meek");
             //ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
-
-
-            this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);
 
             instance = this;
         }
@@ -118,12 +112,28 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
                 ThalamusClientRight.CPublisher.SetLanguage(this.Language);
             }
+
             //this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
         }
 
         private void metroButton4_Click(object sender, EventArgs e)
         {
+            string[] aux = UserId.Split('-');
+
+            if ((Convert.ToInt32(aux[0]) == 1))
+            {
+                rightRobot = new Robot(Robot.RobotsPersonality.dominant,Robot.RobotSide.right, this.Language);
+                leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);
+            }
+            else
+            {
+                rightRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.right, this.Language);
+                leftRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.left, this.Language);
+            }
+
+            this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);
             this.storyForm.Language = this.Language;
+
             this.ThalamusClientLeft.StoryWindow(storyForm);
             this.ThalamusClientRight.StoryWindow(storyForm);
             this.storyForm.Show();

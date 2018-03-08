@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SOP.Modules.Prosody;
 
 namespace SOP.Modules
 {
@@ -19,40 +20,40 @@ namespace SOP.Modules
         private string decisionPoint;
         private string preferencePair;
         private string prefSelectedIntention;
-         private string prefSelectedFinal;
+        private string prefSelectedFinal;
 
         private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
         private bool enable;
         private RobotSide side;
 
-        public Robot(RobotsPersonality personality, Persuasion persuasion)
-        {
-            this.personality = personality;
-            this.consecutivePlays = 0;
-            this.oponentPlays = 0;
-            this.persuasion = persuasion;
-            this.persuasionCondition = RobotsPersuasion.none;
-            this.totalDominant = 0;
-            this.totalMeek = 0;
-            this.enable = false;
-            this.side = RobotSide.none;
-            this.decisionPoint = "-";
-            this.preferencePair = "-";
-            this.prefSelectedIntention = "-";
-             this.prefSelectedFinal= "-";
+        //public Robot(RobotsPersonality personality, Persuasion persuasion)
+        //{
+        //    this.personality = personality;
+        //    this.consecutivePlays = 0;
+        //    this.oponentPlays = 0;
+        //    this.persuasion = persuasion;
+        //    this.persuasionCondition = RobotsPersuasion.none;
+        //    this.totalDominant = 0;
+        //    this.totalMeek = 0;
+        //    this.enable = false;
+        //    this.side = RobotSide.none;
+        //    this.decisionPoint = "-";
+        //    this.preferencePair = "-";
+        //    this.prefSelectedIntention = "-";
+        //     this.prefSelectedFinal= "-";
 
-            if (personality.Equals(RobotsPersonality.dominant))
-            {
-                this.pitch = "x-high";
-                this.posture = RobotsPosture.pride;
-            }
-            else
-            {
-                this.pitch = "x-low";
-                this.posture = RobotsPosture.contempt;
-            }
-        }
+        //    if (personality.Equals(RobotsPersonality.dominant))
+        //    {
+        //        this.pitch = "x-high";
+        //        this.posture = RobotsPosture.pride;
+        //    }
+        //    else
+        //    {
+        //        this.pitch = "x-low";
+        //        this.posture = RobotsPosture.contempt;
+        //    }
+        //}
 
         public Robot(RobotsPersonality personality)
         {
@@ -72,19 +73,31 @@ namespace SOP.Modules
             if (personality.Equals(RobotsPersonality.dominant))
             {
                 this.pitch = "x-high";
+                this.persuasion.Prosody = new Prosody("medium", "x-loud");
             }
             else
             {
                 this.pitch = "x-low";
+                this.persuasion.Prosody = new Prosody("medium", "soft");
             }
         }
 
-        public Robot(RobotSide side)
+        public Robot(RobotsPersonality personality, RobotSide side, Thalamus.BML.SpeechLanguages language)
         {
-            this.personality = RobotsPersonality.none;
+            this.personality = personality;
             this.consecutivePlays = 0;
             this.oponentPlays = 0;
             this.persuasion = new Persuasion();
+
+            if (language.Equals(RobotsLanguage.EN))
+            {
+                this.persuasion.Prosody = new Prosody(RobotsLanguage.EN);
+            }
+            else
+            {
+                this.persuasion.Prosody = new Prosody(RobotsLanguage.PT);
+            }
+
             this.persuasionCondition = RobotsPersuasion.none;
             this.totalDominant = 0;
             this.totalMeek = 0;
@@ -94,8 +107,16 @@ namespace SOP.Modules
             this.preferencePair = "-";
             this.prefSelectedIntention = "-";
             this.prefSelectedFinal = "-";
-            this.pitch = "";
-
+            if (personality.Equals(RobotsPersonality.dominant))
+            {
+                this.pitch = "x-high";
+                this.persuasion.Prosody = new Prosody("medium", "x-loud");
+            }
+            else
+            {
+                this.pitch = "x-low";
+                this.persuasion.Prosody = new Prosody("medium", "soft");
+            }
         }
 
         public Robot()

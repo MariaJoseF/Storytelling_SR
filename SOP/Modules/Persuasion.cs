@@ -11,14 +11,14 @@ namespace StoryOfPersonality
     public class Persuasion
     {
         private string gaze;
-        private int time;
+        private int times;
         private string animation;
         private Prosody prosody;
 
         public Persuasion()
         {
             this.gaze = "";
-            this.time = -1;
+            this.times = -1;
             this.animation = "";
             this.prosody = new Prosody();
         }
@@ -26,7 +26,7 @@ namespace StoryOfPersonality
         public Persuasion(string gaze, int time, string animation)
         {
             this.gaze = gaze;
-            this.time = time;
+            this.times = time;
             this.animation = animation;
             this.prosody = new Prosody();
         }
@@ -34,20 +34,20 @@ namespace StoryOfPersonality
         public Persuasion(string gaze, int time, string animation, Prosody prosody)
         {
             this.gaze = gaze;
-            this.time = time;
+            this.times = time;
             this.animation = animation;
             this.prosody = prosody;
         }
 
         public string Gaze { get => gaze; set => gaze = value; }
-        public int Time { get => time; set => time = value; }
+        public int Times { get => times; set => times = value; }
         public string Animation { get => animation; set => animation = value; }
         internal Prosody Prosody { get => prosody; set => prosody = value; }
 
         public override string ToString()
         {
-            //return "Gaze: " + gaze + " Time: " + time + " Animation: " + animation + " Prosody: " + prosody.ToString();
-            return "" + gaze + ";" + time + ";" + animation + ";" + prosody.ToString();
+            //return "Gaze: " + gaze + " Times: " + times + " Animation: " + animation + " Prosody: " + prosody.ToString();
+            return "" + gaze + ";" + times + ";" + animation + ";" + prosody.ToString();
 
         }
 
