@@ -102,7 +102,7 @@
             // 
             // metroTextBox1
             // 
-            this.metroTextBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.metroTextBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.metroTextBox1.FontSize = MetroFramework.MetroTextBoxSize.Tall;
             this.metroTextBox1.Location = new System.Drawing.Point(532, 654);
             this.metroTextBox1.Margin = new System.Windows.Forms.Padding(734, 0, 0, 0);

@@ -89,11 +89,8 @@ namespace StoryOfPersonality
             this.ThalamusClientLeft = ThalamusClientLeft;
             this.ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
 
-
-
             this.RightRobot = rightRobot;
             this.LeftRobot = leftRobot;
-
 
             string[] aux = UserId.Split('-');
             this.UserId = Convert.ToInt32(aux[0]);

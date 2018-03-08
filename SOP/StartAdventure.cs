@@ -120,7 +120,7 @@ namespace StoryOfPersonality
         {
             string[] aux = UserId.Split('-');
 
-            if ((Convert.ToInt32(aux[0]) == 1))
+            if ((Convert.ToInt32(aux[1]) == 1))
             {
                 rightRobot = new Robot(Robot.RobotsPersonality.dominant,Robot.RobotSide.right, this.Language);
                 leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);

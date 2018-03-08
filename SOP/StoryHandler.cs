@@ -31,6 +31,7 @@ namespace StoryOfPersonality
 
         public string UTTERANCE_DP_FILE;
         public string UTTERANCE_SCENES_FILE;
+        public string UTTERANCE_PHRASES_FILE;
         // public const string OUTPUT_FILE = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/choices-";
         public int UserId;
         private Stopwatch stopwatch = new Stopwatch();
@@ -51,8 +52,12 @@ namespace StoryOfPersonality
         {
             this.UserId = UserId;
 
-            UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_dp.csv";
-            UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_scenes.csv";
+            UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\dps.xlsx";
+            UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\scenes.xlsx";
+            UTTERANCE_PHRASES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\phrasesFavorAgainst.xlsx";
+
+            //UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_dp.csv";
+            //UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_scenes.csv";
 
             //Directory.CreateDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/");
             //From the original excel file the two tabs should be imported in Unicode csv in the name mentioned
@@ -64,7 +69,6 @@ namespace StoryOfPersonality
             currentStoryNodeId = 0; // initial scene ID since we skip the first line (id -1)
 
             this.clientThalamus = thalamusClient;
-
         }
 
         internal void NextScene(StoryForm.OptionSide side, SelectionDP selectOption)
@@ -129,13 +133,11 @@ namespace StoryOfPersonality
             prefTF = CountPreference("TF", "FT",prefTF);
             prefDG = CountPreference("-", "-",prefDG);
 
-
             LoadPreferencesPairs(preferenceEI, prefEI);
             LoadPreferencesPairs(preferenceJP, prefJP);
             LoadPreferencesPairs(preferenceSN, prefSN);
             LoadPreferencesPairs(preferenceTF, prefTF);
             LoadPreferencesPairs(preferenceDG, prefDG);
-
         }
 
         private void LoadPreferencesPairs(List<Robot> preferencePair, int preftotal)
