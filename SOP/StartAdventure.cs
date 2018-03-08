@@ -49,23 +49,21 @@ namespace StoryOfPersonality
         public StartAdventure(string UserId)
         {
             InitializeComponent();
-            
+
             string[] aux = UserId.Split('-');
             this.UserId = Convert.ToInt32(aux[0]);
 
-                rightRobot = new Robot(Robot.RobotSide.right);
-
-                leftRobot = new Robot(Robot.RobotSide.left);
-
+            rightRobot = new Robot(Robot.RobotSide.right);
+            leftRobot = new Robot(Robot.RobotSide.left);
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
             ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
             //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
-            
+
 
             ThalamusClientLeft = new Client(OptionSide.left, Language, "Meek");
             //ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
-                
+
 
             this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);
 
@@ -101,7 +99,7 @@ namespace StoryOfPersonality
 
         private void LanguageSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             this.metroButton4.Left = (this.ClientSize.Width - this.metroButton4.Width) / 2;
             this.metroButton4.Top = (this.ClientSize.Height - this.metroButton4.Height) / 2;
             int newSize = 40;
@@ -118,7 +116,7 @@ namespace StoryOfPersonality
                 this.metroButton4.Text = "VAMOS COMEÇAR!";
                 this.Language = Thalamus.BML.SpeechLanguages.Portuguese;
                 ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
-                ThalamusClientRight.CPublisher.SetLanguage(this.Language); 
+                ThalamusClientRight.CPublisher.SetLanguage(this.Language);
             }
             //this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
         }

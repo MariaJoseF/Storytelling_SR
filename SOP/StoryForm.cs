@@ -92,6 +92,7 @@ namespace StoryOfPersonality
             this.RightRobot = rightRobot;
             this.LeftRobot = leftRobot;
 
+
             string[] aux = UserId.Split('-');
             this.UserId = Convert.ToInt32(aux[0]);
 
@@ -186,7 +187,7 @@ namespace StoryOfPersonality
         {
             this.BeginInvoke((Action)delegate ()
             {
-                this.leftButton.Enabled = this.rightButton.Enabled = PlayedLeftButton && PlayedRightButton;
+                this.leftButton.Enabled = this.rightButton.Enabled = true;
             });
 
         }
@@ -248,10 +249,15 @@ namespace StoryOfPersonality
                 //    gravar quantas vez este robô mudou a opção a favor
                 //    gravar quantas vez este robô mudou a opção a contra
 
+                Console.WriteLine("gravar qual a opção que ele escolheu como intenção");
+                Console.WriteLine("Activar animação favor ou contra");
+                Console.WriteLine("Activar utterance a favor ou contra");
+
             }
             else
             {
-
+                Console.WriteLine("gravar quantas vez este robô mudou a opção a favor");
+                Console.WriteLine("gravar quantas vez este robô mudou a opção a contra");
                 stopwatch.Stop();
                 DisableButtons();
 
@@ -260,8 +266,6 @@ namespace StoryOfPersonality
                 selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
                 LoadRobotsPersoanlity(robotSide, StoryHandler.GetPrefDP());
-
-
 
                 string txt = "";
                 string auxPreferenceSide = "";
@@ -274,8 +278,6 @@ namespace StoryOfPersonality
                 {
                     auxPreferenceSide = StoryHandler.GetRightPref();
                 }
-
-
 
 
                 this.btConfirm.Visible = true;
@@ -331,12 +333,7 @@ namespace StoryOfPersonality
 
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientRight", "Robots-" + this.UserId.ToString() + ".txt");
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-
                 }
-
-
-
-
 
                 leftRobot.TotalDominant = selectedDP.TotalDominant;
                 leftRobot.TotalMeek = selectedDP.TotalMeek;
@@ -345,8 +342,6 @@ namespace StoryOfPersonality
                 rightRobot.TotalMeek = selectedDP.TotalMeek;
 
                 StoryHandler.NextScene(optionSide, selectedDP);
-
-
 
                 CallNextScene();
             }
@@ -408,9 +403,13 @@ namespace StoryOfPersonality
             }
         }
 
-        private void AwakeRobot(Robot leftRobot)
+        private void AwakeRobot(Robot robot)
         {
             throw new NotImplementedException();
+
+
+
+
         }
 
 
@@ -650,13 +649,13 @@ namespace StoryOfPersonality
         //}
 
 
-        internal void PlayLeft_Robot()
-        {
-            this.PlayedLeftButton = true;
-            this.DisableButtons();
+        //internal void PlayLeft_Robot()
+        //{
+        //    this.PlayedLeftButton = true;
+        //    this.DisableButtons();
 
-            //   CallUtterancesLeft(0);
-        }
+        //    //   CallUtterancesLeft(0);
+        //}
 
         private void CallUtterances(int buttonselected, int buttonoption)
         {
@@ -688,13 +687,13 @@ namespace StoryOfPersonality
 
         }
 
-        internal void PlayRight_Robot()
-        {
-            this.PlayedRightButton = true;
-            this.DisableButtons();
+        //internal void PlayRight_Robot()
+        //{
+        //    this.PlayedRightButton = true;
+        //    this.DisableButtons();
 
-            //CallUtterancesRight(0);
-        }
+        //    //CallUtterancesRight(0);
+        //}
 
         //private void CallUtterancesRight(int rightButton)
         //{
@@ -960,39 +959,35 @@ namespace StoryOfPersonality
             //Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
 
             ActivateRobot();
+
+            
         }
 
         private void ActivateRobot()
         {
-            Random random = new Random();
-            int aux = random.Next(0, 2);
-
-            if (aux == 1)
-            {
-                rightRobot.Enable = true;
-                leftRobot.Enable = false;
-            }
-            else
+            if (rightRobot.Enable)
             {
                 leftRobot.Enable = true;
                 rightRobot.Enable = false;
             }
-
-
-
+            else
+            {
+                rightRobot.Enable = true;
+                leftRobot.Enable = false;
+            }
         }
 
-        private void playLeft_Click(object sender, EventArgs e)
-        {
-            listenRobotAgain[0]++;
-            PlayLeft_Robot();
-        }
+        //private void playLeft_Click(object sender, EventArgs e)
+        //{
+        //    listenRobotAgain[0]++;
+        //    PlayLeft_Robot();
+        //}
 
-        private void playRight_Click(object sender, EventArgs e)
-        {
-            listenRobotAgain[1]++;
-            PlayRight_Robot();
-        }
+        //private void playRight_Click(object sender, EventArgs e)
+        //{
+        //    listenRobotAgain[1]++;
+        //    PlayRight_Robot();
+        //}
 
         private void axWindowsMediaPlayer1_PlayStateChange_1(object sender, _WMPOCXEvents_PlayStateChangeEvent e)
         {
@@ -1005,13 +1000,15 @@ namespace StoryOfPersonality
                     if (leftRobot.Personality == Robot.RobotsPersonality.dominant)
                     {
                         Console.WriteLine("=========== ROBOT LEFT DOMINANT ==============");
-                        PlayLeft_Robot();
+                        //PlayLeft_Robot();
                     }
                     else
                     {
                         Console.WriteLine("=========== ROBOT RIGHT DOMINANT ==============");
-                        PlayRight_Robot();
+                        //PlayRight_Robot();
                     }
+
+                    this.leftButton.Enabled = true;
                 }
                 else
                 {
@@ -1035,6 +1032,7 @@ namespace StoryOfPersonality
         {
             btConfirmEnable = true;
             this.btConfirm.Visible = false;
+            this.btConfirm.Enabled = false;
             DeletePreferenceUsed();
         }
 
