@@ -152,7 +152,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <None Include="Utterances\decision_points_utterances_with_gestrues.csv" />
-    <None Include="Utterances\phrasesFavourAgainst.csv" />
+    <None Include="Utterances\phrasesFavorAgainst.csv" />
     <None Include="Utterances\utterances_dp.csv" />
     <None Include="Utterances\utterances_scenes.csv" />
   </ItemGroup>
