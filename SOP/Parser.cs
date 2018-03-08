@@ -59,8 +59,6 @@ namespace Parser
             decisionPoints.Textp2En = Convert.ToString(values[8]);
             decisionPoints.NextSt1 = Convert.ToInt32(values[11]);
             decisionPoints.NextSt2 = Convert.ToInt32(values[12]);
-            decisionPoints.Tag1 = Convert.ToString(values[16]);
-            decisionPoints.Tag2 = Convert.ToString(values[17]);
             Console.WriteLine(values.ToString());
             return decisionPoints;
         }
