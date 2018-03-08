@@ -24,7 +24,7 @@ namespace StoryOfPersonality
 
         public Client ThalamusClientLeft;
         public Client ThalamusClientRight;
-        private string UserPersonalitiy;
+        private string UserPersonality;
         public Thalamus.BML.SpeechLanguages Language;
         public StoryHandler StoryHandler;
         public Personality personality;
@@ -63,7 +63,7 @@ namespace StoryOfPersonality
         public static StoryForm Instance { get => instance; set => instance = value; }
         public bool PlayedLeftButton { get => playedLeftButton; set => playedLeftButton = value; }
         public bool PlayedRightButton { get => playedRightButton; set => playedRightButton = value; }
-        public string UserPersonalitiy1 { get => UserPersonalitiy; set => UserPersonalitiy = value; }
+        public string UserPersonality1 { get => UserPersonality; set => UserPersonality = value; }
         internal Robot LeftRobot { get => leftRobot; set => leftRobot = value; }
         internal Robot RightRobot { get => rightRobot; set => rightRobot = value; }
         public static List<Prosody> ProsodyLvls { get => prosodyLvls; /*set => prosodyLvls = value; */}
@@ -100,7 +100,7 @@ namespace StoryOfPersonality
 
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
-            this.UserPersonalitiy = aux[2];
+            this.UserPersonality = aux[2];
 
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
 
@@ -808,14 +808,14 @@ namespace StoryOfPersonality
         private string SidePerform(string prefUtterance)
         {
             string side = "";
-            UserPersonalitiy = UserPersonalitiy.ToUpper();
-            /*Console.WriteLine("===== USER PERSONALITY: " + UserPersonalitiy);
+            UserPersonality = UserPersonality.ToUpper();
+            /*Console.WriteLine("===== USER PERSONALITY: " + UserPersonality);
             Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
             Console.WriteLine("===== Pref utterance side? : " + prefUtterance); */
 
             if (StoryHandler.GetInitialDP().Contains("DP"))
             {
-                if (UserPersonalitiy.Contains(prefUtterance))
+                if (UserPersonality.Contains(prefUtterance))
                 {
                     if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
                     {
