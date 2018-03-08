@@ -146,7 +146,7 @@ namespace StoryOfPersonality
             int generateFavour = -1;
             int genereateAgaints = -1;
 
-            Robot rDominat; Robot rMeek;
+            Robot rDominant; Robot rMeek;
 
             for (int i = 0; i < preftotal; i+=2)
             {
@@ -155,11 +155,11 @@ namespace StoryOfPersonality
 
                 if (generateDom == 1)
                 {
-                    rDominat = new Robot(Robot.RobotsPersonality.dominant);
+                    rDominant = new Robot(Robot.RobotsPersonality.dominant);
                 }
                 else
                 {
-                    rDominat = new Robot(Robot.RobotsPersonality.meek);
+                    rDominant = new Robot(Robot.RobotsPersonality.meek);
                 }
 
                 if (generateMeek == 0)
@@ -173,7 +173,7 @@ namespace StoryOfPersonality
 
                 if (preferencePair.Count < preftotal)
                 {
-                    preferencePair.Add(rDominat);
+                    preferencePair.Add(rDominant);
                 }
                 else
                 {
