@@ -166,9 +166,9 @@ namespace StoryOfPersonality
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelected;ConditionPersuasion;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;ConditionPersuasion;Condition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;Animation;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;Animation;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;Condition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalMeek;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality;ConditionPersuasion", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
@@ -242,7 +242,11 @@ namespace StoryOfPersonality
 
             if (btConfirmEnable)
             {
+               
                 btConfirmEnable = false;
+                btConfirm.Enabled = false;
+                btConfirm.Visible = true;
+
                 AwakeRobot(robotSide);
 
                 //gravar qual a opção que ele escolheu
@@ -256,6 +260,7 @@ namespace StoryOfPersonality
             }
             else
             {
+                Console.WriteLine("gravar qual a opção que ele escolheu como final");
                 Console.WriteLine("gravar quantas vez este robô mudou a opção a favor");
                 Console.WriteLine("gravar quantas vez este robô mudou a opção a contra");
                 stopwatch.Stop();
@@ -264,8 +269,6 @@ namespace StoryOfPersonality
                 selectedDP.OptionSelected = Convert.ToInt32(optionSide);
                 selectedDP.SideSelected = optionSide;
                 selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
-
-                LoadRobotsPersoanlity(robotSide, StoryHandler.GetPrefDP());
 
                 string txt = "";
                 string auxPreferenceSide = "";
@@ -279,11 +282,9 @@ namespace StoryOfPersonality
                     auxPreferenceSide = StoryHandler.GetRightPref();
                 }
 
-
                 this.btConfirm.Visible = true;
                 this.btConfirm.Enabled = false;
                 this.leftButton.Enabled = this.rightButton.Enabled = false;
-
 
                 // PERSONALITY
                 personality.BuildPersonality(auxPreferenceSide);//selecionou botão esquerda manda a preferência dessa opção
@@ -347,11 +348,12 @@ namespace StoryOfPersonality
             }
         }
 
-        private void LoadRobotsPersoanlity(Robot robotSide, string auxPreferenceSide)
+        private void AwakeRobot(Robot robotSide)
         {
             Robot per_per = new Robot();
+            string preferenceSelected = StoryHandler.GetPrefDP();
 
-            switch (auxPreferenceSide)
+            switch (preferenceSelected)
             {
                 case "ei":
                 case "ie":
@@ -401,15 +403,6 @@ namespace StoryOfPersonality
                 }
                 ThalamusClientLeft.CPublisher.SetPosture("", leftRobot.Posture.ToString());
             }
-        }
-
-        private void AwakeRobot(Robot robot)
-        {
-            throw new NotImplementedException();
-
-
-
-
         }
 
 
@@ -664,6 +657,7 @@ namespace StoryOfPersonality
 
             if (buttonselected == 0)
             {
+                --
                 fullUtterance = GEtUtteranceAnimationsProsodies(leftRobot, OptionSide.left, buttonoption);
                 if (!fullUtterance.Equals(""))
                 {
@@ -675,6 +669,7 @@ namespace StoryOfPersonality
             }
             else
             {
+                --
                 fullUtterance = GEtUtteranceAnimationsProsodies(rightRobot, OptionSide.right, buttonoption);
                 if (!fullUtterance.Equals(""))
                 {
@@ -791,6 +786,13 @@ namespace StoryOfPersonality
             string animation_prosody = "";
 
 
+
+
+
+
+
+
+
             if (buttonOption == 1)//robot makes joy or anger animation
             {
 
@@ -815,6 +817,17 @@ namespace StoryOfPersonality
             {
                 animation_prosody = "<prosody pitch='" + robotSide.Pitch + "'>" + aux_prosody + "</prosody>";
             }
+
+
+
+
+
+
+
+
+
+
+
 
             return animation_prosody;
         }
@@ -960,7 +973,7 @@ namespace StoryOfPersonality
 
             ActivateRobot();
 
-            
+
         }
 
         private void ActivateRobot()

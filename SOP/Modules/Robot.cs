@@ -18,7 +18,9 @@ namespace SOP.Modules
         private int totalMeek;
         private string decisionPoint;
         private string preferencePair;
-        private string preferenceSelected;
+        private string prefSelectedIntention;
+         private string prefSelectedFinal;
+
         private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
         private bool enable;
@@ -35,9 +37,11 @@ namespace SOP.Modules
             this.totalMeek = 0;
             this.enable = false;
             this.side = RobotSide.none;
-            decisionPoint = "-";
-            preferencePair = "-";
-            preferenceSelected = "-";
+            this.decisionPoint = "-";
+            this.preferencePair = "-";
+            this.prefSelectedIntention = "-";
+             this.prefSelectedFinal= "-";
+
             if (personality.Equals(RobotsPersonality.dominant))
             {
                 this.pitch = "x-high";
@@ -62,7 +66,8 @@ namespace SOP.Modules
             this.enable = false;
             this.decisionPoint = "-";
             this.preferencePair = "-";
-            this.preferenceSelected = "-";
+            this.prefSelectedIntention = "-";
+            this.prefSelectedFinal = "-";
 
             if (personality.Equals(RobotsPersonality.dominant))
             {
@@ -87,7 +92,8 @@ namespace SOP.Modules
             this.side = side;
             this.decisionPoint = "-";
             this.preferencePair = "-";
-            this.preferenceSelected = "-";
+            this.prefSelectedIntention = "-";
+            this.prefSelectedFinal = "-";
             this.pitch = "";
 
         }
@@ -105,7 +111,8 @@ namespace SOP.Modules
             this.side = RobotSide.none;
             this.decisionPoint = "-";
             this.preferencePair = "-";
-            this.preferenceSelected = "-";
+            this.prefSelectedIntention = "-";
+            this.prefSelectedFinal = "-";
             this.pitch = "";
 
         }
@@ -120,10 +127,11 @@ namespace SOP.Modules
         public RobotsPosture Posture { get => posture; set => posture = value; }
         public string DecisionPoint { get => decisionPoint; set => decisionPoint = value; }
         public string PreferencePair { get => preferencePair; set => preferencePair = value; }
-        public string PreferenceSelected { get => preferenceSelected; set => preferenceSelected = value; }
+        public string PrefSelectedIntention { get => prefSelectedIntention; set => prefSelectedIntention = value; }
         public RobotsPersuasion PersuasionCondition { get => persuasionCondition; set => persuasionCondition = value; }
         public bool Enable { get => enable; set => enable = value; }
         public RobotSide Side { get => side; set => side = value; }
+        public string PrefSelectedFinal { get => prefSelectedFinal; set => prefSelectedFinal = value; }
 
         public enum RobotsPersonality
         {
@@ -163,7 +171,7 @@ namespace SOP.Modules
         {
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + preferenceSelected + ";" + persuasionCondition;
+            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + persuasionCondition;
 
         }
     }

@@ -37,9 +37,9 @@ namespace StoryOfPersonality
             this.sceneBox = new MetroFramework.Controls.MetroTextBox();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btConfirm = new MetroFramework.Controls.MetroButton();
             this.lblResearcher = new MetroFramework.Controls.MetroTextBox();
             this.backImage = new System.Windows.Forms.PictureBox();
-            this.btConfirm = new MetroFramework.Controls.MetroButton();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.backImage)).BeginInit();
@@ -47,7 +47,7 @@ namespace StoryOfPersonality
             // 
             // closeButton
             // 
-            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.closeButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.closeButton.Location = new System.Drawing.Point(1266, 13);
             this.closeButton.Name = "closeButton";
             this.closeButton.Size = new System.Drawing.Size(92, 41);
@@ -107,6 +107,7 @@ namespace StoryOfPersonality
             // 
             // groupBox1
             // 
+            this.groupBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.groupBox1.Controls.Add(this.btConfirm);
             this.groupBox1.Controls.Add(this.leftButton);
             this.groupBox1.Controls.Add(this.sceneBox);
@@ -120,6 +121,18 @@ namespace StoryOfPersonality
             this.groupBox1.Size = new System.Drawing.Size(1330, 305);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
+            // 
+            // btConfirm
+            // 
+            this.btConfirm.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btConfirm.Location = new System.Drawing.Point(597, 217);
+            this.btConfirm.Name = "btConfirm";
+            this.btConfirm.Size = new System.Drawing.Size(142, 76);
+            this.btConfirm.TabIndex = 26;
+            this.btConfirm.Text = "CONFIRM";
+            this.btConfirm.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.btConfirm.Visible = false;
+            this.btConfirm.Click += new System.EventHandler(this.btConfirm_Click);
             // 
             // lblResearcher
             // 
@@ -136,6 +149,7 @@ namespace StoryOfPersonality
             this.lblResearcher.TabIndex = 25;
             this.lblResearcher.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.lblResearcher.Theme = MetroFramework.MetroThemeStyle.Dark;
+            this.lblResearcher.Visible = false;
             // 
             // backImage
             // 
@@ -146,20 +160,6 @@ namespace StoryOfPersonality
             this.backImage.Size = new System.Drawing.Size(1368, 643);
             this.backImage.TabIndex = 14;
             this.backImage.TabStop = false;
-            // 
-            // btConfirm
-            // 
-            this.btConfirm.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btConfirm.Location = new System.Drawing.Point(597, 217);
-            this.btConfirm.Name = "btConfirm";
-            this.btConfirm.Size = new System.Drawing.Size(142, 76);
-            this.btConfirm.TabIndex = 26;
-            this.btConfirm.Text = "CONFIRM";
-            this.btConfirm.Theme = MetroFramework.MetroThemeStyle.Dark;
-            this.btConfirm.Visible = false;
-            this.btConfirm.Click += new System.EventHandler(this.btConfirm_Click);
             // 
             // StoryForm
             // 
