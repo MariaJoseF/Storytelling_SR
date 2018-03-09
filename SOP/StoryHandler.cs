@@ -200,11 +200,11 @@ namespace StoryOfPersonality
 
                     if (generateFavour == 1)
                     {
-                        pair.PersuasionCondition = Robot.RobotsPersuasion.favour;
+                        pair.PersuasionCondition = Robot.RobotsPersuasion.Favour;
                     }
                     else
                     {
-                        pair.PersuasionCondition = Robot.RobotsPersuasion.againts;
+                        pair.PersuasionCondition = Robot.RobotsPersuasion.Against;
                     }
 
                     foreach (var pair_next in preferencePair)
@@ -213,11 +213,11 @@ namespace StoryOfPersonality
                         {
                             if (genereateAgaints == 0)
                             {
-                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.againts;
+                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.Against;
                             }
                             else
                             {
-                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.favour;
+                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.Favour;
                             }
                             break;
                         }

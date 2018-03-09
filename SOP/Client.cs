@@ -101,11 +101,11 @@ namespace StoryOfPersonality
         public StoryForm storyWindow;
 
         public Thalamus.BML.SpeechLanguages Language { get; private set; }
-        public bool ActivateAudio { get => activateAudio; set => activateAudio = value; }
+        //public bool ActivateAudio { get => activateAudio; set => activateAudio = value; }
 
         private StartAdventure.OptionSide Side;
         private EventHandler endUtteranceEvent;
-        private bool activateAudio;
+       // private bool activateAudio;
 
         public Client(StartAdventure.OptionSide side, Thalamus.BML.SpeechLanguages language, string character)
             : base(character, character)
@@ -141,7 +141,12 @@ namespace StoryOfPersonality
         public void PerformUtteranceFromLibrary(string id, string category, string subcategory, string[] tagNames, string[] tagValues, EventHandler endUtteranceEvent = null)
         {
             CPublisher.PerformUtteranceFromLibrary(id, category, subcategory, tagNames, tagValues);
-           // Console.WriteLine("names: " + tagNames[0] + " values: " + tagValues[0]);
+
+
+            for (int i = 0; i < tagNames.Length; i++)
+            {
+                Console.WriteLine("names: " + tagNames[i] + " values: " + tagValues[i]);
+            }
             this.endUtteranceEvent = endUtteranceEvent;
         }
 
@@ -167,12 +172,12 @@ namespace StoryOfPersonality
             //Console.WriteLine("--------------------------------------- Dialog:");
             //    NextUtterance();
 
-            if (storyWindow.playSceneAnger == 1)
-            {
-                //storyWindow.playStoryScene(storyWindow.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
-                activateAudio = true;
-                storyWindow.playSceneAnger = 0;
-            }
+            //if (storyWindow.playSceneAnger == 1)
+            //{
+            //    //storyWindow.playStoryScene(storyWindow.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+            //    activateAudio = true;
+            //    storyWindow.playSceneAnger = 0;
+            //}
 
             //if (storyWindow.PlayedLeftButton)
             //{
