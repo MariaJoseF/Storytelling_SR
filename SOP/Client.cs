@@ -141,6 +141,7 @@ namespace StoryOfPersonality
         public void PerformUtteranceFromLibrary(string id, string category, string subcategory, string[] tagNames, string[] tagValues, EventHandler endUtteranceEvent = null)
         {
             CPublisher.PerformUtteranceFromLibrary(id, category, subcategory, tagNames, tagValues);
+           // Console.WriteLine("names: " + tagNames[0] + " values: " + tagValues[0]);
             this.endUtteranceEvent = endUtteranceEvent;
         }
 
