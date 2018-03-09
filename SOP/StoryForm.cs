@@ -168,9 +168,9 @@ namespace StoryOfPersonality
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;ConditionPersuasion;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;Animation;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;Animation;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalMeek;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality;ConditionPersuasion", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
@@ -254,8 +254,8 @@ namespace StoryOfPersonality
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
         {
 
-            Console.WriteLine("leftRobot " + leftRobot.ToString());
-            Console.WriteLine("rightRobot " + rightRobot.ToString());
+            Console.WriteLine("ChoiceIntention I rightRobot " + rightRobot.ToString());
+            Console.WriteLine("ChoiceIntention I leftRobot " + leftRobot.ToString());
 
             Console.WriteLine("robotSide " + robotSide.ToString());
 
@@ -301,10 +301,17 @@ namespace StoryOfPersonality
             {
                 SaveFinalPreference(robotSide, optionSide, 0);
             }
+
+            Console.WriteLine("ChoiceIntention F rightRobot " + rightRobot.ToString());
+            Console.WriteLine("ChoiceIntention F leftRobot " + leftRobot.ToString());
         }
 
         private void SaveFinalPreference(Robot robotSide, OptionSide optionSide, int intention)
         {
+
+            Console.WriteLine("SaveFinalPreference I rightRobot " + rightRobot.ToString());
+            Console.WriteLine("SaveFinalPreference I leftRobot " + leftRobot.ToString());
+
             string auxPreferenceSide = "";
 
             stopwatch.Stop();
@@ -399,6 +406,9 @@ namespace StoryOfPersonality
 
 
             btConfirmEnable = true;
+
+            Console.WriteLine("SaveFinalPreference F rightRobot " + rightRobot.ToString());
+            Console.WriteLine("SaveFinalPreference F leftRobot " + leftRobot.ToString());
         }
 
         private Robot AwakeRobot()
@@ -488,9 +498,9 @@ namespace StoryOfPersonality
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
 
             leftRobot.Persuasion.Animation = "-";
-            leftRobot.Persuasion.Prosody.Utterance = "-";
+            //leftRobot.Persuasion.Prosody.Utterance = "-";
             rightRobot.Persuasion.Animation = "-";
-            rightRobot.Persuasion.Prosody.Utterance = "-";
+            //rightRobot.Persuasion.Prosody.Utterance = "-";
         }
 
         public void LoadScenePersuasion(Robot robot)
@@ -1137,8 +1147,8 @@ namespace StoryOfPersonality
 
             // Console.WriteLine("Activar animação favor ou contra");
 
-            Console.WriteLine("rightRobot " + rightRobot.ToString());
-            Console.WriteLine("leftRobot " + leftRobot.ToString());
+            Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+            Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
 
             if (!rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -1149,6 +1159,9 @@ namespace StoryOfPersonality
                 LoadAnimation(rightRobot);
                 
                 CallUtterances(rightRobot, 1);
+
+                Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+                Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -1159,7 +1172,11 @@ namespace StoryOfPersonality
                 LoadAnimation(leftRobot);
                 
                 CallUtterances(leftRobot, 1);
+
+                Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+                Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
             }
+
 
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
