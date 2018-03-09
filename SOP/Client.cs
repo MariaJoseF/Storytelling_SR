@@ -127,12 +127,12 @@ namespace StoryOfPersonality
         public void StartUtteranceFromLibrary(string id, string category, string[] tags, EventHandler endUtteranceEvent = null)
         {
             string[] values = new string[tags.Length];
-            for (int i = 0; i < tags.Length; i++)
-            {
-                string value = "<animate(" + tags[i] + ")>";
-                values[i] = value;
-                Console.WriteLine(value);
-            }
+            //for (int i = 0; i < tags.Length; i++)
+            //{
+            //    string value = "<animate(" + tags[i] + ")>";
+            //    values[i] = value;
+            //    Console.WriteLine(value);
+            //}
             CPublisher.PerformUtteranceFromLibrary(id, category, "sub", tags, values);
             this.endUtteranceEvent = endUtteranceEvent;
         }
