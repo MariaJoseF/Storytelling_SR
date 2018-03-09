@@ -726,8 +726,8 @@ namespace StoryOfPersonality
                 fullUtterance = GEtUtteranceAnimationsProsodies(leftRobot, buttonoption);
                 if (!fullUtterance.Equals(""))
                 {
-                    string[] a = { };
-                    ThalamusClientLeft.StartUtteranceFromLibrary("Id", "PT:Favor", a);
+                    //ThalamusClientLeft.StartUtteranceFromLibrary("Id", "PT:Favor", a);
+                    ThalamusClientLeft.PerformUtteranceFromLibrary("Id", "PT", "Against", new string[] {}, new string[] {});
                     //ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
                     //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
                     ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
@@ -739,8 +739,10 @@ namespace StoryOfPersonality
                 fullUtterance = GEtUtteranceAnimationsProsodies(rightRobot, buttonoption);
                 if (!fullUtterance.Equals(""))
                 {
-                    string[] a = { };
-                    ThalamusClientRight.StartUtteranceFromLibrary("Id", "PT:Against", a);
+                    //ThalamusClientRight.StartUtteranceFromLibrary("Id", "PT:Against", a);
+                    //ThalamusClientRight.PerformUtteranceFromLibrary("Id", "PT", "Against", a, a);
+
+                    ThalamusClientRight.PerformUtteranceFromLibrary("Id", "PT", "Against", new string[] { }, new string[] { });
                     //ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
                     //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "leftRobot-" + this.UserId.ToString() + ".txt");
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
