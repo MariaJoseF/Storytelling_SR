@@ -2,18 +2,11 @@
 using SOP.Modules;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
-using static SOP.Modules.Prosody;
 using static SOP.Modules.Robot;
 
 namespace StoryOfPersonality
@@ -467,16 +460,24 @@ namespace StoryOfPersonality
 
         }
 
-
         private void CallNextScene()
         {
             stopwatch.Restart();
 
-            this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
+            Paragraph p = new Paragraph();
+            p.LineHeight = 5;
+            p.LineStackingStrategy = System.Windows.LineStackingStrategy.BlockLineHeight;
+            p.Inlines.Add(this.StoryHandler.GetSceneUtterance(this.Language));
+
+            p.Inlines.Add(new Run(string.Format(this.StoryHandler.GetSceneUtterance(this.Language))));
+            this.sceneBox.Text = p.ToString();
+
+
+
+            //this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
             this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
-
 
             if (StoryHandler.isEnding())
             {
@@ -1020,8 +1021,6 @@ namespace StoryOfPersonality
             //Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
 
             ActivateRobot();
-
-
         }
 
         private void ActivateRobot()
@@ -1070,6 +1069,11 @@ namespace StoryOfPersonality
                     }
 
                     this.leftButton.Enabled = this.rightButton.Enabled = true;
+
+                    this.labelLeftButton.Text = StoryHandler.GetLeftUtterance(Language);
+                    this.labelRightButton.Text = StoryHandler.GetRightUtterance(Language);
+                    this.labelLeftButton.Visible = this.labelRightButton.Visible = true;
+                    this.rightButton.Visible = this.leftButton.Visible = true;                   
                 }
                 else
                 {
@@ -1081,8 +1085,8 @@ namespace StoryOfPersonality
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
                     sceneBox.Visible = false;
-                    rightButton.Visible = false;
-                    leftButton.Visible = false;
+                    this.rightButton.Visible = this.leftButton.Visible = false;
+                    this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
                     lblResearcher.Visible = true;
                     //  lblResearcher.Enabled = true;
                 }
@@ -1094,6 +1098,8 @@ namespace StoryOfPersonality
             btConfirmEnable = true;
             this.btConfirm.Visible = false;
             this.btConfirm.Enabled = false;
+            this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
+            this.rightButton.Visible = this.leftButton.Visible = false;
 
             Console.WriteLine("Confirmar se preferência final foi selecionada senão então é igual há intenção");
 

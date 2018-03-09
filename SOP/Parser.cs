@@ -29,6 +29,7 @@ namespace Parser
             return scenes;
         }
     }
+
     class DecisionPoints
     {
         public int Id;
@@ -44,6 +45,7 @@ namespace Parser
         public int NextSt2;
         public String Tag1;
         public String Tag2;
+
         public static DecisionPoints FromCSV(string csvLine)
         {
             string[] values = csvLine.Split(';');
@@ -59,10 +61,29 @@ namespace Parser
             decisionPoints.Textp2En = Convert.ToString(values[8]);
             decisionPoints.NextSt1 = Convert.ToInt32(values[11]);
             decisionPoints.NextSt2 = Convert.ToInt32(values[12]);
-            decisionPoints.Tag1 = Convert.ToString(values[16]);
-            decisionPoints.Tag2 = Convert.ToString(values[17]);
             Console.WriteLine(values.ToString());
             return decisionPoints;
+        }
+    }
+
+    class Phrases
+    {
+        public int Id;
+        public String Favor;
+        public String Against;
+        public String FavorEN;
+        public String AgainstEN;
+
+        public static Phrases FromCSV(string csvLine)
+        {
+            string[] values = csvLine.Split(';');
+            Phrases phrases = new Phrases();
+            phrases.Id = Convert.ToInt32(values[0]);
+            phrases.Favor = Convert.ToString(values[1]);
+            phrases.Against = Convert.ToString(values[2]);
+            phrases.FavorEN = Convert.ToString(values[3]);
+            phrases.AgainstEN = Convert.ToString(values[3]);
+            return phrases;
         }
     }
 }

@@ -28,7 +28,6 @@ namespace StoryOfPersonality
 
         public StoryForm storyWindow;
 
-
         public string UTTERANCE_DP_FILE;
         public string UTTERANCE_SCENES_FILE;
         public string UTTERANCE_PHRASES_FILE;
@@ -52,12 +51,13 @@ namespace StoryOfPersonality
         {
             this.UserId = UserId;
 
-            UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\dps.xlsx";
-            UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\scenes.xlsx";
-            UTTERANCE_PHRASES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\phrasesFavorAgainst.xlsx";
+            //UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\dps.xlsx";
+            //UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\scenes.xlsx";
+            //UTTERANCE_PHRASES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\phrasesFavorAgainst.xlsx";
 
-            //UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_dp.csv";
-            //UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_scenes.csv";
+            UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_dp.csv";
+            UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_scenes.csv";
+            UTTERANCE_PHRASES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\phrasesFavorAgainst.csv";
 
             //Directory.CreateDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/");
             //From the original excel file the two tabs should be imported in Unicode csv in the name mentioned
