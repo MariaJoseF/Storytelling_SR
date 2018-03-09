@@ -727,7 +727,7 @@ namespace StoryOfPersonality
                 if (!fullUtterance.Equals(""))
                 {
                     string[] a = { };
-                    ThalamusClientLeft.StartUtteranceFromLibrary("Id", "Favor", a);
+                    ThalamusClientLeft.StartUtteranceFromLibrary("Id", "PT:Favor", a);
                     //ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
                     //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
                     ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
@@ -740,7 +740,7 @@ namespace StoryOfPersonality
                 if (!fullUtterance.Equals(""))
                 {
                     string[] a = { };
-                    ThalamusClientRight.StartUtteranceFromLibrary("Id", "Against", a);
+                    ThalamusClientRight.StartUtteranceFromLibrary("Id", "PT:Against", a);
                     //ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
                     //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "leftRobot-" + this.UserId.ToString() + ".txt");
                     ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
