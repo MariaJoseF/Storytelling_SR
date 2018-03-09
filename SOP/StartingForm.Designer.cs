@@ -44,7 +44,7 @@
             this.metroButton1.Location = new System.Drawing.Point(1786, 1310);
             this.metroButton1.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(392, 188);
+            this.metroButton1.Size = new System.Drawing.Size(196, 94);
             this.metroButton1.TabIndex = 13;
             this.metroButton1.Text = "CLOSE";
             this.metroButton1.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -56,7 +56,7 @@
             this.metroButton2.Location = new System.Drawing.Point(228, 846);
             this.metroButton2.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(392, 188);
+            this.metroButton2.Size = new System.Drawing.Size(196, 94);
             this.metroButton2.TabIndex = 14;
             this.metroButton2.Text = "PRE QUESTIONS";
             this.metroButton2.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -68,7 +68,7 @@
             this.metroButton3.Location = new System.Drawing.Point(1496, 846);
             this.metroButton3.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.metroButton3.Name = "metroButton3";
-            this.metroButton3.Size = new System.Drawing.Size(392, 188);
+            this.metroButton3.Size = new System.Drawing.Size(196, 94);
             this.metroButton3.TabIndex = 15;
             this.metroButton3.Text = "POST QUESTIONS";
             this.metroButton3.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -80,7 +80,7 @@
             this.metroButton4.Location = new System.Drawing.Point(870, 846);
             this.metroButton4.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
             this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(392, 188);
+            this.metroButton4.Size = new System.Drawing.Size(196, 94);
             this.metroButton4.TabIndex = 16;
             this.metroButton4.Text = "STORY";
             this.metroButton4.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -92,8 +92,8 @@
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.FontSize = MetroFramework.MetroLabelSize.Tall;
             this.metroLabel1.FontWeight = MetroFramework.MetroLabelWeight.Regular;
-            this.metroLabel1.Location = new System.Drawing.Point(826, 476);
-            this.metroLabel1.Margin = new System.Windows.Forms.Padding(734, 738, 1834, 0);
+            this.metroLabel1.Location = new System.Drawing.Point(413, 238);
+            this.metroLabel1.Margin = new System.Windows.Forms.Padding(367, 369, 917, 0);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(119, 25);
             this.metroLabel1.TabIndex = 25;
@@ -106,7 +106,7 @@
             this.metroTextBox1.Location = new System.Drawing.Point(528, 644);
             this.metroTextBox1.Margin = new System.Windows.Forms.Padding(734, 0, 0, 0);
             this.metroTextBox1.Name = "metroTextBox1";
-            this.metroTextBox1.Size = new System.Drawing.Size(1090, 122);
+            this.metroTextBox1.Size = new System.Drawing.Size(545, 61);
             this.metroTextBox1.TabIndex = 26;
             this.metroTextBox1.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.metroTextBox1.TextChanged += new System.EventHandler(this.metroTextBox1_TextChanged);
@@ -115,10 +115,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(1636, 690);
-            this.label1.Margin = new System.Windows.Forms.Padding(12, 0, 12, 0);
+            this.label1.Location = new System.Drawing.Point(818, 345);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 44);
+            this.label1.Size = new System.Drawing.Size(17, 24);
             this.label1.TabIndex = 27;
             this.label1.Text = "*";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -128,8 +128,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(520, 576);
-            this.label2.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.label2.Location = new System.Drawing.Point(260, 288);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(407, 44);
             this.label2.TabIndex = 28;
@@ -137,10 +137,10 @@
             // 
             // StartingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(192F, 192F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(2262, 1584);
+            this.ClientSize = new System.Drawing.Size(1131, 792);
             this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -155,7 +155,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StartingForm";
-            this.Padding = new System.Windows.Forms.Padding(74, 222, 74, 74);
+            this.Padding = new System.Windows.Forms.Padding(37, 111, 37, 37);
             this.Resizable = false;
             this.Text = "Storytelling with Robots";
             this.Theme = MetroFramework.MetroThemeStyle.Dark;

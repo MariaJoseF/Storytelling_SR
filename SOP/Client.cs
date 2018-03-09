@@ -127,15 +127,24 @@ namespace StoryOfPersonality
         public void StartUtteranceFromLibrary(string id, string category, string[] tags, EventHandler endUtteranceEvent = null)
         {
             string[] values = new string[tags.Length];
-            for (int i = 0; i < tags.Length; i++)
-            {
-                string value = "<animate(" + tags[i] + ")>";
-                values[i] = value;
-                Console.WriteLine(value);
-            }
+            //for (int i = 0; i < tags.Length; i++)
+            //{
+            //    string value = "<animate(" + tags[i] + ")>";
+            //    values[i] = value;
+            //    Console.WriteLine(value);
+            //}
             CPublisher.PerformUtteranceFromLibrary(id, category, "sub", tags, values);
             this.endUtteranceEvent = endUtteranceEvent;
         }
+
+
+        public void PerformUtteranceFromLibrary(string id, string category, string subcategory, string[] tagNames, string[] tagValues, EventHandler endUtteranceEvent = null)
+        {
+            CPublisher.PerformUtteranceFromLibrary(id, category, subcategory, tagNames, tagValues);
+           // Console.WriteLine("names: " + tagNames[0] + " values: " + tagValues[0]);
+            this.endUtteranceEvent = endUtteranceEvent;
+        }
+
         public void StartUtterance(string id, string utteranceText, EventHandler endUtteranceEvent = null)
         {
             Console.WriteLine("UTTERANCE: " + utteranceText);

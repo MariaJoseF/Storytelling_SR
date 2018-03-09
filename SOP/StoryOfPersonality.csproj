@@ -155,7 +155,6 @@
     <None Include="Utterances\dps.xlsx" />
     <None Include="Utterances\phrasesFavorAgainst.csv" />
     <None Include="Utterances\phrasesFavorAgainst.xlsx" />
-    <None Include="Utterances\scenes.xlsx" />
     <None Include="Utterances\utterances_dp.csv" />
     <None Include="Utterances\utterances_scenes.csv" />
   </ItemGroup>
