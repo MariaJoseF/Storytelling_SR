@@ -236,7 +236,7 @@ namespace StoryOfPersonality
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.PictureBox backImage;
         private MetroTextBox lblResearcher;
-        private MetroButton btConfirm;
+        public MetroButton btConfirm;
         private System.Windows.Forms.Label labelLeftButton;
         private System.Windows.Forms.Label labelRightButton;
     }

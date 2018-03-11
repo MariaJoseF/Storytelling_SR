@@ -1,5 +1,4 @@
-﻿
-using Parser;
+﻿using Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +27,9 @@ namespace StoryOfPersonality
 
         public StoryForm storyWindow;
 
+
         public string UTTERANCE_DP_FILE;
         public string UTTERANCE_SCENES_FILE;
-        public string UTTERANCE_PHRASES_FILE;
         // public const string OUTPUT_FILE = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/choices-";
         public int UserId;
         private Stopwatch stopwatch = new Stopwatch();
@@ -51,13 +50,8 @@ namespace StoryOfPersonality
         {
             this.UserId = UserId;
 
-            //UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\dps.xlsx";
-            //UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\scenes.xlsx";
-            //UTTERANCE_PHRASES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\phrasesFavorAgainst.xlsx";
-
             UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_dp.csv";
             UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_scenes.csv";
-            UTTERANCE_PHRASES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\phrasesFavorAgainst.csv";
 
             //Directory.CreateDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/");
             //From the original excel file the two tabs should be imported in Unicode csv in the name mentioned
@@ -69,6 +63,7 @@ namespace StoryOfPersonality
             currentStoryNodeId = 0; // initial scene ID since we skip the first line (id -1)
 
             this.clientThalamus = thalamusClient;
+
         }
 
         internal void NextScene(StoryForm.OptionSide side, SelectionDP selectOption)
@@ -127,17 +122,19 @@ namespace StoryOfPersonality
             int prefTF = 0;
             int prefDG = 0;
 
-            prefEI = CountPreference("EI", "IE",prefEI);//fazer para IE também quando está dentro
-            prefJP = CountPreference("JP", "PJ",prefJP);
-            prefSN = CountPreference("SN", "NS",prefSN);
-            prefTF = CountPreference("TF", "FT",prefTF);
-            prefDG = CountPreference("-", "-",prefDG);
+            prefEI = CountPreference("EI", "IE", prefEI);//fazer para IE também quando está dentro
+            prefJP = CountPreference("JP", "PJ", prefJP);
+            prefSN = CountPreference("SN", "NS", prefSN);
+            prefTF = CountPreference("TF", "FT", prefTF);
+            prefDG = CountPreference("-", "-", prefDG);
+
 
             LoadPreferencesPairs(preferenceEI, prefEI);
             LoadPreferencesPairs(preferenceJP, prefJP);
             LoadPreferencesPairs(preferenceSN, prefSN);
             LoadPreferencesPairs(preferenceTF, prefTF);
             LoadPreferencesPairs(preferenceDG, prefDG);
+
         }
 
         private void LoadPreferencesPairs(List<Robot> preferencePair, int preftotal)
@@ -150,7 +147,7 @@ namespace StoryOfPersonality
 
             Robot rDominant; Robot rMeek;
 
-            for (int i = 0; i < preftotal; i+=2)
+            for (int i = 0; i < preftotal; i += 2)
             {
                 generateDom = GetRandom();
                 generateMeek = 1 - generateDom;
@@ -181,7 +178,7 @@ namespace StoryOfPersonality
                 {
                     break;
                 }
-               
+
                 if (preferencePair.Count < preftotal)
                 {
                     preferencePair.Add(rMeek);
@@ -225,7 +222,7 @@ namespace StoryOfPersonality
                         }
                     }
                 }
-            } 
+            }
         }
 
         private int CountPreference(string pref1, string pref2, int preftotal)
@@ -244,7 +241,7 @@ namespace StoryOfPersonality
         private int GetRandom()
         {
             Random random = new Random();
-            int  n = random.Next(0, 2);
+            int n = random.Next(0, 2);
             return n;
 
         }

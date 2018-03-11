@@ -22,6 +22,10 @@ namespace SOP.Modules
         private string prefSelectedIntention;
         private string prefSelectedFinal;
 
+        private int timesPhrases = 0;
+        private List<string> idPhrasesUsed = new List<string>();
+        private List<string> phraseUsed = new List<string>();
+
         private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
         private bool enable;
@@ -135,7 +139,6 @@ namespace SOP.Modules
             this.prefSelectedIntention = "-";
             this.prefSelectedFinal = "-";
             this.pitch = "";
-
         }
 
         public RobotsPersonality Personality { get => personality; set => personality = value; }
@@ -153,6 +156,10 @@ namespace SOP.Modules
         public bool Enable { get => enable; set => enable = value; }
         public RobotSide Side { get => side; set => side = value; }
         public string PrefSelectedFinal { get => prefSelectedFinal; set => prefSelectedFinal = value; }
+
+        public int TimesPhrases { get => timesPhrases; set => timesPhrases = value; }
+        public List<string> PhraseUsed { get => phraseUsed; set => phraseUsed = value; }
+        public List<string> IdPhrasesUsed { get => idPhrasesUsed; set => idPhrasesUsed = value; }
 
         public enum RobotsPersonality
         {
@@ -186,7 +193,6 @@ namespace SOP.Modules
             pride = 6,
             satisfaction = 7
         }
-
 
         public override string ToString()
         {

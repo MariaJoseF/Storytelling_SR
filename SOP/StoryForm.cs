@@ -39,7 +39,7 @@ namespace StoryOfPersonality
         public int[] listenRobotAgain = new int[2];
         // 0 = the dominant robot persuade according to participant personality, 1 = different of participant personality, 2 = no persuasion at all.
         public int playSceneAnger = 0;
-        private bool btConfirmEnable = true;
+        public bool btConfirmEnable = true;
         private List<Robot> PreferenceEI = new List<Robot>();
         private List<Robot> PreferenceTF = new List<Robot>();
         private List<Robot> PreferenceJP = new List<Robot>();
@@ -315,10 +315,6 @@ namespace StoryOfPersonality
                 }
             }
 
-            this.btConfirm.Visible = true;
-            this.btConfirm.Enabled = false;
-            this.leftButton.Enabled = this.rightButton.Enabled = false;
-
             // PERSONALITY
             personality.BuildPersonality(auxPreferenceSide);//selecionou botão esquerda manda a preferência dessa opção
             txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), auxPreferenceSide, robotSide.Personality.ToString(), robotSide.PersuasionCondition.ToString());
@@ -382,6 +378,7 @@ namespace StoryOfPersonality
 
             btConfirmEnable = true;
             btConfirm.Enabled = true;
+            this.leftButton.Enabled = this.rightButton.Enabled = false;
             //CallNextScene();
         }
 
@@ -450,13 +447,13 @@ namespace StoryOfPersonality
             {
                 return new Robot();
             }
-
         }
 
         private void CallNextScene()
         {
             stopwatch.Restart();
 
+            /*
             Paragraph p = new Paragraph();
             p.LineHeight = 5;
             p.LineStackingStrategy = System.Windows.LineStackingStrategy.BlockLineHeight;
@@ -464,10 +461,9 @@ namespace StoryOfPersonality
 
             p.Inlines.Add(new Run(string.Format(this.StoryHandler.GetSceneUtterance(this.Language))));
             this.sceneBox.Text = p.ToString();
+            */
 
-
-
-            //this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
+            this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
             this.leftButton.Enabled = this.rightButton.Enabled = this.PlayedLeftButton = this.PlayedRightButton = false;
@@ -731,6 +727,8 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
                 ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
                 //}
+                Console.WriteLine("StoryForm LEFT UtterancePhrase ID: " + ThalamusClientLeft.idUtterancePhrase + " - " + ThalamusClientLeft.utterancePhrase);
+                //Console.WriteLine("LeftRobot UtterancePhrase ID: " + LeftRobot.IdPhrasesUsed[0] + " - " + LeftRobot.PhraseUsed[0] + " - " + LeftRobot.TimesPhrases);
             }
             else
             {
@@ -746,8 +744,9 @@ namespace StoryOfPersonality
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
                 //}
+                Console.WriteLine("StoryForm RIGHT UtterancePhrase ID: " + ThalamusClientRight.idUtterancePhrase + " - " + ThalamusClientRight.utterancePhrase);
+                //Console.WriteLine("RightRobot UtterancePhrase ID: " + RightRobot.IdPhrasesUsed[0] + " - " + RightRobot.PhraseUsed[0] + " - " + RightRobot.TimesPhrases);
             }
-
         }
 
         //internal void PlayRight_Robot()

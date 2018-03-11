@@ -10,9 +10,9 @@ using System.IO;
 
 namespace StoryOfPersonality
 {
-    public interface IClient : Thalamus.BML.ISpeakEvents { }
+    public interface IClient : Thalamus.BML.ISpeakEvents, EmoteCommonMessages.ILearnerModelUtteranceHistoryAction { }
 
-    public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions, Thalamus.BML.IPostureActions
+    public interface IClientPublisher : IThalamusPublisher, IFMLSpeech, Thalamus.BML.ISpeakActions, Thalamus.BML.ISpeakControlActions, Thalamus.ILibraryActions, Thalamus.BML.IPostureActions, EmoteCommonMessages.ILearnerModelUtteranceHistoryAction
     {
     }
 
@@ -32,6 +32,12 @@ namespace StoryOfPersonality
             public void ClientMessage(string msg)
             {
                 publisher.ClientMessage(msg);
+            }
+
+            public void UtteranceUsed(string id, string Utterance_utterance)
+            {
+                publisher.UtteranceUsed(id, Utterance_utterance);
+                //Console.WriteLine("ID Utterance: " + id + " - " + Utterance_utterance);
             }
 
             #region Ispeak
@@ -107,9 +113,11 @@ namespace StoryOfPersonality
         private EventHandler endUtteranceEvent;
         private bool activateAudio;
 
+        public int idUtterancePhrase = 0;
+        public string utterancePhrase = "";
+
         public Client(StartAdventure.OptionSide side, Thalamus.BML.SpeechLanguages language, string character)
             : base(character, character)
-
         {
             SetPublisher<IClientPublisher>();
             CPublisher = new ClientPublisher(Publisher);
@@ -137,7 +145,6 @@ namespace StoryOfPersonality
             this.endUtteranceEvent = endUtteranceEvent;
         }
 
-
         public void PerformUtteranceFromLibrary(string id, string category, string subcategory, string[] tagNames, string[] tagValues, EventHandler endUtteranceEvent = null)
         {
             CPublisher.PerformUtteranceFromLibrary(id, category, subcategory, tagNames, tagValues);
@@ -147,7 +154,7 @@ namespace StoryOfPersonality
 
         public void StartUtterance(string id, string utteranceText, EventHandler endUtteranceEvent = null)
         {
-            Console.WriteLine("UTTERANCE: " + utteranceText);
+            Console.WriteLine("UTTERANCE: " + utteranceText + "ID:" + id);
             CPublisher.PerformUtterance(id, utteranceText, "");
 
             this.endUtteranceEvent = endUtteranceEvent;
@@ -163,6 +170,20 @@ namespace StoryOfPersonality
         public void SpeakFinished(string id)
         {
             Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
+            if (storyWindow.LeftRobot.Enable)
+            {
+                Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed[0] + " - " + storyWindow.LeftRobot.PhraseUsed[0] + " - " + storyWindow.LeftRobot.TimesPhrases);
+            }
+            else
+            {
+                Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed[0] + " - " + storyWindow.RightRobot.PhraseUsed[0] + " - " + storyWindow.RightRobot.TimesPhrases);
+            }
+            /* 
+             storyWindow.Invoke((Action)(() =>
+                 {//this refer to form in WPF application 
+                     storyWindow.btConfirm.Enabled = true;
+                 }));
+                 */
             //Console.WriteLine("--------------------------------------- CurrentUtterance:" + currentUtterance);
             //Console.WriteLine("--------------------------------------- Dialog:");
             //    NextUtterance();
@@ -206,7 +227,6 @@ namespace StoryOfPersonality
         }
         #endregion
 
-
         public void WriteJSON(string timestamp, string info, string aux_path, string name_file)
         {
 
@@ -232,9 +252,26 @@ namespace StoryOfPersonality
             {
                 file.WriteLine(timestamp + " " + info);
             }
-
         }
 
+        public void UtteranceUsed(string id, string Utterance_utterance)
+        {
+            Console.WriteLine("ID Utterance: " + id + " - " + Utterance_utterance);
+            idUtterancePhrase = Convert.ToInt32(id);
+            string[] values = Utterance_utterance.Split(',');
+            utterancePhrase = values[2];
 
+            if (storyWindow.LeftRobot.Enable)
+            {
+                storyWindow.LeftRobot.IdPhrasesUsed.Add(id);
+                storyWindow.LeftRobot.PhraseUsed.Add(utterancePhrase);
+                storyWindow.LeftRobot.TimesPhrases++;
+            } else
+            {
+                storyWindow.RightRobot.IdPhrasesUsed.Add(id);
+                storyWindow.RightRobot.PhraseUsed.Add(utterancePhrase);
+                storyWindow.RightRobot.TimesPhrases++;
+            }
+        }
     }
 }

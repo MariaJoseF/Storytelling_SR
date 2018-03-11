@@ -43,8 +43,6 @@ namespace Parser
         public String Textp2En;
         public int NextSt1;
         public int NextSt2;
-        public String Tag1;
-        public String Tag2;
 
         public static DecisionPoints FromCSV(string csvLine)
         {
