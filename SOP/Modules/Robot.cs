@@ -171,8 +171,8 @@ namespace SOP.Modules
         public enum RobotsPersuasion
         {
             none = -1,
-            favour = 0,
-            againts = 1
+            Favour = 0,
+            Against = 1
         }
 
         public enum RobotSide

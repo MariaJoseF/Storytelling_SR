@@ -158,9 +158,9 @@ namespace StoryOfPersonality
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;ConditionPersuasion;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;Animation;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;Animation;ProsodyLvl;ProsodyIntensity;ProsodyRate;ProsodyVolume;ProsodyUtterance; ProsodyLanguage;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance; RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Utterance;RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalMeek;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality;ConditionPersuasion", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
@@ -243,6 +243,12 @@ namespace StoryOfPersonality
 
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
         {
+
+            Console.WriteLine("ChoiceIntention I rightRobot " + rightRobot.ToString());
+            Console.WriteLine("ChoiceIntention I leftRobot " + leftRobot.ToString());
+
+            Console.WriteLine("robotSide " + robotSide.ToString());
+
             if (btConfirmEnable)
             {
                 btConfirmEnable = false;
@@ -277,19 +283,27 @@ namespace StoryOfPersonality
 
                 Console.WriteLine("Activar gaze a favor");
 
+                CallUtterances(robotSide, 3);
+
+                btConfirm.Enabled = true;
             }
             else
             {
                 SaveFinalPreference(robotSide, optionSide, 0);
             }
+
+            Console.WriteLine("ChoiceIntention F rightRobot " + rightRobot.ToString());
+            Console.WriteLine("ChoiceIntention F leftRobot " + leftRobot.ToString());
         }
 
         private void SaveFinalPreference(Robot robotSide, OptionSide optionSide, int intention)
         {
+
+            Console.WriteLine("SaveFinalPreference I rightRobot " + rightRobot.ToString());
+            Console.WriteLine("SaveFinalPreference I leftRobot " + leftRobot.ToString());
+
             string auxPreferenceSide = "";
-            Console.WriteLine("gravar qual a opção que ele escolheu como final");
-            Console.WriteLine("gravar quantas vez este robô mudou a opção a favor");
-            Console.WriteLine("gravar quantas vez este robô mudou a opção a contra");
+
             stopwatch.Stop();
             DisableButtons();
 
@@ -302,6 +316,7 @@ namespace StoryOfPersonality
             if (intention == 1)
             {
                 auxPreferenceSide = robotSide.PrefSelectedIntention;
+
             }
             else
             {
@@ -314,6 +329,10 @@ namespace StoryOfPersonality
                     auxPreferenceSide = StoryHandler.GetRightPref();
                 }
             }
+            
+            this.btConfirm.Visible = true;
+            this.btConfirm.Enabled = true;
+            this.leftButton.Enabled = this.rightButton.Enabled = false;
 
             // PERSONALITY
             personality.BuildPersonality(auxPreferenceSide);//selecionou botão esquerda manda a preferência dessa opção
@@ -377,22 +396,22 @@ namespace StoryOfPersonality
 
 
             btConfirmEnable = true;
-            btConfirm.Enabled = true;
-            this.leftButton.Enabled = this.rightButton.Enabled = false;
-            //CallNextScene();
+
+            Console.WriteLine("SaveFinalPreference F rightRobot " + rightRobot.ToString());
+            Console.WriteLine("SaveFinalPreference F leftRobot " + leftRobot.ToString());
         }
 
         private Robot AwakeRobot()
         {
             Robot per_per = new Robot();
             string preferenceSelected = StoryHandler.GetPrefDP();
+            Console.WriteLine("AwakeRobot preferenceSelected " + preferenceSelected);
 
             switch (preferenceSelected)
             {
                 case "ei":
                 case "ie":
                     per_per = PreferenceEI.First();
-                    //per_per = PreferenceEI.Find(x => x.Personality.Equals(robotSide.Personality));
                     break;
                 case "tf":
                 case "ft":
@@ -476,9 +495,9 @@ namespace StoryOfPersonality
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
 
             leftRobot.Persuasion.Animation = "-";
-            leftRobot.Persuasion.Prosody.Utterance = "-";
+            //leftRobot.Persuasion.Prosody.Utterance = "-";
             rightRobot.Persuasion.Animation = "-";
-            rightRobot.Persuasion.Prosody.Utterance = "-";
+            //rightRobot.Persuasion.Prosody.Utterance = "-";
         }
 
         public void LoadScenePersuasion(Robot robot)
@@ -537,7 +556,7 @@ namespace StoryOfPersonality
         private void LoadAnimation(Robot robot)
         {
 
-            if (robot.PersuasionCondition.Equals(RobotsPersuasion.againts)) // robot persuasion condition is against the user personality
+            if (robot.PersuasionCondition.Equals(RobotsPersuasion.Against)) // robot persuasion condition is against the user personality
             {
                 switch (robot.ConsecutivePlays)
                 {
@@ -558,7 +577,7 @@ namespace StoryOfPersonality
                         break;
                 }
             }
-            else if (robot.PersuasionCondition.Equals(RobotsPersuasion.favour))// robot persuasion condition is in favour of the user personality
+            else if (robot.PersuasionCondition.Equals(RobotsPersuasion.Favour))// robot persuasion condition is in favour of the user personality
             {
                 switch (robot.ConsecutivePlays)
                 {
@@ -633,27 +652,14 @@ namespace StoryOfPersonality
             {
                 _persuasion.Times = GetTimesRobotFeature();
 
-
-
-
-
-
-
-                //ver melhor como é que vou fazer para ter os dois rob^^os a fazerem as percentagens correctas para cada um
-
-
-
-
-
-
-                //if (rightRobot.Personality.Equals(Robot.RobotsPersonality.meek))
-                //{
-                //    rightRobot.Persuasion.Times = (1 - leftRobot.Persuasion.Times);
-                //}
-                //else
-                //{
-                //    leftRobot.Persuasion.Times = (1 - rightRobot.Persuasion.Times);
-                //}
+                if (rightRobot.Personality.Equals(Robot.RobotsPersonality.meek))
+                {
+                    rightRobot.Persuasion.Times = (1 - leftRobot.Persuasion.Times);
+                }
+                else
+                {
+                    leftRobot.Persuasion.Times = (1 - rightRobot.Persuasion.Times);
+                }
             }
         }
 
@@ -712,40 +718,103 @@ namespace StoryOfPersonality
 
         private void CallUtterances(Robot robotSide, int buttonoption)
         {
-            string fullUtterance = "";
-            // string[] tags = StoryHandler.GetLeftTag().Split(',');
-
-            if (robotSide.Side.Equals(RobotSide.left))
+            string language = "";
+            if (robotSide.Persuasion.Prosody.Language.Equals(RobotsLanguage.EN))
             {
-                //fullUtterance = GEtUtteranceAnimationsProsodies(leftRobot, buttonoption);
-                //if (!fullUtterance.Equals(""))
-                //{
-                //ThalamusClientLeft.StartUtteranceFromLibrary("Id", "PT:Favor", a);
-                ThalamusClientLeft.PerformUtteranceFromLibrary("Against_" + Guid.NewGuid().ToString(), "PT", "Against", new string[] { }, new string[] { });
-                //ThalamusClientLeft.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
-                //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-                ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-                ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-                //}
-                Console.WriteLine("StoryForm LEFT UtterancePhrase ID: " + ThalamusClientLeft.idUtterancePhrase + " - " + ThalamusClientLeft.utterancePhrase);
-                //Console.WriteLine("LeftRobot UtterancePhrase ID: " + LeftRobot.IdPhrasesUsed[0] + " - " + LeftRobot.PhraseUsed[0] + " - " + LeftRobot.TimesPhrases);
+                language = "EN";
             }
             else
             {
-                //fullUtterance = GEtUtteranceAnimationsProsodies(rightRobot, buttonoption);
-                //if (!fullUtterance.Equals(""))
-                //{
-                //ThalamusClientRight.StartUtteranceFromLibrary("Id", "PT:Against", a);
-                //ThalamusClientRight.PerformUtteranceFromLibrary("Id", "PT", "Against", a, a);
+                language = "PT";
+            }
 
-                ThalamusClientRight.PerformUtteranceFromLibrary("Against_" + Guid.NewGuid().ToString(), "PT", "Against", new string[] { }, new string[] { });
-                //ThalamusClientRight.StartUtterance(StoryHandler.GetDecisionUtteranceId(), fullUtterance);
-                //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), tags[0] + ";" + fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "leftRobot-" + this.UserId.ToString() + ".txt");
-                ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-                ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-                //}
-                Console.WriteLine("StoryForm RIGHT UtterancePhrase ID: " + ThalamusClientRight.idUtterancePhrase + " - " + ThalamusClientRight.utterancePhrase);
-                //Console.WriteLine("RightRobot UtterancePhrase ID: " + RightRobot.IdPhrasesUsed[0] + " - " + RightRobot.PhraseUsed[0] + " - " + RightRobot.TimesPhrases);
+            if (buttonoption == 1)//make animation anger or joys
+            {
+                if (robotSide.Side.Equals(RobotSide.left))
+                {
+                    ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation});
+                    //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                    //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+                }
+                else
+                {
+
+                    ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation});
+
+                    //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+                    //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+
+                }
+            }
+            else if(buttonoption == 2)// make utterance in favour or against
+            {
+                string persuasion_condition = "";
+                if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Favour))
+                {
+                    persuasion_condition = "FAVOUR";
+                }
+                else
+                {
+                    persuasion_condition = "AGAINST";
+                }
+
+                if (robotSide.Side.Equals(RobotSide.left))
+                {
+                    ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, });
+                    //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                    //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+                }
+                else
+                {
+
+                    ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, });
+
+                    //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+                    //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+
+                }
+            }
+            else if(buttonoption == 3)//gaze at button confirms
+            {
+                string animation_person = GetGaze(robotSide);
+                string[] aux = animation_person.Split('-');
+
+                if (robotSide.Side.Equals(RobotSide.left))
+                {
+                    switch (aux[0])
+                    {
+                        case "Gaze_PB":
+                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            break;
+                        case "Gaze_PBP":
+                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            break;
+                        case "Gaze_PBPB":
+                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            break;
+                    }
+                    
+                    //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                    //ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+                }
+                else
+                {
+                    switch (aux[0])
+                    {
+                        case "Gaze_PB":
+                            ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            break;
+                        case "Gaze_PBP":
+                            ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            break;
+                        case "Gaze_PBPB":
+                            ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), "PT", "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            break;
+                    }
+
+                    //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+                    //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), fullUtterance + ";" + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+                }
             }
         }
 
@@ -847,34 +916,34 @@ namespace StoryOfPersonality
             return side;
         }
 
-        private string GEtUtteranceAnimationsProsodies(Robot robotSide, int buttonOption)
-        {
-            string aux_prosody = "";
-            string animation_prosody = "";
+        //private string GEtUtteranceAnimationsProsodies(Robot robotSide, int buttonOption)
+        //{
+        //    string aux_prosody = "";
+        //    string animation_prosody = "";
 
-            if (buttonOption == 1 && !robotSide.Persuasion.Animation.Equals(""))//robot makes joy or anger animation
-            {
-                animation_prosody = "<Gaze(person3)><break time=\"1s\"/><ANIMATE(" + robotSide.Persuasion.Animation + ")>";
-            }
-            else if (buttonOption == 2 && !robotSide.Persuasion.Prosody.Utterance.Equals(""))//robot says utterance in favour or againts the person choice
-            {
+        //    if (buttonOption == 1 && !robotSide.Persuasion.Animation.Equals(""))//robot makes joy or anger animation
+        //    {
+        //        animation_prosody = "<Gaze(person3)><break time=\"1s\"/><ANIMATE(" + robotSide.Persuasion.Animation + ")>";
+        //    }
+        //    else if (buttonOption == 2 && !robotSide.Persuasion.Prosody.Utterance.Equals(""))//robot says utterance in favour or againts the person choice
+        //    {
 
-                animation_prosody = "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume + "'>" + robotSide.Persuasion.Prosody.Utterance + "</prosody></prosody>";
-            }
-            else if (buttonOption == 3 && !GetGaze(robotSide, robotSide.Side).Equals(""))//robot makes gaze at the button when user choice is the same as what he would choose
-            {
-                //No prosody just Gaze
-                animation_prosody = GetGaze(robotSide, robotSide.Side); ;
-            }
+        //        animation_prosody = "<prosody rate='" + robotSide.Persuasion.Prosody.Rate + "'><prosody volume='" + robotSide.Persuasion.Prosody.Volume + "'>" + robotSide.Persuasion.Prosody.Utterance + "</prosody></prosody>";
+        //    }
+        //    else if (buttonOption == 3 && !GetGaze(robotSide, robotSide.Side).Equals(""))//robot makes gaze at the button when user choice is the same as what he would choose
+        //    {
+        //        //No prosody just Gaze
+        //        animation_prosody = GetGaze(robotSide, robotSide.Side); ;
+        //    }
 
-            aux_prosody = animation_prosody;
+        //    aux_prosody = animation_prosody;
 
-            if (!aux_prosody.Equals(""))
-            {
-                animation_prosody = "<prosody pitch='" + robotSide.Pitch + "'>" + aux_prosody + "</prosody>";
-            }
-            return animation_prosody;
-        }
+        //    if (!aux_prosody.Equals(""))
+        //    {
+        //        animation_prosody = "<prosody pitch='" + robotSide.Pitch + "'>" + aux_prosody + "</prosody>";
+        //    }
+        //    return animation_prosody;
+        //}
 
         //private void LoadPersuasionLvl2(Robot robot)
         //{
@@ -897,42 +966,22 @@ namespace StoryOfPersonality
         //    }
         //}
 
-        private string GetGaze(Robot robotSide, RobotSide side)
+        private string GetGaze(Robot robotSide)
         {
             string animation_prosody = "";
             string animation_person = GetPersonOrRandomGaze(robotSide);
-
             switch (robotSide.Persuasion.Gaze.Count(x => x == '-'))
             {
                 case 1://gaze = "Person-Button"
-                    if (side.Equals(OptionSide.right))
-                    {
-                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
-                    }
-                    else
-                    {
-                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
-                    }
+                        animation_prosody = "Gaze_PB-" + animation_person;
                     break;
                 case 2://gaze = "Person-Button-Person"
-                    if (side.Equals(OptionSide.right))
-                    {
-                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/>";
-                    }
-                    else
-                    {
-                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/>";
-                    }
+                        animation_prosody = "Gaze_PBP-" + animation_person;
                     break;
                 case 3://gaze = "Person-Button-Person-Button"
-                    if (side.Equals(OptionSide.right))
-                    {
-                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomRight)><break time=\"1s\"/>";
-                    }
-                    else
-                    {
-                        animation_prosody = "<Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/><Gaze(" + animation_person + ")><break time=\"1s\"/><Gaze(bottomLeft)><break time=\"1s\"/>";
-                    }
+
+                        animation_prosody = "Gaze_PBPB-" + animation_person;
+
                     break;
             }
             return animation_prosody;
@@ -1096,9 +1145,12 @@ namespace StoryOfPersonality
             this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
             this.rightButton.Visible = this.leftButton.Visible = false;
 
-            Console.WriteLine("Confirmar se preferência final foi selecionada senão então é igual há intenção");
+            //Console.WriteLine("Confirmar se preferência final foi selecionada senão então é igual há intenção");
 
             // Console.WriteLine("Activar animação favor ou contra");
+
+            Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+            Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
 
             if (!rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -1107,7 +1159,11 @@ namespace StoryOfPersonality
                     SaveFinalPreference(rightRobot, OptionSide.none, 1);
                 }
                 LoadAnimation(rightRobot);
+                
                 CallUtterances(rightRobot, 1);
+
+                Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+                Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -1116,16 +1172,25 @@ namespace StoryOfPersonality
                     SaveFinalPreference(leftRobot, OptionSide.none, 1);
                 }
                 LoadAnimation(leftRobot);
+                
                 CallUtterances(leftRobot, 1);
+
+                Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+                Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
             }
 
+
             DeletePreferenceUsed();
+            rightRobot.PersuasionCondition = RobotsPersuasion.none;
+            leftRobot.PersuasionCondition = RobotsPersuasion.none;
+
             CallNextScene();
         }
 
         private void DeletePreferenceUsed()
         {
             string preferenceSelected = StoryHandler.GetPrefDP();
+            Console.WriteLine("Deleted preference " + preferenceSelected);
 
             switch (preferenceSelected)
             {
