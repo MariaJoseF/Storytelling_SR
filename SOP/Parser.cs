@@ -59,7 +59,7 @@ namespace Parser
             decisionPoints.Textp2En = Convert.ToString(values[8]);
             decisionPoints.NextSt1 = Convert.ToInt32(values[11]);
             decisionPoints.NextSt2 = Convert.ToInt32(values[12]);
-            Console.WriteLine(values.ToString());
+            //Console.WriteLine(values.ToString());
             return decisionPoints;
         }
     }

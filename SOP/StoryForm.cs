@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using static SOP.Modules.Robot;
 
@@ -34,9 +33,6 @@ namespace StoryOfPersonality
         private Robot leftRobot;
         private Robot rightRobot;
 
-        // at the end of the story this must be recorded to a log file. Then, we can note if the dominant robot was more clear than the Meek or not.
-        // pos 0 left robot and 1 right robot.
-        public int[] listenRobotAgain = new int[2];
         // 0 = the dominant robot persuade according to participant personality, 1 = different of participant personality, 2 = no persuasion at all.
         public int playSceneAnger = 0;
         public bool btConfirmEnable = true;
@@ -98,7 +94,6 @@ namespace StoryOfPersonality
 
             LoadLogFiles();
 
-
             StoryHandler.LoadPreferences(PreferenceEI, PreferenceJP, PreferenceSN, PreferenceTF, preferenceDG);
             //   LoadPersuasionLvlIntensity();
 
@@ -108,7 +103,6 @@ namespace StoryOfPersonality
             selectedDP = new SelectionDP();
             instance = this;
         }
-
 
         //private void LoadPersuasionLvlIntensity()
         //{
@@ -173,6 +167,7 @@ namespace StoryOfPersonality
         private void DisableButtons()
         {
             this.leftButton.Enabled = this.rightButton.Enabled = false;
+            labelLeftButton.Visible = labelRightButton.Visible = false;
         }
 
         public void EnableButtons(object sender, EventArgs e)
@@ -180,6 +175,7 @@ namespace StoryOfPersonality
             this.BeginInvoke((Action)delegate ()
             {
                 this.leftButton.Enabled = this.rightButton.Enabled = true;
+                labelLeftButton.Visible = labelRightButton.Visible = true;
             });
 
         }
@@ -492,6 +488,7 @@ namespace StoryOfPersonality
                 this.DisableButtons();
                 recordFinalLog();
             }
+            Console.WriteLine("HERE : " + this.StoryHandler.GetSceneUtteranceId(this.Language) + "Lang:" + this.Language);
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
 
             leftRobot.Persuasion.Animation = "-";
@@ -719,7 +716,7 @@ namespace StoryOfPersonality
         private void CallUtterances(Robot robotSide, int buttonoption)
         {
             string language = "";
-            if (robotSide.Persuasion.Prosody.Language.Equals(RobotsLanguage.EN))
+            if (robotSide.Persuasion.Prosody.Language.Equals(Prosody.RobotsLanguage.EN))
             {
                 language = "EN";
             }
@@ -1067,6 +1064,9 @@ namespace StoryOfPersonality
             ActivateRobot();
         }
 
+        // qual o valor inicial do rightRobot.Enable? não deveria ser feito um teste no inicio para
+        // ver qual foi o valor do segundo parametro que passamos (1 ou 0) e assim definir qual será
+        // o dominante? Exemplo, se for 1 = robo da direita dominante. E com isso, ele que começa. 
         private void ActivateRobot()
         {
             if (rightRobot.Enable)
@@ -1179,7 +1179,6 @@ namespace StoryOfPersonality
                 Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
             }
 
-
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
             leftRobot.PersuasionCondition = RobotsPersuasion.none;
@@ -1213,16 +1212,12 @@ namespace StoryOfPersonality
                 case "-":
                     preferenceDG.RemoveAt(0);
                     break;
-
             }
         }
 
         private void recordFinalLog()
         {
             string txt = "\r\n ============================= \r\n" +
-                         "Left Robot Again: " + listenRobotAgain[0] + "\r\n" +
-                         "Right Robot Again: " + listenRobotAgain[1] + "\r\n" +
-                         "============================= \r\n" +
                          "Total Dominant: " + selectedDP.TotalDominant + "\r\n" +
                          "Total Meek: " + selectedDP.TotalMeek + "\r\n" +
                          "============================= \r\n";

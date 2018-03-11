@@ -115,7 +115,6 @@ namespace StoryOfPersonality
 
         internal void LoadPreferences(List<Robot> preferenceEI, List<Robot> preferenceJP, List<Robot> preferenceSN, List<Robot> preferenceTF, List<Robot> preferenceDG)
         {
-
             int prefEI = 0;
             int prefJP = 0;
             int prefSN = 0;
@@ -128,13 +127,11 @@ namespace StoryOfPersonality
             prefTF = CountPreference("TF", "FT", prefTF);
             prefDG = CountPreference("-", "-", prefDG);
 
-
             LoadPreferencesPairs(preferenceEI, prefEI);
             LoadPreferencesPairs(preferenceJP, prefJP);
             LoadPreferencesPairs(preferenceSN, prefSN);
             LoadPreferencesPairs(preferenceTF, prefTF);
             LoadPreferencesPairs(preferenceDG, prefDG);
-
         }
 
         private void LoadPreferencesPairs(List<Robot> preferencePair, int preftotal)
@@ -187,7 +184,6 @@ namespace StoryOfPersonality
                 {
                     break;
                 }
-
             }
 
             foreach (var pair in preferencePair)
@@ -329,7 +325,5 @@ namespace StoryOfPersonality
             }
             return "<prosody rate=" + value + utterance + "</prosody>";
         }
-
-
     }
 }
