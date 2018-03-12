@@ -205,7 +205,7 @@ namespace StoryOfPersonality
             }
             else
             {
-                if (leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+                if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
                 {
                     ChoiceIntention(leftRobot, OptionSide.left);
                 }
@@ -225,7 +225,7 @@ namespace StoryOfPersonality
             }
             else
             {
-                if (rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+                if (!rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
                 {
                     ChoiceIntention(rightRobot, OptionSide.left);
                 }
@@ -1145,7 +1145,6 @@ namespace StoryOfPersonality
         private void btConfirm_Click(object sender, EventArgs e)
         {
             btConfirmEnable = true;
-           
 
             //Console.WriteLine("Confirmar se preferência final foi selecionada senão então é igual há intenção");
 

@@ -63,7 +63,6 @@ namespace StoryOfPersonality
             currentStoryNodeId = 0; // initial scene ID since we skip the first line (id -1)
 
             this.clientThalamus = thalamusClient;
-
         }
 
         internal void NextScene(StoryForm.OptionSide side, SelectionDP selectOption)
