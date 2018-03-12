@@ -42,7 +42,7 @@
             // 
             this.metroButton1.AutoSize = true;
             this.metroButton1.Location = new System.Drawing.Point(893, 655);
-            this.metroButton1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.metroButton1.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton1.Name = "metroButton1";
             this.metroButton1.Size = new System.Drawing.Size(196, 94);
             this.metroButton1.TabIndex = 13;
@@ -54,7 +54,7 @@
             // 
             this.metroButton2.AutoSize = true;
             this.metroButton2.Location = new System.Drawing.Point(114, 423);
-            this.metroButton2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.metroButton2.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton2.Name = "metroButton2";
             this.metroButton2.Size = new System.Drawing.Size(196, 94);
             this.metroButton2.TabIndex = 14;
@@ -66,7 +66,7 @@
             // 
             this.metroButton3.AutoSize = true;
             this.metroButton3.Location = new System.Drawing.Point(748, 423);
-            this.metroButton3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.metroButton3.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton3.Name = "metroButton3";
             this.metroButton3.Size = new System.Drawing.Size(196, 94);
             this.metroButton3.TabIndex = 15;
@@ -78,7 +78,7 @@
             // 
             this.metroButton4.AutoSize = true;
             this.metroButton4.Location = new System.Drawing.Point(435, 423);
-            this.metroButton4.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.metroButton4.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton4.Name = "metroButton4";
             this.metroButton4.Size = new System.Drawing.Size(196, 94);
             this.metroButton4.TabIndex = 16;
@@ -129,10 +129,10 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label2.Location = new System.Drawing.Point(260, 288);
+            this.label2.Location = new System.Drawing.Point(262, 285);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(523, 24);
+            this.label2.Size = new System.Drawing.Size(199, 24);
             this.label2.TabIndex = 28;
             this.label2.Text = "Id-DominantSide-MBTI";
             // 
@@ -152,7 +152,7 @@
             this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.metroButton1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "StartingForm";
