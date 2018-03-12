@@ -66,14 +66,14 @@ namespace StoryOfPersonality
 
         }
 
-        internal void NextScene(StoryForm.OptionSide side, SelectionDP selectOption)
+        internal void NextScene(SelectionDP selectOption)
         {
             String decisionPoint = storyNodes[currentStoryNodeId].Before;
 
             clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + selectOption, "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
 
             if (!decisionPoint.StartsWith("Final"))
-                this.currentStoryNodeId = side == StoryForm.OptionSide.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
+                this.currentStoryNodeId = selectOption.SideSelected == StoryForm.OptionSide.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
         }
 
         internal bool isEnding()

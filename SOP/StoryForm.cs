@@ -246,10 +246,6 @@ namespace StoryOfPersonality
             stopwatch.Stop();
             DisableButtons();
 
-            selectedDP.OptionSelected = Convert.ToInt32(optionSide);
-            selectedDP.SideSelected = optionSide;
-            selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
-
             string txt = "";
 
             if (intention == 1)
@@ -280,6 +276,10 @@ namespace StoryOfPersonality
                 this.btConfirm.Enabled = true;
                 this.leftButton.Enabled = this.rightButton.Enabled = false;
             }
+
+            selectedDP.OptionSelected = Convert.ToInt32(optionSide);
+            selectedDP.SideSelected = optionSide;
+            selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
 
             // PERSONALITY
             personality.BuildPersonality(auxPreferenceSide);//selecionou botão esquerda manda a preferência dessa opção
@@ -339,7 +339,7 @@ namespace StoryOfPersonality
             rightRobot.TotalDominant = selectedDP.TotalDominant;
             rightRobot.TotalMeek = selectedDP.TotalMeek;
 
-            StoryHandler.NextScene(optionSide, selectedDP);
+           
 
             btConfirmEnable = true;
 
@@ -859,6 +859,8 @@ namespace StoryOfPersonality
             this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
             this.rightButton.Visible = this.leftButton.Visible = false;
 
+
+            StoryHandler.NextScene(selectedDP);
             CallNextScene();
         }
 
