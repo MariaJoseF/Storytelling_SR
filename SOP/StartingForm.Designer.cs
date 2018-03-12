@@ -134,7 +134,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(523, 24);
             this.label2.TabIndex = 28;
-            this.label2.Text = "Id-DominantSide-MBTI-ConditionPersuasion-MBTIPersuasion";
+            this.label2.Text = "Id-DominantSide-MBTI";
             // 
             // StartingForm
             // 

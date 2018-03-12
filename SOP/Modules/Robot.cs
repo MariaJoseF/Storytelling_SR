@@ -23,8 +23,8 @@ namespace SOP.Modules
         private string prefSelectedFinal;
 
         private int timesPhrases = 0;
-        private List<string> idPhrasesUsed = new List<string>();
-        private List<string> phraseUsed = new List<string>();
+        private int idPhrasesUsed;
+        private string phraseUsed;
 
         private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
@@ -126,8 +126,8 @@ namespace SOP.Modules
         public string PrefSelectedFinal { get => prefSelectedFinal; set => prefSelectedFinal = value; }
 
         public int TimesPhrases { get => timesPhrases; set => timesPhrases = value; }
-        public List<string> PhraseUsed { get => phraseUsed; set => phraseUsed = value; }
-        public List<string> IdPhrasesUsed { get => idPhrasesUsed; set => idPhrasesUsed = value; }
+        public string PhraseUsed { get => phraseUsed; set => phraseUsed = value; }
+        public int IdPhrasesUsed { get => idPhrasesUsed; set => idPhrasesUsed = value; }
 
         public enum RobotsPersonality
         {
@@ -166,8 +166,7 @@ namespace SOP.Modules
         {
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + persuasionCondition;
-
+            return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + persuasionCondition;
         }
     }
 }

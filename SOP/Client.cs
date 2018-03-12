@@ -150,7 +150,6 @@ namespace StoryOfPersonality
         {
             CPublisher.PerformUtteranceFromLibrary(id, category, subcategory, tagNames, tagValues);
 
-
             for (int i = 0; i < tagNames.Length; i++)
             {
                 Console.WriteLine("names: " + tagNames[i] + " values: " + tagValues[i]);
@@ -178,11 +177,11 @@ namespace StoryOfPersonality
             Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
             if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
-                Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed[0] + " - " + storyWindow.LeftRobot.PhraseUsed[0] + " - " + storyWindow.LeftRobot.TimesPhrases);
+                Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed + " - " + storyWindow.LeftRobot.PhraseUsed + " - " + storyWindow.LeftRobot.TimesPhrases);
             }
             else
             {
-                Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed[0] + " - " + storyWindow.RightRobot.PhraseUsed[0] + " - " + storyWindow.RightRobot.TimesPhrases);
+                Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed + " - " + storyWindow.RightRobot.PhraseUsed + " - " + storyWindow.RightRobot.TimesPhrases);
             }
         }
         #endregion
@@ -235,13 +234,13 @@ namespace StoryOfPersonality
 
             if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
-                storyWindow.LeftRobot.IdPhrasesUsed.Add(id);
-                storyWindow.LeftRobot.PhraseUsed.Add(utterancePhrase);
+                storyWindow.LeftRobot.IdPhrasesUsed = idUtterancePhrase;
+                storyWindow.LeftRobot.PhraseUsed = utterancePhrase;
                 storyWindow.LeftRobot.TimesPhrases++;
             } else
             {
-                storyWindow.RightRobot.IdPhrasesUsed.Add(id);
-                storyWindow.RightRobot.PhraseUsed.Add(utterancePhrase);
+                storyWindow.RightRobot.IdPhrasesUsed = idUtterancePhrase;
+                storyWindow.RightRobot.PhraseUsed = utterancePhrase;
                 storyWindow.RightRobot.TimesPhrases++;
             }
         }
