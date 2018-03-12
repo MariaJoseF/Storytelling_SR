@@ -69,7 +69,7 @@ namespace StoryOfPersonality
         {
             String decisionPoint = storyNodes[currentStoryNodeId].Before;
 
-            clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), currentStoryNodeId + ";" + selectOption, "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            clientThalamus.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + currentStoryNodeId + ";" + selectOption, "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
 
             if (!decisionPoint.StartsWith("Final"))
                 this.currentStoryNodeId = selectOption.SideSelected == StoryForm.OptionSide.left ? decisionPoints[decisionPoint].NextSt1 : decisionPoints[decisionPoint].NextSt2;
@@ -146,25 +146,18 @@ namespace StoryOfPersonality
             for (int i = 0; i < preftotal; i += 2)
             {
                 generateDom = GetRandom();
-                generateMeek = generateDom;
 
                 if (generateDom <= 4)
                 {
                     rDominant = new Robot(Robot.RobotsPersonality.dominant);
-                }
-                else
-                {
-                    rDominant = new Robot(Robot.RobotsPersonality.meek);
-                }
-
-                if (generateMeek >= 5)
-                {
                     rMeek = new Robot(Robot.RobotsPersonality.meek);
                 }
-                else
+                else //generateDom >=5 Meek dominant
                 {
+                    rDominant = new Robot(Robot.RobotsPersonality.meek);
                     rMeek = new Robot(Robot.RobotsPersonality.dominant);
                 }
+
 
                 if (preferencePair.Count < preftotal)
                 {
