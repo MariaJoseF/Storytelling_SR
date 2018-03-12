@@ -102,11 +102,11 @@ namespace StoryOfPersonality
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;PersLvl;PersIntensity;TotalDominant;TotalMeek;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality;ConditionPersuasion", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;TotalDominant;TotalMeek;DPPreferencePair;DPPreferenceIntention;DpPreferenceFinal;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality;ConditionPersuasion", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
 
         private void CropAndStrechBackImage()
@@ -187,10 +187,10 @@ namespace StoryOfPersonality
 
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
         {
-            Console.WriteLine("ChoiceIntention I rightRobot " + rightRobot.ToString());
-            Console.WriteLine("ChoiceIntention I leftRobot " + leftRobot.ToString());
+            //Console.WriteLine("ChoiceIntention I rightRobot " + rightRobot.ToString());
+            //Console.WriteLine("ChoiceIntention I leftRobot " + leftRobot.ToString());
 
-            Console.WriteLine("robotSide " + robotSide.ToString());
+            //Console.WriteLine("robotSide " + robotSide.ToString());
 
             if (btConfirmEnable)
             {
@@ -209,17 +209,20 @@ namespace StoryOfPersonality
                     auxPreferenceSide = StoryHandler.GetRightPref();
                 }
 
-                selectedDP.DPPrefSelected = auxPreferenceSide;
-                robotSide.PrefSelectedIntention = selectedDP.DPPrefSelected;
+                selectedDP.DpPrefPair = StoryHandler.GetPrefDP();
+                selectedDP.DPPrefIntention = auxPreferenceSide;
+                robotSide.PrefSelectedIntention = selectedDP.DPPrefIntention;
+                //selectedDP.DPPrefSelected = auxPreferenceSide;
+                //robotSide.PrefSelectedIntention = selectedDP.DPPrefSelected;
 
-                Console.WriteLine("Gerar propriedades do gaze");
+                //Console.WriteLine("Gerar propriedades do gaze");
                 LoadScenePersuasion(robotSide);
 
-                Console.WriteLine("Activar utterance a favor ou contra");
+                //Console.WriteLine("Activar utterance a favor ou contra");
 
                 CallUtterances(robotSide, 2);
 
-                Console.WriteLine("Activar gaze a favor");
+                //Console.WriteLine("Activar gaze a favor");
 
                 CallUtterances(robotSide, 3);
 
@@ -230,14 +233,14 @@ namespace StoryOfPersonality
                 SaveFinalPreference(robotSide, optionSide, 0);
             }
 
-            Console.WriteLine("ChoiceIntention F rightRobot " + rightRobot.ToString());
-            Console.WriteLine("ChoiceIntention F leftRobot " + leftRobot.ToString());
+            //Console.WriteLine("ChoiceIntention F rightRobot " + rightRobot.ToString());
+            //Console.WriteLine("ChoiceIntention F leftRobot " + leftRobot.ToString());
         }
 
         private void SaveFinalPreference(Robot robotSide, OptionSide optionSide, int intention)
         {
-            Console.WriteLine("SaveFinalPreference I rightRobot " + rightRobot.ToString());
-            Console.WriteLine("SaveFinalPreference I leftRobot " + leftRobot.ToString());
+            //Console.WriteLine("SaveFinalPreference I rightRobot " + rightRobot.ToString());
+            //Console.WriteLine("SaveFinalPreference I leftRobot " + leftRobot.ToString());
 
             string auxPreferenceSide = "";
 
@@ -275,6 +278,7 @@ namespace StoryOfPersonality
                 this.leftButton.Enabled = this.rightButton.Enabled = false;
             }
 
+            selectedDP.DpPrefPair = StoryHandler.GetPrefDP();
             selectedDP.OptionSelected = Convert.ToInt32(optionSide);
             selectedDP.SideSelected = optionSide;
             selectedDP.ElapsedMs = stopwatch.ElapsedMilliseconds;
@@ -282,10 +286,10 @@ namespace StoryOfPersonality
             // PERSONALITY
             personality.BuildPersonality(auxPreferenceSide);//selecionou botão esquerda manda a preferência dessa opção
             txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), auxPreferenceSide, robotSide.Personality.ToString(), robotSide.PersuasionCondition.ToString());
-            selectedDP.DPPrefSelected = auxPreferenceSide;
-            robotSide.PrefSelectedFinal = selectedDP.DPPrefSelected;
+            selectedDP.DPPrefSelectedFinal = auxPreferenceSide;
+            robotSide.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
 
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
             selectedDP.RobotPersonality = robotSide.Personality;
 
@@ -337,15 +341,15 @@ namespace StoryOfPersonality
 
             btConfirmEnable = true;
 
-            Console.WriteLine("SaveFinalPreference F rightRobot " + rightRobot.ToString());
-            Console.WriteLine("SaveFinalPreference F leftRobot " + leftRobot.ToString());
+            //Console.WriteLine("SaveFinalPreference F rightRobot " + rightRobot.ToString());
+            //Console.WriteLine("SaveFinalPreference F leftRobot " + leftRobot.ToString());
         }
 
         private Robot AwakeRobot()
         {
             Robot per_per = new Robot();
             string preferenceSelected = StoryHandler.GetPrefDP();
-            Console.WriteLine("AwakeRobot preferenceSelected " + preferenceSelected);
+            //Console.WriteLine("AwakeRobot preferenceSelected " + preferenceSelected);
 
             switch (preferenceSelected)
             {
@@ -693,11 +697,11 @@ namespace StoryOfPersonality
         private void CloseButton_Click(object sender, EventArgs e)
         {
             Console.WriteLine("============= CLOSE GAME ===============");
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= CLOSE GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= CLOSE GAME ===============", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= CLOSE GAME ===============", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= CLOSE GAME ===============", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= CLOSE GAME ===============", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= CLOSE GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
             ThalamusClientLeft.Shutdown();
             ThalamusClientRight.Shutdown();
@@ -745,11 +749,11 @@ namespace StoryOfPersonality
                 else
                 {
                     Console.WriteLine("============= END GAME ===============");
-                    ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
-                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
-                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "============= END GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= END GAME ===============", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= END GAME ===============", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= END GAME ===============", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= END GAME ===============", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
+                    ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";============= END GAME ===============", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
                     sceneBox.Visible = false;
                     this.rightButton.Visible = this.leftButton.Visible = false;
@@ -763,8 +767,8 @@ namespace StoryOfPersonality
         {
             btConfirmEnable = true;
            
-            Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
-            Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
+            //Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+            //Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
 
             if (!rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -776,8 +780,8 @@ namespace StoryOfPersonality
                 
                 CallUtterances(rightRobot, 1);
 
-                Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
-                Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
+                //Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+                //Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
 
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
@@ -792,11 +796,11 @@ namespace StoryOfPersonality
                 
                 CallUtterances(leftRobot, 1);
 
-                Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
-                Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
+                //Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
+                //Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
 
                 ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-                ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+                ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
             }
 
             DeletePreferenceUsed();
@@ -850,7 +854,7 @@ namespace StoryOfPersonality
 
             txt += personality.DefineMBTIPersonality();
 
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
     }
 }
