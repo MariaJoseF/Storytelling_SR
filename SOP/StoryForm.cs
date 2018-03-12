@@ -167,7 +167,6 @@ namespace StoryOfPersonality
         private void DisableButtons()
         {
             this.leftButton.Enabled = this.rightButton.Enabled = false;
-            labelLeftButton.Visible = labelRightButton.Visible = false;
         }
 
         public void EnableButtons(object sender, EventArgs e)
@@ -239,7 +238,6 @@ namespace StoryOfPersonality
 
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
         {
-
             Console.WriteLine("ChoiceIntention I rightRobot " + rightRobot.ToString());
             Console.WriteLine("ChoiceIntention I leftRobot " + leftRobot.ToString());
 
@@ -250,6 +248,7 @@ namespace StoryOfPersonality
                 btConfirmEnable = false;
                 btConfirm.Enabled = false;
                 btConfirm.Visible = true;
+
                 string auxPreferenceSide = "";
 
                 //gravar qual a opção que ele escolheu
@@ -312,7 +311,6 @@ namespace StoryOfPersonality
             if (intention == 1)
             {
                 auxPreferenceSide = robotSide.PrefSelectedIntention;
-
             }
             else
             {
@@ -389,7 +387,6 @@ namespace StoryOfPersonality
             rightRobot.TotalMeek = selectedDP.TotalMeek;
 
             StoryHandler.NextScene(optionSide, selectedDP);
-
 
             btConfirmEnable = true;
 
@@ -477,7 +474,7 @@ namespace StoryOfPersonality
             p.Inlines.Add(new Run(string.Format(this.StoryHandler.GetSceneUtterance(this.Language))));
             this.sceneBox.Text = p.ToString();
             */
-
+            labelLeftButton.Visible = labelRightButton.Visible = false;
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             this.backImage.BackgroundImage = (Image)SOP.Properties.Resources.ResourceManager.GetObject(this.StoryHandler.GetSceneLocation());
             this.CropAndStrechBackImage();
@@ -488,7 +485,6 @@ namespace StoryOfPersonality
                 this.DisableButtons();
                 recordFinalLog();
             }
-            Console.WriteLine("HERE : " + this.StoryHandler.GetSceneUtteranceId(this.Language) + "Lang:" + this.Language);
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
 
             leftRobot.Persuasion.Animation = "-";
@@ -1142,7 +1138,7 @@ namespace StoryOfPersonality
             btConfirmEnable = true;
             this.btConfirm.Visible = false;
             this.btConfirm.Enabled = false;
-            this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
+            //this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
             this.rightButton.Visible = this.leftButton.Visible = false;
 
             //Console.WriteLine("Confirmar se preferência final foi selecionada senão então é igual há intenção");

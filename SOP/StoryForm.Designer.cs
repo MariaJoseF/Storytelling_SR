@@ -63,7 +63,7 @@ namespace StoryOfPersonality
             // 
             this.leftButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.leftButton.AutoSize = true;
-            this.leftButton.Location = new System.Drawing.Point(340, 595);
+            this.leftButton.Location = new System.Drawing.Point(112, 595);
             this.leftButton.Margin = new System.Windows.Forms.Padding(6);
             this.leftButton.Name = "leftButton";
             this.leftButton.Size = new System.Drawing.Size(740, 38);
@@ -77,10 +77,10 @@ namespace StoryOfPersonality
             // 
             this.rightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rightButton.AutoSize = true;
-            this.rightButton.Location = new System.Drawing.Point(1629, 595);
+            this.rightButton.Location = new System.Drawing.Point(1804, 595);
             this.rightButton.Margin = new System.Windows.Forms.Padding(6);
             this.rightButton.Name = "rightButton";
-            this.rightButton.Size = new System.Drawing.Size(735, 38);
+            this.rightButton.Size = new System.Drawing.Size(740, 38);
             this.rightButton.TabIndex = 18;
             this.rightButton.Text = "▶";
             this.rightButton.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -136,25 +136,25 @@ namespace StoryOfPersonality
             // 
             // labelRightButton
             // 
+            this.labelRightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelRightButton.BackColor = System.Drawing.Color.Transparent;
             this.labelRightButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelRightButton.Location = new System.Drawing.Point(1624, 449);
+            this.labelRightButton.Location = new System.Drawing.Point(1804, 449);
             this.labelRightButton.Name = "labelRightButton";
             this.labelRightButton.Size = new System.Drawing.Size(740, 134);
             this.labelRightButton.TabIndex = 28;
             this.labelRightButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelRightButton.Visible = false;
             // 
             // labelLeftButton
             // 
+            this.labelLeftButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelLeftButton.BackColor = System.Drawing.Color.Transparent;
             this.labelLeftButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelLeftButton.Location = new System.Drawing.Point(340, 449);
+            this.labelLeftButton.Location = new System.Drawing.Point(112, 455);
             this.labelLeftButton.Name = "labelLeftButton";
             this.labelLeftButton.Size = new System.Drawing.Size(740, 134);
             this.labelLeftButton.TabIndex = 27;
             this.labelLeftButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelLeftButton.Visible = false;
             // 
             // btConfirm
             // 
