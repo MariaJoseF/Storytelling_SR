@@ -257,10 +257,12 @@ namespace StoryOfPersonality
                 if (robotSide.PrefSelectedIntention.Equals(StoryHandler.GetLeftPref()))
                 {
                     auxPreferenceSide = StoryHandler.GetLeftPref();
+                    optionSide = OptionSide.left;
                 }
                 else
                 {
                     auxPreferenceSide = StoryHandler.GetRightPref();
+                    optionSide = OptionSide.right;
                 }
             }
             else

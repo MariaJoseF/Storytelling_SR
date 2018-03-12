@@ -233,7 +233,7 @@ namespace StoryOfPersonality
             string[] values = Utterance_utterance.Split(',');
             utterancePhrase = values[2];
 
-            if (storyWindow.LeftRobot.Enable)
+            if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
                 storyWindow.LeftRobot.IdPhrasesUsed.Add(id);
                 storyWindow.LeftRobot.PhraseUsed.Add(utterancePhrase);
