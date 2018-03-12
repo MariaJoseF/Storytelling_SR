@@ -147,9 +147,9 @@ namespace StoryOfPersonality
             for (int i = 0; i < preftotal; i += 2)
             {
                 generateDom = GetRandom();
-                generateMeek = 1 - generateDom;
+                generateMeek = generateDom;
 
-                if (generateDom == 1)
+                if (generateDom <= 4)
                 {
                     rDominant = new Robot(Robot.RobotsPersonality.dominant);
                 }
@@ -158,7 +158,7 @@ namespace StoryOfPersonality
                     rDominant = new Robot(Robot.RobotsPersonality.meek);
                 }
 
-                if (generateMeek == 0)
+                if (generateMeek >= 5)
                 {
                     rMeek = new Robot(Robot.RobotsPersonality.meek);
                 }
@@ -237,7 +237,7 @@ namespace StoryOfPersonality
         private int GetRandom()
         {
             Random random = new Random();
-            int n = random.Next(0, 2);
+            int n = random.Next(0, 10);
             return n;
 
         }

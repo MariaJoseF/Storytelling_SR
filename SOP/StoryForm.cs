@@ -835,6 +835,10 @@ namespace StoryOfPersonality
 
                 Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
                 Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
+
+                ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+                ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -848,7 +852,11 @@ namespace StoryOfPersonality
 
                 Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
                 Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
+
+                ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+                ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
             }
+
 
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
