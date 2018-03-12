@@ -311,8 +311,14 @@ namespace StoryOfPersonality
 
             if (intention == 1)
             {
-                auxPreferenceSide = robotSide.PrefSelectedIntention;
-
+                if (robotSide.PrefSelectedIntention.Equals(StoryHandler.GetLeftPref()))
+                {
+                    auxPreferenceSide = StoryHandler.GetLeftPref();
+                }
+                else
+                {
+                    auxPreferenceSide = StoryHandler.GetRightPref();
+                }
             }
             else
             {
@@ -324,11 +330,13 @@ namespace StoryOfPersonality
                 {
                     auxPreferenceSide = StoryHandler.GetRightPref();
                 }
+
+                this.btConfirm.Visible = true;
+                this.btConfirm.Enabled = true;
+                this.leftButton.Enabled = this.rightButton.Enabled = false;
             }
             
-            this.btConfirm.Visible = true;
-            this.btConfirm.Enabled = true;
-            this.leftButton.Enabled = this.rightButton.Enabled = false;
+            
 
             // PERSONALITY
             personality.BuildPersonality(auxPreferenceSide);//selecionou botão esquerda manda a preferência dessa opção
@@ -1140,10 +1148,7 @@ namespace StoryOfPersonality
         private void btConfirm_Click(object sender, EventArgs e)
         {
             btConfirmEnable = true;
-            this.btConfirm.Visible = false;
-            this.btConfirm.Enabled = false;
-            this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
-            this.rightButton.Visible = this.leftButton.Visible = false;
+           
 
             //Console.WriteLine("Confirmar se preferência final foi selecionada senão então é igual há intenção");
 
@@ -1154,7 +1159,7 @@ namespace StoryOfPersonality
 
             if (!rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
-                if (rightRobot.PrefSelectedFinal.Equals(""))
+                if (rightRobot.PrefSelectedFinal.Equals("-"))
                 {
                     SaveFinalPreference(rightRobot, OptionSide.none, 1);
                 }
@@ -1167,7 +1172,7 @@ namespace StoryOfPersonality
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
-                if (leftRobot.PrefSelectedFinal.Equals(""))
+                if (leftRobot.PrefSelectedFinal.Equals("-"))
                 {
                     SaveFinalPreference(leftRobot, OptionSide.none, 1);
                 }
@@ -1182,6 +1187,11 @@ namespace StoryOfPersonality
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
             leftRobot.PersuasionCondition = RobotsPersuasion.none;
+
+            this.btConfirm.Visible = false;
+            this.btConfirm.Enabled = false;
+            this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
+            this.rightButton.Visible = this.leftButton.Visible = false;
 
             CallNextScene();
         }
