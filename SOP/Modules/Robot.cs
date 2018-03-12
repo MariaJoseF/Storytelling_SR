@@ -28,36 +28,8 @@ namespace SOP.Modules
 
         private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
-        private bool enable;
         private RobotSide side;
 
-        //public Robot(RobotsPersonality personality, Persuasion persuasion)
-        //{
-        //    this.personality = personality;
-        //    this.consecutivePlays = 0;
-        //    this.oponentPlays = 0;
-        //    this.persuasion = persuasion;
-        //    this.persuasionCondition = RobotsPersuasion.none;
-        //    this.totalDominant = 0;
-        //    this.totalMeek = 0;
-        //    this.enable = false;
-        //    this.side = RobotSide.none;
-        //    this.decisionPoint = "-";
-        //    this.preferencePair = "-";
-        //    this.prefSelectedIntention = "-";
-        //     this.prefSelectedFinal= "-";
-
-        //    if (personality.Equals(RobotsPersonality.dominant))
-        //    {
-        //        this.pitch = "x-high";
-        //        this.posture = RobotsPosture.pride;
-        //    }
-        //    else
-        //    {
-        //        this.pitch = "x-low";
-        //        this.posture = RobotsPosture.contempt;
-        //    }
-        //}
 
         public Robot(RobotsPersonality personality)
         {
@@ -68,7 +40,6 @@ namespace SOP.Modules
             this.persuasionCondition = RobotsPersuasion.none;
             this.totalDominant = 0;
             this.totalMeek = 0;
-            this.enable = false;
             this.decisionPoint = "-";
             this.preferencePair = "-";
             this.prefSelectedIntention = "-";
@@ -105,7 +76,6 @@ namespace SOP.Modules
             this.persuasionCondition = RobotsPersuasion.none;
             this.totalDominant = 0;
             this.totalMeek = 0;
-            this.enable = false;
             this.side = side;
             this.decisionPoint = "-";
             this.preferencePair = "-";
@@ -132,7 +102,6 @@ namespace SOP.Modules
             this.persuasionCondition = RobotsPersuasion.none;
             this.totalDominant = 0;
             this.totalMeek = 0;
-            this.enable = false;
             this.side = RobotSide.none;
             this.decisionPoint = "-";
             this.preferencePair = "-";
@@ -153,7 +122,6 @@ namespace SOP.Modules
         public string PreferencePair { get => preferencePair; set => preferencePair = value; }
         public string PrefSelectedIntention { get => prefSelectedIntention; set => prefSelectedIntention = value; }
         public RobotsPersuasion PersuasionCondition { get => persuasionCondition; set => persuasionCondition = value; }
-        public bool Enable { get => enable; set => enable = value; }
         public RobotSide Side { get => side; set => side = value; }
         public string PrefSelectedFinal { get => prefSelectedFinal; set => prefSelectedFinal = value; }
 
