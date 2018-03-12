@@ -126,7 +126,6 @@ namespace StoryOfPersonality
                 this.leftButton.Enabled = this.rightButton.Enabled = true;
                 labelLeftButton.Visible = labelRightButton.Visible = true;
             });
-
         }
 
         /**********************
@@ -237,7 +236,6 @@ namespace StoryOfPersonality
 
         private void SaveFinalPreference(Robot robotSide, OptionSide optionSide, int intention)
         {
-
             Console.WriteLine("SaveFinalPreference I rightRobot " + rightRobot.ToString());
             Console.WriteLine("SaveFinalPreference I leftRobot " + leftRobot.ToString());
 
@@ -308,7 +306,6 @@ namespace StoryOfPersonality
 
             if (robotSide.Side.Equals(Robot.RobotSide.left))
             {
-
                 rightRobot.ConsecutivePlays = 0;
                 rightRobot.OponentPlays = robotSide.ConsecutivePlays;
 
@@ -318,7 +315,6 @@ namespace StoryOfPersonality
 
                // ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientLeft", "Robots-" + this.UserId.ToString() + ".txt");
                // ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-
             }
             else
             {
@@ -338,8 +334,6 @@ namespace StoryOfPersonality
 
             rightRobot.TotalDominant = selectedDP.TotalDominant;
             rightRobot.TotalMeek = selectedDP.TotalMeek;
-
-           
 
             btConfirmEnable = true;
 
@@ -438,14 +432,12 @@ namespace StoryOfPersonality
         {
             //prosody intensity is done according to repetition done by the robot opposite to the one that is performing it
             //when intensity achieves value 4 the next keeps the 4
-
             LoadGazeTime(robot, robot.Persuasion);
             GetUtteranceLanguage(robot);
         }
 
         private void LoadAnimation(Robot robot)
         {
-
             if (robot.PersuasionCondition.Equals(RobotsPersuasion.Against)) // robot persuasion condition is against the user personality
             {
                 switch (robot.ConsecutivePlays)
@@ -649,52 +641,6 @@ namespace StoryOfPersonality
                 }
             }
 
-        //private string SidePerform(string prefUtterance)
-        //{
-        //    string side = "";
-        //    UserPersonality = UserPersonality.ToUpper();
-        //    /*Console.WriteLine("===== USER PERSONALITY: " + UserPersonality);
-        //    Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
-        //    Console.WriteLine("===== Pref utterance side? : " + prefUtterance); */
-
-        //    if (StoryHandler.GetInitialDP().Contains("DP"))
-        //    {
-        //        if (UserPersonality.Contains(prefUtterance))
-        //        {
-        //            if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
-        //            {
-        //                side = "L";
-        //            }
-        //            else
-        //            {
-        //                side = "R";
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (rightRobot.Personality.Equals(RobotsPersonality.dominant))
-        //            {
-        //                side = "L";
-        //            }
-        //            else
-        //            {
-        //                side = "R";
-        //            }
-        //        }
-        //        //Console.WriteLine("===== Condition persuasion : " + conditionPersuasion + " Side: " + side);
-        //        //if (conditionPersuasion.Equals(1))
-        //        //{
-        //        //    if (side.Equals("L")) side = "R"; else side = "L";
-        //        //}
-        //    }
-        //    else
-        //    {
-        //        side = prefUtterance.ToUpper();
-        //    }
-        //    Console.WriteLine("===== Side : " + side);
-        //    return side;
-        //}
-
         private string GetGaze(Robot robotSide)
         {
             string animation_prosody = "";
@@ -771,7 +717,6 @@ namespace StoryOfPersonality
             axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav";
             axWindowsMediaPlayer1.Ctlcontrols.play();
             //Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
-
         }
 
         private void axWindowsMediaPlayer1_PlayStateChange_1(object sender, _WMPOCXEvents_PlayStateChangeEvent e)
@@ -837,7 +782,6 @@ namespace StoryOfPersonality
 
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), rightRobot.ToString(), "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -856,7 +800,6 @@ namespace StoryOfPersonality
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
             }
 
-
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
             leftRobot.PersuasionCondition = RobotsPersuasion.none;
@@ -865,7 +808,6 @@ namespace StoryOfPersonality
             this.btConfirm.Enabled = false;
             this.labelLeftButton.Visible = this.labelRightButton.Visible = false;
             this.rightButton.Visible = this.leftButton.Visible = false;
-
 
             StoryHandler.NextScene(selectedDP);
             CallNextScene();
