@@ -117,7 +117,6 @@ namespace StoryOfPersonality
         private void DisableButtons()
         {
             this.leftButton.Enabled = this.rightButton.Enabled = false;
-            labelLeftButton.Visible = labelRightButton.Visible = false;
         }
 
         public void EnableButtons(object sender, EventArgs e)
@@ -189,7 +188,6 @@ namespace StoryOfPersonality
 
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
         {
-
             Console.WriteLine("ChoiceIntention I rightRobot " + rightRobot.ToString());
             Console.WriteLine("ChoiceIntention I leftRobot " + leftRobot.ToString());
 
@@ -200,6 +198,7 @@ namespace StoryOfPersonality
                 btConfirmEnable = false;
                 btConfirm.Enabled = false;
                 btConfirm.Visible = true;
+
                 string auxPreferenceSide = "";
 
                 if (optionSide.Equals(OptionSide.left))
@@ -340,7 +339,6 @@ namespace StoryOfPersonality
 
             StoryHandler.NextScene(optionSide, selectedDP);
 
-
             btConfirmEnable = true;
 
             Console.WriteLine("SaveFinalPreference F rightRobot " + rightRobot.ToString());
@@ -428,7 +426,6 @@ namespace StoryOfPersonality
                 this.DisableButtons();
                 recordFinalLog();
             }
-            Console.WriteLine("HERE : " + this.StoryHandler.GetSceneUtteranceId(this.Language) + "Lang:" + this.Language);
             playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
 
             leftRobot.Persuasion.Animation = "-";
