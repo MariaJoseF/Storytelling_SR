@@ -7,6 +7,7 @@ using Thalamus;
 using EmoteCommonMessages;
 using System.Timers;
 using System.IO;
+using static SOP.Modules.Robot;
 
 namespace StoryOfPersonality
 {
@@ -175,7 +176,7 @@ namespace StoryOfPersonality
         public void SpeakFinished(string id)
         {
             Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
-            if (storyWindow.LeftRobot.Enable)
+            if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
                 Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed[0] + " - " + storyWindow.LeftRobot.PhraseUsed[0] + " - " + storyWindow.LeftRobot.TimesPhrases);
             }
@@ -183,40 +184,6 @@ namespace StoryOfPersonality
             {
                 Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed[0] + " - " + storyWindow.RightRobot.PhraseUsed[0] + " - " + storyWindow.RightRobot.TimesPhrases);
             }
-            /* 
-             storyWindow.Invoke((Action)(() =>
-                 {//this refer to form in WPF application 
-                     storyWindow.btConfirm.Enabled = true;
-                 }));
-                 */
-            //Console.WriteLine("--------------------------------------- CurrentUtterance:" + currentUtterance);
-            //Console.WriteLine("--------------------------------------- Dialog:");
-            //    NextUtterance();
-
-            //if (storyWindow.playSceneAnger == 1)
-            //{
-            //    //storyWindow.playStoryScene(storyWindow.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
-            //    activateAudio = true;
-            //    storyWindow.playSceneAnger = 0;
-            //}
-
-            //if (storyWindow.PlayedLeftButton)
-            //{
-            //    storyWindow.Invoke((Action)(() =>
-            //    {//this refer to form in WPF application 
-            //        //storyWindow.EnableBTS("R");
-            //        storyWindow.PlayRight_Robot();
-            //    }));
-            //}
-            //else if (storyWindow.PlayedRightButton)
-            //{
-            //    storyWindow.Invoke((Action)(() =>
-            //    {//this refer to form in WPF application 
-            //        //storyWindow.EnableBTS("L");
-            //        storyWindow.PlayLeft_Robot();
-            //    }));
-            //}
-
         }
         #endregion
 
