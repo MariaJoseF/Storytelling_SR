@@ -602,11 +602,11 @@ namespace StoryOfPersonality
 
                 if (robotSide.Side.Equals(RobotSide.left))
                 {
-                    ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, });
+                    ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
                 }
                 else
                 {
-                    ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, });
+                    ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
                 }
                 //SAVE LOGS
             }
@@ -650,51 +650,51 @@ namespace StoryOfPersonality
                 }
             }
 
-        private string SidePerform(string prefUtterance)
-        {
-            string side = "";
-            UserPersonality = UserPersonality.ToUpper();
-            /*Console.WriteLine("===== USER PERSONALITY: " + UserPersonality);
-            Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
-            Console.WriteLine("===== Pref utterance side? : " + prefUtterance); */
+        //private string SidePerform(string prefUtterance)
+        //{
+        //    string side = "";
+        //    UserPersonality = UserPersonality.ToUpper();
+        //    /*Console.WriteLine("===== USER PERSONALITY: " + UserPersonality);
+        //    Console.WriteLine("===== Robot Left personality: " + leftRobot.Personality);
+        //    Console.WriteLine("===== Pref utterance side? : " + prefUtterance); */
 
-            if (StoryHandler.GetInitialDP().Contains("DP"))
-            {
-                if (UserPersonality.Contains(prefUtterance))
-                {
-                    if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
-                    {
-                        side = "L";
-                    }
-                    else
-                    {
-                        side = "R";
-                    }
-                }
-                else
-                {
-                    if (rightRobot.Personality.Equals(RobotsPersonality.dominant))
-                    {
-                        side = "L";
-                    }
-                    else
-                    {
-                        side = "R";
-                    }
-                }
-                //Console.WriteLine("===== Condition persuasion : " + conditionPersuasion + " Side: " + side);
-                //if (conditionPersuasion.Equals(1))
-                //{
-                //    if (side.Equals("L")) side = "R"; else side = "L";
-                //}
-            }
-            else
-            {
-                side = prefUtterance.ToUpper();
-            }
-            Console.WriteLine("===== Side : " + side);
-            return side;
-        }
+        //    if (StoryHandler.GetInitialDP().Contains("DP"))
+        //    {
+        //        if (UserPersonality.Contains(prefUtterance))
+        //        {
+        //            if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
+        //            {
+        //                side = "L";
+        //            }
+        //            else
+        //            {
+        //                side = "R";
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (rightRobot.Personality.Equals(RobotsPersonality.dominant))
+        //            {
+        //                side = "L";
+        //            }
+        //            else
+        //            {
+        //                side = "R";
+        //            }
+        //        }
+        //        //Console.WriteLine("===== Condition persuasion : " + conditionPersuasion + " Side: " + side);
+        //        //if (conditionPersuasion.Equals(1))
+        //        //{
+        //        //    if (side.Equals("L")) side = "R"; else side = "L";
+        //        //}
+        //    }
+        //    else
+        //    {
+        //        side = prefUtterance.ToUpper();
+        //    }
+        //    Console.WriteLine("===== Side : " + side);
+        //    return side;
+        //}
 
         private string GetGaze(Robot robotSide)
         {
