@@ -434,18 +434,46 @@ namespace StoryOfPersonality
                 switch (robot.ConsecutivePlays)
                 {
                     case 1:
-                        robot.Persuasion.Animation = "anger1";
+                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                        {
+                            robot.Persuasion.Animation = "anger1";
+                        }
+                        else
+                        {
+                            robot.Persuasion.Animation = "joy1";
+                        }
                         break;
                     case 2:
-                        robot.Persuasion.Animation = "anger3";
+                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                        {
+                            robot.Persuasion.Animation = "anger3";
+                        }
+                        else
+                        {
+                            robot.Persuasion.Animation = "joy3";
+                        }
                         break;
                     case 3:
-                        robot.Persuasion.Animation = "anger5";
+                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                        {
+                            robot.Persuasion.Animation = "anger5";
+                        }
+                        else
+                        {
+                            robot.Persuasion.Animation = "joy5";
+                        }
                         break;
                     default:
                         if (robot.OponentPlays > 3)
                         {
-                            robot.Persuasion.Animation = "anger5";
+                            if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                            {
+                                robot.Persuasion.Animation = "anger5";
+                            }
+                            else
+                            {
+                                robot.Persuasion.Animation = "joy5";
+                            }
                         }
                         break;
                 }
@@ -455,18 +483,47 @@ namespace StoryOfPersonality
                 switch (robot.ConsecutivePlays)
                 {
                     case 1:
-                        robot.Persuasion.Animation = "joy1";
+                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                        {
+                            robot.Persuasion.Animation = "joy1";
+                        }
+                        else
+                        {
+                            robot.Persuasion.Animation = "anger1";
+                        }
                         break;
                     case 2:
-                        robot.Persuasion.Animation = "joy3";
+                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                        {
+                            robot.Persuasion.Animation = "joy3";
+                        }
+                        else
+                        {
+                            robot.Persuasion.Animation = "anger3";
+                        }
                         break;
                     case 3:
-                        robot.Persuasion.Animation = "joy5";
+                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                        {
+                            robot.Persuasion.Animation = "joy5";
+                        }
+                        else
+                        {
+                            robot.Persuasion.Animation = "anger5";
+                        }
                         break;
                     default:
                         if (robot.ConsecutivePlays > 3)
                         {
-                            robot.Persuasion.Animation = "joy5";
+                            if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                            {
+                                robot.Persuasion.Animation = "joy5";
+                            }
+                            else
+                            {
+                                robot.Persuasion.Animation = "anger5";
+                            }
+
                         }
                         break;
                 }
@@ -708,7 +765,8 @@ namespace StoryOfPersonality
             {
                 axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav";
                 axWindowsMediaPlayer1.Ctlcontrols.play();
-            } else
+            }
+            else
             {
                 Console.WriteLine(" ========== AUDIO NOT FOUND! ========== ");
             }
