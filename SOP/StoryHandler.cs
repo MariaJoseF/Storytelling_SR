@@ -136,7 +136,6 @@ namespace StoryOfPersonality
         private void LoadPreferencesPairs(List<Robot> preferencePair, int preftotal)
         {
             int generateDom = -1;
-            int generateMeek = -1;
 
             int generateFavour = -1;
             int genereateAgaints = -1;
