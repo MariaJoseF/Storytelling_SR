@@ -176,11 +176,11 @@ namespace StoryOfPersonality
             {
                 if (!rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
                 {
-                    ChoiceIntention(rightRobot, OptionSide.left);
+                    ChoiceIntention(rightRobot, OptionSide.right);
                 }
                 else
                 {
-                    ChoiceIntention(leftRobot, OptionSide.left);
+                    ChoiceIntention(leftRobot, OptionSide.right);
                 }
             }
         }
@@ -280,7 +280,6 @@ namespace StoryOfPersonality
                 this.leftButton.Enabled = this.rightButton.Enabled = false;
             }
 
-            
             selectedDP.DpPrefPair = StoryHandler.GetPrefDP();
             selectedDP.OptionSelected = Convert.ToInt32(optionSide);
             selectedDP.SideSelected = optionSide;
@@ -797,7 +796,7 @@ namespace StoryOfPersonality
                 }
                 // PERSONALITY
                 personality.BuildPersonality(leftRobot.PrefSelectedFinal);//selecionou botão esquerda manda a preferência dessa opção
-                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), rightRobot.PrefSelectedFinal, leftRobot.Personality.ToString(), leftRobot.PersuasionCondition.ToString());
+                txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), leftRobot.PrefSelectedFinal, leftRobot.Personality.ToString(), leftRobot.PersuasionCondition.ToString());
                 //selectedDP.DPPrefSelectedFinal = leftRobot.PrefSelectedFinal;
                 //leftRobot.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
 
