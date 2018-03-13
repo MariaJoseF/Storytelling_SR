@@ -247,8 +247,6 @@ namespace StoryOfPersonality
             stopwatch.Stop();
             DisableButtons();
 
-            string txt = "";
-
             if (intention == 1)
             {
                 if (robotSide.PrefSelectedIntention.Equals(StoryHandler.GetLeftPref()))
@@ -261,6 +259,8 @@ namespace StoryOfPersonality
                     auxPreferenceSide = StoryHandler.GetRightPref();
                     optionSide = OptionSide.right;
                 }
+
+                selectedDP.DPPrefSelectedFinal = auxPreferenceSide;
             }
             else
             {
@@ -273,11 +273,14 @@ namespace StoryOfPersonality
                     auxPreferenceSide = StoryHandler.GetRightPref();
                 }
 
+                selectedDP.DPPrefSelectedFinal = auxPreferenceSide;
+
                 this.btConfirm.Visible = true;
                 this.btConfirm.Enabled = true;
                 this.leftButton.Enabled = this.rightButton.Enabled = false;
             }
 
+            
             selectedDP.DpPrefPair = StoryHandler.GetPrefDP();
             selectedDP.OptionSelected = Convert.ToInt32(optionSide);
             selectedDP.SideSelected = optionSide;
@@ -287,6 +290,7 @@ namespace StoryOfPersonality
 
             robotSide.DecisionPoint = StoryHandler.GetInitialDP();
             robotSide.PreferencePair = StoryHandler.GetPrefDP();
+            robotSide.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
 
             if (robotSide.Personality.Equals(Robot.RobotsPersonality.meek))//default left robot = Meek
             {
@@ -305,10 +309,6 @@ namespace StoryOfPersonality
                 rightRobot.ConsecutivePlays = 0;
                 rightRobot.OponentPlays = robotSide.ConsecutivePlays;
 
-                rightRobot.PreferencePair = "-";
-                rightRobot.PrefSelectedIntention = "-";
-                rightRobot.PrefSelectedFinal = "-";
-
                 // ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientLeft", "Robots-" + this.UserId.ToString() + ".txt");
                 // ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
             }
@@ -316,10 +316,6 @@ namespace StoryOfPersonality
             {
                 leftRobot.ConsecutivePlays = 0;
                 leftRobot.OponentPlays = robotSide.ConsecutivePlays;
-
-                leftRobot.PreferencePair = "-";
-                leftRobot.PrefSelectedIntention = "-";
-                leftRobot.PrefSelectedFinal = "-";
 
                 //ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientRight", "Robots-" + this.UserId.ToString() + ".txt");
                 // ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), "Button Pressed;" + robotSide.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
@@ -772,8 +768,8 @@ namespace StoryOfPersonality
                 // PERSONALITY
                 personality.BuildPersonality(rightRobot.PrefSelectedFinal);//selecionou botão esquerda manda a preferência dessa opção
                 txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), rightRobot.PrefSelectedFinal, rightRobot.Personality.ToString(), rightRobot.PersuasionCondition.ToString());
-                selectedDP.DPPrefSelectedFinal = rightRobot.PrefSelectedFinal;
-                rightRobot.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
+                //selectedDP.DPPrefSelectedFinal = rightRobot.PrefSelectedFinal;
+                //rightRobot.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
 
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
@@ -796,8 +792,8 @@ namespace StoryOfPersonality
                 // PERSONALITY
                 personality.BuildPersonality(leftRobot.PrefSelectedFinal);//selecionou botão esquerda manda a preferência dessa opção
                 txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), rightRobot.PrefSelectedFinal, leftRobot.Personality.ToString(), leftRobot.PersuasionCondition.ToString());
-                selectedDP.DPPrefSelectedFinal = leftRobot.PrefSelectedFinal;
-                leftRobot.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
+                //selectedDP.DPPrefSelectedFinal = leftRobot.PrefSelectedFinal;
+                //leftRobot.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
 
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
 
@@ -828,6 +824,13 @@ namespace StoryOfPersonality
             selectedDP.DPPrefSelectedFinal = "-";
             selectedDP.OptionSelected = -1;
             selectedDP.SideSelected = OptionSide.none;
+
+            rightRobot.PreferencePair = "-";
+            rightRobot.PrefSelectedIntention = "-";
+            rightRobot.PrefSelectedFinal = "-";
+            leftRobot.PreferencePair = "-";
+            leftRobot.PrefSelectedIntention = "-";
+            leftRobot.PrefSelectedFinal = "-";
 
             CallNextScene();
         }
