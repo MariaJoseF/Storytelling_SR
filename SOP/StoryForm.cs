@@ -709,8 +709,14 @@ namespace StoryOfPersonality
 
             //Console.WriteLine("=========== NEXT AUDIO ============== " + (idScene + 1));
 
-            axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav";
-            axWindowsMediaPlayer1.Ctlcontrols.play();
+            if (System.IO.File.Exists(ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav"))
+            {
+                axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav";
+                axWindowsMediaPlayer1.Ctlcontrols.play();
+            } else
+            {
+                Console.WriteLine(" ========== AUDIO NOT FOUND! ========== ");
+            }
             //Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
         }
 
