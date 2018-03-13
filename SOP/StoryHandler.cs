@@ -231,7 +231,6 @@ namespace StoryOfPersonality
             Random random = new Random();
             int n = random.Next(0, 10);
             return n;
-
         }
 
         //internal string GetRightTag()
@@ -273,6 +272,7 @@ namespace StoryOfPersonality
             }
             else { return "0"; }
         }
+
         internal string GetDecisionUtteranceCategory()
         {
             return storyNodes[currentStoryNodeId].Before;
@@ -300,6 +300,7 @@ namespace StoryOfPersonality
             }
             return "<prosody volume=" + value + utterance + "</prosody>";
         }
+
         private String encloseWithRateTag(String utterance, Rate rate)
         {
             String value = "1"; // default
