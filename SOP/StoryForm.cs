@@ -681,13 +681,15 @@ namespace StoryOfPersonality
             DisableButtons();
 
             string folder = "EN";
-            if (language == Thalamus.BML.SpeechLanguages.Portuguese) folder = "PT";
+            string audioExt = ".mp3";
+            if (language == Thalamus.BML.SpeechLanguages.Portuguese) { folder = "PT"; audioExt = ".wav"; }
 
             //Console.WriteLine("=========== NEXT AUDIO ============== " + (idScene + 1));
 
-            if (System.IO.File.Exists(ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav"))
+            if (System.IO.File.Exists(ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + audioExt))
             {
-                axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + ".wav";
+                axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + audioExt;
+                axWindowsMediaPlayer1.settings.volume = 30;
                 axWindowsMediaPlayer1.Ctlcontrols.play();
             }
             else
