@@ -208,6 +208,7 @@
     <Content Include="speech\EN\39.wav" />
     <Content Include="speech\EN\4.wav" />
     <Content Include="speech\EN\40.wav" />
+    <Content Include="speech\EN\41.wav" />
     <Content Include="speech\EN\5.wav" />
     <Content Include="speech\EN\6.wav" />
     <Content Include="speech\EN\7.wav" />
@@ -248,6 +249,7 @@
     <Content Include="speech\PT\39.wav" />
     <Content Include="speech\PT\4.wav" />
     <Content Include="speech\PT\40.wav" />
+    <Content Include="speech\PT\41.wav" />
     <Content Include="speech\PT\5.wav" />
     <Content Include="speech\PT\6.wav" />
     <Content Include="speech\PT\7.wav" />

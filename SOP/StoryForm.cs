@@ -710,7 +710,7 @@ namespace StoryOfPersonality
                 axWindowsMediaPlayer1.Ctlcontrols.play();
             } else
             {
-                Console.WriteLine(" ========== AUDIO NOT FOUND! ========== ");
+                Console.WriteLine(" ========== AUDIO " + (idScene + 1) + " NOT FOUND! ========== ");
             }
             //Console.WriteLine("URL: " + axWindowsMediaPlayer1.URL);
         }
