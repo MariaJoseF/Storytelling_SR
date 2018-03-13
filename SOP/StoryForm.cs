@@ -431,101 +431,25 @@ namespace StoryOfPersonality
         {
             if (robot.PersuasionCondition.Equals(RobotsPersuasion.Against)) // robot persuasion condition is against the user personality
             {
-                switch (robot.ConsecutivePlays)
+                if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
                 {
-                    case 1:
-                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                        {
-                            robot.Persuasion.Animation = "anger1";
-                        }
-                        else
-                        {
-                            robot.Persuasion.Animation = "joy1";
-                        }
-                        break;
-                    case 2:
-                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                        {
-                            robot.Persuasion.Animation = "anger3";
-                        }
-                        else
-                        {
-                            robot.Persuasion.Animation = "joy3";
-                        }
-                        break;
-                    case 3:
-                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                        {
-                            robot.Persuasion.Animation = "anger5";
-                        }
-                        else
-                        {
-                            robot.Persuasion.Animation = "joy5";
-                        }
-                        break;
-                    default:
-                        if (robot.OponentPlays > 3)
-                        {
-                            if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                            {
-                                robot.Persuasion.Animation = "anger5";
-                            }
-                            else
-                            {
-                                robot.Persuasion.Animation = "joy5";
-                            }
-                        }
-                        break;
+                    robot.Persuasion.Animation = "anger5";
+                }
+                else
+                {
+                    robot.Persuasion.Animation = "joy1";
                 }
             }
             else if (robot.PersuasionCondition.Equals(RobotsPersuasion.Favour))// robot persuasion condition is in favour of the user personality
             {
-                switch (robot.ConsecutivePlays)
-                {
-                    case 1:
-                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                        {
-                            robot.Persuasion.Animation = "joy1";
-                        }
-                        else
-                        {
-                            robot.Persuasion.Animation = "anger1";
-                        }
-                        break;
-                    case 2:
-                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                        {
-                            robot.Persuasion.Animation = "joy3";
-                        }
-                        else
-                        {
-                            robot.Persuasion.Animation = "anger3";
-                        }
-                        break;
-                    case 3:
-                        if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                        {
-                            robot.Persuasion.Animation = "joy5";
-                        }
-                        else
-                        {
-                            robot.Persuasion.Animation = "anger5";
-                        }
-                        break;
-                    default:
-                        if (robot.ConsecutivePlays > 3)
-                        {
-                            if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
-                            {
-                                robot.Persuasion.Animation = "joy5";
-                            }
-                            else
-                            {
-                                robot.Persuasion.Animation = "anger5";
-                            }
 
-                        }
-                        break;
+                if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
+                {
+                    robot.Persuasion.Animation = "joy1";
+                }
+                else
+                {
+                    robot.Persuasion.Animation = "anger5";
                 }
             }
         }
