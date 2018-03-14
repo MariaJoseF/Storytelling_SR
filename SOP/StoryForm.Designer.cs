@@ -63,10 +63,10 @@ namespace StoryOfPersonality
             // 
             this.leftButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.leftButton.AutoSize = true;
-            this.leftButton.Location = new System.Drawing.Point(112, 595);
+            this.leftButton.Location = new System.Drawing.Point(112, 702);
             this.leftButton.Margin = new System.Windows.Forms.Padding(6);
             this.leftButton.Name = "leftButton";
-            this.leftButton.Size = new System.Drawing.Size(740, 38);
+            this.leftButton.Size = new System.Drawing.Size(896, 40);
             this.leftButton.TabIndex = 17;
             this.leftButton.Text = "◀";
             this.leftButton.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -77,10 +77,10 @@ namespace StoryOfPersonality
             // 
             this.rightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.rightButton.AutoSize = true;
-            this.rightButton.Location = new System.Drawing.Point(1804, 595);
+            this.rightButton.Location = new System.Drawing.Point(1650, 702);
             this.rightButton.Margin = new System.Windows.Forms.Padding(6);
             this.rightButton.Name = "rightButton";
-            this.rightButton.Size = new System.Drawing.Size(740, 38);
+            this.rightButton.Size = new System.Drawing.Size(894, 40);
             this.rightButton.TabIndex = 18;
             this.rightButton.Text = "▶";
             this.rightButton.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -93,12 +93,12 @@ namespace StoryOfPersonality
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sceneBox.Enabled = false;
             this.sceneBox.FontSize = MetroFramework.MetroTextBoxSize.Tall;
-            this.sceneBox.Location = new System.Drawing.Point(112, 30);
+            this.sceneBox.Location = new System.Drawing.Point(112, 34);
             this.sceneBox.Margin = new System.Windows.Forms.Padding(6);
             this.sceneBox.Multiline = true;
             this.sceneBox.Name = "sceneBox";
             this.sceneBox.ReadOnly = true;
-            this.sceneBox.Size = new System.Drawing.Size(2432, 413);
+            this.sceneBox.Size = new System.Drawing.Size(2432, 501);
             this.sceneBox.TabIndex = 22;
             this.sceneBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.sceneBox.Theme = MetroFramework.MetroThemeStyle.Dark;
@@ -126,11 +126,11 @@ namespace StoryOfPersonality
             this.groupBox1.Controls.Add(this.rightButton);
             this.groupBox1.Controls.Add(this.lblResearcher);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox1.Location = new System.Drawing.Point(40, 905);
+            this.groupBox1.Location = new System.Drawing.Point(40, 813);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(2660, 659);
+            this.groupBox1.Size = new System.Drawing.Size(2660, 751);
             this.groupBox1.TabIndex = 26;
             this.groupBox1.TabStop = false;
             // 
@@ -138,10 +138,11 @@ namespace StoryOfPersonality
             // 
             this.labelRightButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelRightButton.BackColor = System.Drawing.Color.Transparent;
+            this.labelRightButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelRightButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelRightButton.Location = new System.Drawing.Point(1804, 449);
+            this.labelRightButton.Location = new System.Drawing.Point(1652, 538);
             this.labelRightButton.Name = "labelRightButton";
-            this.labelRightButton.Size = new System.Drawing.Size(740, 134);
+            this.labelRightButton.Size = new System.Drawing.Size(896, 158);
             this.labelRightButton.TabIndex = 28;
             this.labelRightButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -149,17 +150,18 @@ namespace StoryOfPersonality
             // 
             this.labelLeftButton.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelLeftButton.BackColor = System.Drawing.Color.Transparent;
+            this.labelLeftButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelLeftButton.ForeColor = System.Drawing.SystemColors.Window;
-            this.labelLeftButton.Location = new System.Drawing.Point(112, 455);
+            this.labelLeftButton.Location = new System.Drawing.Point(112, 540);
             this.labelLeftButton.Name = "labelLeftButton";
-            this.labelLeftButton.Size = new System.Drawing.Size(740, 134);
+            this.labelLeftButton.Size = new System.Drawing.Size(896, 158);
             this.labelLeftButton.TabIndex = 27;
             this.labelLeftButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btConfirm
             // 
             this.btConfirm.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btConfirm.Location = new System.Drawing.Point(1200, 487);
+            this.btConfirm.Location = new System.Drawing.Point(1200, 569);
             this.btConfirm.Margin = new System.Windows.Forms.Padding(6);
             this.btConfirm.Name = "btConfirm";
             this.btConfirm.Size = new System.Drawing.Size(284, 146);
@@ -179,7 +181,7 @@ namespace StoryOfPersonality
             this.lblResearcher.Multiline = true;
             this.lblResearcher.Name = "lblResearcher";
             this.lblResearcher.ReadOnly = true;
-            this.lblResearcher.Size = new System.Drawing.Size(2652, 627);
+            this.lblResearcher.Size = new System.Drawing.Size(2652, 719);
             this.lblResearcher.Style = MetroFramework.MetroColorStyle.Silver;
             this.lblResearcher.TabIndex = 25;
             this.lblResearcher.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
