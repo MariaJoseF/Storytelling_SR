@@ -53,7 +53,7 @@ namespace SOP.Modules
             else
             {
                 this.pitch = "x-low";
-                this.persuasion.Prosody = new Prosody("medium", "soft");
+                this.persuasion.Prosody = new Prosody("medium", "loud");
             }
         }
 
