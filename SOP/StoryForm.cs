@@ -456,16 +456,13 @@ namespace StoryOfPersonality
 
         private void GetUtteranceLanguage(Robot robot)
         {
-            if (robot.Personality.Equals(Robot.RobotsPersonality.dominant))
+            if (Language.Equals(Thalamus.BML.SpeechLanguages.English))
             {
-                if (Language.Equals(Thalamus.BML.SpeechLanguages.English))
-                {
-                    robot.Persuasion.Prosody.Language = Prosody.RobotsLanguage.EN;
-                }
-                else
-                {
-                    robot.Persuasion.Prosody.Language = Prosody.RobotsLanguage.PT;
-                }
+                robot.Persuasion.Prosody.Language = Prosody.RobotsLanguage.EN;
+            }
+            else
+            {
+                robot.Persuasion.Prosody.Language = Prosody.RobotsLanguage.PT;
             }
         }
 
@@ -689,7 +686,7 @@ namespace StoryOfPersonality
             if (System.IO.File.Exists(ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + audioExt))
             {
                 axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + audioExt;
-                axWindowsMediaPlayer1.settings.volume = 70;
+                axWindowsMediaPlayer1.settings.volume = 50;
                 axWindowsMediaPlayer1.Ctlcontrols.play();
             }
             else
