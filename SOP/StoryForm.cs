@@ -579,13 +579,13 @@ namespace StoryOfPersonality
                     switch (aux[0])
                     {
                         case "Gaze_PB":
-                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
                             break;
                         case "Gaze_PBP":
-                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
                             break;
                         case "Gaze_PBPB":
-                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                            ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
                             break;
                     }
                     //SAVE LOGS
