@@ -170,13 +170,13 @@ namespace StoryOfPersonality
 
                 if (generateDom <= 4)
                 {
-                    rDominant = new Robot(Robot.RobotsPersonality.dominant);
-                    rMeek = new Robot(Robot.RobotsPersonality.meek);
+                    rDominant = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Against);
+                    rMeek = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Against);
                 }
                 else //generateDom >=5 Meek dominant
                 {
-                    rDominant = new Robot(Robot.RobotsPersonality.meek);
-                    rMeek = new Robot(Robot.RobotsPersonality.dominant);
+                    rDominant = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Against);
+                    rMeek = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Against);
                 }
 
 
@@ -199,39 +199,39 @@ namespace StoryOfPersonality
                 }
             }
 
-            foreach (var pair in preferencePair)
-            {
-                if (pair.PersuasionCondition.Equals(Robot.RobotsPersuasion.none))
-                {
-                    generateFavour = GetRandom();
-                    genereateAgaints = 1 - generateFavour;
+            //foreach (var pair in preferencePair)
+            //{
+            //    if (pair.PersuasionCondition.Equals(Robot.RobotsPersuasion.none))
+            //    {
+            //        generateFavour = GetRandom();
+            //        genereateAgaints = 1 - generateFavour;
 
-                    if (generateFavour == 1)
-                    {
-                        pair.PersuasionCondition = Robot.RobotsPersuasion.Favour;
-                    }
-                    else
-                    {
-                        pair.PersuasionCondition = Robot.RobotsPersuasion.Against;
-                    }
+            //        if (generateFavour == 1)
+            //        {
+            //            pair.PersuasionCondition = Robot.RobotsPersuasion.Favour;
+            //        }
+            //        else
+            //        {
+            //            pair.PersuasionCondition = Robot.RobotsPersuasion.Against;
+            //        }
 
-                    foreach (var pair_next in preferencePair)
-                    {
-                        if (pair_next.Personality.Equals(pair.Personality) && pair_next.PersuasionCondition.Equals(Robot.RobotsPersuasion.none))
-                        {
-                            if (genereateAgaints == 0)
-                            {
-                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.Against;
-                            }
-                            else
-                            {
-                                pair_next.PersuasionCondition = Robot.RobotsPersuasion.Favour;
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
+            //        foreach (var pair_next in preferencePair)
+            //        {
+            //            if (pair_next.Personality.Equals(pair.Personality) && pair_next.PersuasionCondition.Equals(Robot.RobotsPersuasion.none))
+            //            {
+            //                if (genereateAgaints == 0)
+            //                {
+            //                    pair_next.PersuasionCondition = Robot.RobotsPersuasion.Against;
+            //                }
+            //                else
+            //                {
+            //                    pair_next.PersuasionCondition = Robot.RobotsPersuasion.Favour;
+            //                }
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private int CountPreference(string pref1, string pref2, int preftotal)

@@ -33,13 +33,13 @@ namespace SOP.Modules
         private RobotCongruent congruentIntention;
 
 
-        public Robot(RobotsPersonality personality)
+        public Robot(RobotsPersonality personality, RobotsPersuasion against)
         {
             this.personality = personality;
             this.consecutivePlays = 0;
             this.oponentPlays = 0;
             this.persuasion = new Persuasion();
-            this.persuasionCondition = RobotsPersuasion.none;
+            this.persuasionCondition = against;
             this.totalDominant = 0;
             this.totalMeek = 0;
             this.decisionPoint = "-";

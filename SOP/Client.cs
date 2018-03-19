@@ -244,16 +244,19 @@ namespace StoryOfPersonality
             idUtterancePhrase = Convert.ToInt32(id);
             string[] values = Utterance_utterance.Split(',');
             utterancePhrase = values[2];
+            string aux = "";
             if ((Utterance_utterance.Contains("FAVOUR")) || (Utterance_utterance.Contains("AGAINST"))) {
                 if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
                 {
+                    aux = storyWindow.LeftRobot.PhraseUsed;
                     storyWindow.LeftRobot.IdPhrasesUsed = idUtterancePhrase;
-                    storyWindow.LeftRobot.PhraseUsed = utterancePhrase;
+                    storyWindow.LeftRobot.PhraseUsed = aux + utterancePhrase;
                     storyWindow.LeftRobot.TimesPhrases++;
                 } else
                 {
+                    aux = storyWindow.LeftRobot.PhraseUsed;
                     storyWindow.RightRobot.IdPhrasesUsed = idUtterancePhrase;
-                    storyWindow.RightRobot.PhraseUsed = utterancePhrase;
+                    storyWindow.RightRobot.PhraseUsed = aux + utterancePhrase;
                     storyWindow.RightRobot.TimesPhrases++;
                 }
             }
