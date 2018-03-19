@@ -23,7 +23,7 @@ namespace StoryOfPersonality
 
         private static StartAdventure instance = null;
         private string UserId;
-        private string txtButton = "Let's Begin";
+        private string txtButton = "LET'S BEGIN";
 
         public Client ThalamusClientLeft;
         public Client ThalamusClientRight;
@@ -56,7 +56,6 @@ namespace StoryOfPersonality
             this.Language = Thalamus.BML.SpeechLanguages.English;
             ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
             //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
-
 
             ThalamusClientLeft = new Client(OptionSide.left, Language, "Meek");
             //ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
@@ -93,21 +92,19 @@ namespace StoryOfPersonality
 
         private void LanguageSelector_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            this.metroButton4.Left = (this.ClientSize.Width - this.metroButton4.Width) / 2;
-            this.metroButton4.Top = (this.ClientSize.Height - this.metroButton4.Height) / 2;
-            int newSize = 40;
-            this.metroButton4.Font = new Font(this.metroButton4.Font.FontFamily, newSize);
+            int newSize = 80;
+            this.metroButton4Story.Font = new Font(this.metroButton4Story.Font.FontFamily, newSize);
+            this.metroButton4Story.Visible = true;
             if (languageSelector.Text == "English")
             {
-                this.metroButton4.Text = txtButton;
+                this.metroButton4Story.Text = txtButton;
                 this.Language = Thalamus.BML.SpeechLanguages.English;
                 ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
                 ThalamusClientRight.CPublisher.SetLanguage(this.Language);
             }
             else
             {
-                this.metroButton4.Text = "VAMOS COMEÇAR!";
+                this.metroButton4Story.Text = "VAMOS COMEÇAR!";
                 this.Language = Thalamus.BML.SpeechLanguages.Portuguese;
                 ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
                 ThalamusClientRight.CPublisher.SetLanguage(this.Language);

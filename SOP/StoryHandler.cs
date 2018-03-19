@@ -24,9 +24,7 @@ namespace StoryOfPersonality
 
     public class StoryHandler
     {
-
         public StoryForm storyWindow;
-
 
         public string UTTERANCE_DP_FILE;
         public string UTTERANCE_SCENES_FILE;
@@ -103,6 +101,30 @@ namespace StoryOfPersonality
         {
             string decisionPoint = storyNodes[currentStoryNodeId].Before;
             return decisionPoints[decisionPoint].Pref1;
+        }
+
+        internal double GetLeftWeight1()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Weight11;
+        }
+
+        internal double GetLeftWeight2()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Weight12;
+        }
+
+        internal double GetRightWeight1()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Weight21;
+        }
+
+        internal double GetRightWeight2()
+        {
+            string decisionPoint = storyNodes[currentStoryNodeId].Before;
+            return decisionPoints[decisionPoint].Weight22;
         }
 
         internal string GetLeftUtterance(Thalamus.BML.SpeechLanguages language)
@@ -288,10 +310,10 @@ namespace StoryOfPersonality
             switch (volume)
             {
                 case Volume.low:
-                    value = "x-soft";
+                    value = "medium";
                     break;
                 case Volume.medium:
-                    value = "medium";
+                    value = "loud";
                     break;
                 case Volume.high:
                     value = "x-loud";

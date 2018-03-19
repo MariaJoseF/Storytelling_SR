@@ -97,7 +97,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Config.cs" />
     <Compile Include="StartingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,9 +122,11 @@
     <Compile Include="Thalamus\ILibraryActions.cs" />
     <EmbeddedResource Include="PostQuestionnaire.resx">
       <DependentUpon>PostQuestionnaire.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="PreQuestionnaire.resx">
       <DependentUpon>PreQuestionnaire.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="StartingForm.resx">
       <DependentUpon>StartingForm.cs</DependentUpon>

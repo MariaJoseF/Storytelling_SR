@@ -60,7 +60,7 @@ namespace StoryOfPersonality
         public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot)
         {
             InitializeComponent();
-
+            Console.WriteLine("RESOLUTION: " + this.ClientSize.Width + " ::: " + this.ClientSize.Height);
             if (this.Language.Equals(Thalamus.BML.SpeechLanguages.English))
             {
                 this.lblResearcher.Text = "Call the Researcher please.";
@@ -111,7 +111,9 @@ namespace StoryOfPersonality
 
         private void CropAndStrechBackImage()
         {
-            this.backImage.Size = this.Size;
+            Size s = new Size(Screen.PrimaryScreen.Bounds.Width, 640);
+            //this.backImage.Size = this.Size;
+            this.backImage.Size = s;
         }
 
         private void DisableButtons()
@@ -226,7 +228,7 @@ namespace StoryOfPersonality
 
                 CallUtterances(robotSide, 3);
 
-                btConfirm.Enabled = true;
+                //btConfirm.Enabled = true;
             }
             else
             {
@@ -539,11 +541,13 @@ namespace StoryOfPersonality
             {
                 if (robotSide.Side.Equals(RobotSide.left))
                 {
-                    ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
+                    //ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
+                    ThalamusClientLeft.PerformUtteranceFromLibrary("Animation", language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
                 }
                 else
                 {
-                    ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
+                    //ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
+                    ThalamusClientRight.PerformUtteranceFromLibrary("Animation", language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
                 }
                 //SAVE LOGS
             }
@@ -561,11 +565,13 @@ namespace StoryOfPersonality
 
                 if (robotSide.Side.Equals(RobotSide.left))
                 {
-                    ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
+                    //ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
+                    ThalamusClientLeft.PerformUtteranceFromLibrary("Phrase", language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
                 }
                 else
                 {
-                    ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
+                    //ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
+                    ThalamusClientRight.PerformUtteranceFromLibrary("Phrase", language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
                 }
                 //SAVE LOGS
             }
@@ -744,6 +750,7 @@ namespace StoryOfPersonality
             //Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
             //Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
             string txt = "";
+            string txtWeight = "";
 
             if (!rightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -751,8 +758,9 @@ namespace StoryOfPersonality
                 {
                     SaveFinalPreference(rightRobot, OptionSide.none, 1);
                 }
+                    
                 // PERSONALITY
-                personality.BuildPersonality(rightRobot.PrefSelectedFinal);//selecionou botão esquerda manda a preferência dessa opção
+                personality.BuildPersonality(rightRobot.PrefSelectedFinal);//send the preference of the button chosen
                 txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), rightRobot.PrefSelectedFinal, rightRobot.Personality.ToString(), rightRobot.PersuasionCondition.ToString());
                 //selectedDP.DPPrefSelectedFinal = rightRobot.PrefSelectedFinal;
                 //rightRobot.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
@@ -775,8 +783,9 @@ namespace StoryOfPersonality
                 {
                     SaveFinalPreference(leftRobot, OptionSide.none, 1);
                 }
+
                 // PERSONALITY
-                personality.BuildPersonality(leftRobot.PrefSelectedFinal);//selecionou botão esquerda manda a preferência dessa opção
+                personality.BuildPersonality(leftRobot.PrefSelectedFinal);//send the preference of the button chosen
                 txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), leftRobot.PrefSelectedFinal, leftRobot.Personality.ToString(), leftRobot.PersuasionCondition.ToString());
                 //selectedDP.DPPrefSelectedFinal = leftRobot.PrefSelectedFinal;
                 //leftRobot.PrefSelectedFinal = selectedDP.DPPrefSelectedFinal;
@@ -793,6 +802,31 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
                 ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
             }
+
+            if (selectedDP.SideSelected.Equals(OptionSide.left))
+            {
+                //Console.WriteLine(" == Final side: LEFT: " + selectedDP.DPPrefSelectedFinal + " - " + StoryHandler.GetLeftWeight1() + " - " + StoryHandler.GetLeftWeight2());
+                personality.BuildPersonalityWeight(selectedDP.DPPrefSelectedFinal, StoryHandler.GetLeftWeight1(), StoryHandler.GetLeftWeight2());//send the preference of the button chosen          
+            } else if (selectedDP.SideSelected.Equals(OptionSide.right))
+            {
+                //Console.WriteLine(" == Final side: RIGHT: " + selectedDP.DPPrefSelectedFinal + " - " + StoryHandler.GetRightWeight1() + " - " + StoryHandler.GetRightWeight2());
+                personality.BuildPersonalityWeight(selectedDP.DPPrefSelectedFinal, StoryHandler.GetRightWeight1(), StoryHandler.GetRightWeight2());//send the preference of the button chosen
+            }
+
+            txtWeight = personality.RecordPathPersonalityWeight();
+
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txtWeight, "ExtraInfo", "MBTIWeight-" + this.UserId.ToString() + ".txt");
+
+            // waiting 2 seconds to start the next method
+            var waitTime = new TimeSpan(0, 0, 2);
+            var waitUntil = DateTime.Now + waitTime;
+            int secs = 0;
+            while (DateTime.Now <= waitUntil)
+            {
+                secs++;
+                Console.WriteLine("Waiting: " + secs);
+                System.Threading.Thread.Sleep(1000);
+            } 
 
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
@@ -824,7 +858,7 @@ namespace StoryOfPersonality
         private void DeletePreferenceUsed()
         {
             string preferenceSelected = StoryHandler.GetPrefDP();
-            Console.WriteLine("Deleted preference " + preferenceSelected);
+            //Console.WriteLine("Deleted preference " + preferenceSelected);
 
             switch (preferenceSelected)
             {
@@ -858,6 +892,9 @@ namespace StoryOfPersonality
                          "============================= \r\n";
 
             txt += personality.DefineMBTIPersonality();
+
+            txt += "\r\n ============================= \r\n" +
+                   personality.DefineMBTIPersonalityWeight();
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }

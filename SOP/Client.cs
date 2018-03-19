@@ -150,10 +150,10 @@ namespace StoryOfPersonality
         {
             CPublisher.PerformUtteranceFromLibrary(id, category, subcategory, tagNames, tagValues);
 
-            for (int i = 0; i < tagNames.Length; i++)
+            /*for (int i = 0; i < tagNames.Length; i++)
             {
                 Console.WriteLine("names: " + tagNames[i] + " values: " + tagValues[i]);
-            }
+            }*/
             this.endUtteranceEvent = endUtteranceEvent;
         }
 
@@ -174,15 +174,28 @@ namespace StoryOfPersonality
 
         public void SpeakFinished(string id)
         {
-            Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
-            if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+            //Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
+            if (id.Equals("Phrase"))
             {
-                Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed + " - " + storyWindow.LeftRobot.PhraseUsed + " - " + storyWindow.LeftRobot.TimesPhrases);
+                //Console.WriteLine("=== CONFIRM BUTTON CAN BE ENABLED ===");
+                storyWindow.BeginInvoke((Action)delegate ()
+                {//this refer to form in WPF application 
+                    storyWindow.btConfirm.Enabled = true;
+                });
             }
-            else
+            /*
+            if (id.Equals("Animation"))
             {
-                Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed + " - " + storyWindow.RightRobot.PhraseUsed + " - " + storyWindow.RightRobot.TimesPhrases);
-            }
+                Console.WriteLine("=== AUDIO CAN BE PLAYED ===");
+            }*/
+                /*if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+                {
+                    Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed + " - " + storyWindow.LeftRobot.PhraseUsed + " - " + storyWindow.LeftRobot.TimesPhrases);
+                }
+                else
+                {
+                    Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed + " - " + storyWindow.RightRobot.PhraseUsed + " - " + storyWindow.RightRobot.TimesPhrases);
+                }*/
         }
         #endregion
 
@@ -231,17 +244,18 @@ namespace StoryOfPersonality
             idUtterancePhrase = Convert.ToInt32(id);
             string[] values = Utterance_utterance.Split(',');
             utterancePhrase = values[2];
-
-            if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
-            {
-                storyWindow.LeftRobot.IdPhrasesUsed = idUtterancePhrase;
-                storyWindow.LeftRobot.PhraseUsed = utterancePhrase;
-                storyWindow.LeftRobot.TimesPhrases++;
-            } else
-            {
-                storyWindow.RightRobot.IdPhrasesUsed = idUtterancePhrase;
-                storyWindow.RightRobot.PhraseUsed = utterancePhrase;
-                storyWindow.RightRobot.TimesPhrases++;
+            if ((Utterance_utterance.Contains("FAVOUR")) || (Utterance_utterance.Contains("AGAINST"))) {
+                if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+                {
+                    storyWindow.LeftRobot.IdPhrasesUsed = idUtterancePhrase;
+                    storyWindow.LeftRobot.PhraseUsed = utterancePhrase;
+                    storyWindow.LeftRobot.TimesPhrases++;
+                } else
+                {
+                    storyWindow.RightRobot.IdPhrasesUsed = idUtterancePhrase;
+                    storyWindow.RightRobot.PhraseUsed = utterancePhrase;
+                    storyWindow.RightRobot.TimesPhrases++;
+                }
             }
         }
     }

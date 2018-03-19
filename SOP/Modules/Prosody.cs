@@ -30,7 +30,7 @@ namespace SOP.Modules
             //this.intensity = 0;
             this.rate = "medium";
             //this.pitch = "";
-            this.volume = "soft";
+            this.volume = "high";
             //this.utterance = "";
             this.language = RobotsLanguage.none;
         }
