@@ -254,7 +254,7 @@ namespace StoryOfPersonality
                     storyWindow.LeftRobot.TimesPhrases++;
                 } else
                 {
-                    aux = storyWindow.LeftRobot.PhraseUsed;
+                    aux = storyWindow.RightRobot.PhraseUsed;
                     storyWindow.RightRobot.IdPhrasesUsed = idUtterancePhrase;
                     storyWindow.RightRobot.PhraseUsed = aux + utterancePhrase;
                     storyWindow.RightRobot.TimesPhrases++;
