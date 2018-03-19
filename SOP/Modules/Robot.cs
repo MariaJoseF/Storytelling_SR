@@ -30,6 +30,8 @@ namespace SOP.Modules
         private RobotsPosture posture;
         private RobotSide side;
 
+        private RobotCongruent congruentIntention;
+
 
         public Robot(RobotsPersonality personality)
         {
@@ -55,6 +57,7 @@ namespace SOP.Modules
                 this.pitch = "x-low";
                 this.persuasion.Prosody = new Prosody("medium", "loud");
             }
+            this.congruentIntention = RobotCongruent.none;
         }
 
         public Robot(RobotsPersonality personality, RobotSide side, Thalamus.BML.SpeechLanguages language)
@@ -91,6 +94,7 @@ namespace SOP.Modules
                 this.pitch = "x-low";
                 this.persuasion.Prosody = new Prosody("medium", "loud");
             }
+            this.congruentIntention = RobotCongruent.none;
         }
 
         public Robot()
@@ -108,6 +112,7 @@ namespace SOP.Modules
             this.prefSelectedIntention = "-";
             this.prefSelectedFinal = "-";
             this.pitch = "";
+            this.congruentIntention = RobotCongruent.none;
         }
 
         public RobotsPersonality Personality { get => personality; set => personality = value; }
@@ -128,6 +133,7 @@ namespace SOP.Modules
         public int TimesPhrases { get => timesPhrases; set => timesPhrases = value; }
         public string PhraseUsed { get => phraseUsed; set => phraseUsed = value; }
         public int IdPhrasesUsed { get => idPhrasesUsed; set => idPhrasesUsed = value; }
+        public RobotCongruent CongruentIntention { get => congruentIntention; set => congruentIntention = value; }
 
         public enum RobotsPersonality
         {
@@ -162,11 +168,17 @@ namespace SOP.Modules
             satisfaction = 7
         }
 
+        public enum RobotCongruent
+        {
+            none = -1,
+            congruent = 0,
+            non_congruent = 1
+        }
         public override string ToString()
         {
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return ";" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + persuasionCondition;
+            return ";" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + persuasionCondition;
         }
     }
 }

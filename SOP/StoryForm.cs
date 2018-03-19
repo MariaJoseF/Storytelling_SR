@@ -102,9 +102,9 @@ namespace StoryOfPersonality
 
         private void LoadLogFiles()
         {
-            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
-            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;IntentionCongruent;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientLeft", "leftRobot-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;IntentionCongruent;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
+            ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";RobotPersonality;ConsecutivePlays;OpopnentPlays;TotalDominant;TotalMeek;RobotPitch;Gaze;TimeRobotFeatures;AnimationDominant;ProsodyRate;ProsodyVolume;ProsodyLanguage;DecisionPoint;PreferencePair;PreferenceSelectedIntention;PreferenceSelectedFinal;IntentionCongruent;TimesPhrases;IdPhrase;PhraseUtterance;PersuasionCondition", "ThalamusClientRight", "rightRobot-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";CurrentStoryNodeId;OptionSelected;SideSelected;RobotPersonality;TotalDominant;TotalMeek;DPPreferencePair;DPPreferenceIntention;DpPreferenceFinal;ElapsedMS", "StoryChoices", "choices-" + this.UserId.ToString() + ".txt");
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";DecisionPoint;PreferencePair;PreferenceSelected;RobotPersonality;ConditionPersuasion", "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
@@ -189,10 +189,6 @@ namespace StoryOfPersonality
 
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
         {
-            //Console.WriteLine("ChoiceIntention I rightRobot " + rightRobot.ToString());
-            //Console.WriteLine("ChoiceIntention I leftRobot " + leftRobot.ToString());
-
-            //Console.WriteLine("robotSide " + robotSide.ToString());
 
             if (btConfirmEnable)
             {
@@ -209,6 +205,19 @@ namespace StoryOfPersonality
                 else
                 {
                     auxPreferenceSide = StoryHandler.GetRightPref();
+                }
+
+                if (StoryHandler.GetPrefDP().Equals("-"))
+                {
+                    robotSide.CongruentIntention = RobotCongruent.none;
+                }
+                else if (UserPersonality.Contains(auxPreferenceSide))
+                {
+                    robotSide.CongruentIntention = RobotCongruent.congruent;
+                }
+                else
+                {
+                    robotSide.CongruentIntention = RobotCongruent.non_congruent;
                 }
 
                 selectedDP.DpPrefPair = StoryHandler.GetPrefDP();
