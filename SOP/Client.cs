@@ -23,7 +23,7 @@ namespace StoryOfPersonality
         {
             dynamic publisher;
             //gets the project folder not the bin/Debug folder like System.Environment.CurrentDirectory;
-            public string fileName = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName; 
+            public string fileName = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
             public ClientPublisher(dynamic publisher)
             {
@@ -112,7 +112,7 @@ namespace StoryOfPersonality
 
         private StartAdventure.OptionSide Side;
         private EventHandler endUtteranceEvent;
-       // private bool activateAudio;
+        // private bool activateAudio;
 
         public int idUtterancePhrase = 0;
         public string utterancePhrase = "";
@@ -128,7 +128,7 @@ namespace StoryOfPersonality
 
             //this.storyWindow = window;
         }
-        public void StoryWindow (StoryForm window)
+        public void StoryWindow(StoryForm window)
         {
             this.storyWindow = window;
         }
@@ -174,7 +174,7 @@ namespace StoryOfPersonality
 
         public void SpeakFinished(string id)
         {
-            //Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
+            Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
             if (id.Equals("Phrase"))
             {
                 //Console.WriteLine("=== CONFIRM BUTTON CAN BE ENABLED ===");
@@ -183,19 +183,24 @@ namespace StoryOfPersonality
                     storyWindow.btConfirm.Enabled = true;
                 });
             }
+            else if (id.Equals("Animation"))
+            {
+                storyWindow.WaitAnimation = true;
+                Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.WaitAnimation:" + storyWindow.WaitAnimation);
+            }
             /*
             if (id.Equals("Animation"))
             {
                 Console.WriteLine("=== AUDIO CAN BE PLAYED ===");
             }*/
-                /*if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
-                {
-                    Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed + " - " + storyWindow.LeftRobot.PhraseUsed + " - " + storyWindow.LeftRobot.TimesPhrases);
-                }
-                else
-                {
-                    Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed + " - " + storyWindow.RightRobot.PhraseUsed + " - " + storyWindow.RightRobot.TimesPhrases);
-                }*/
+            /*if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+            {
+                Console.WriteLine("LeftRobot SF UtterancePhrase ID: " + storyWindow.LeftRobot.IdPhrasesUsed + " - " + storyWindow.LeftRobot.PhraseUsed + " - " + storyWindow.LeftRobot.TimesPhrases);
+            }
+            else
+            {
+                Console.WriteLine("RightRobot SF UtterancePhrase ID: " + storyWindow.RightRobot.IdPhrasesUsed + " - " + storyWindow.RightRobot.PhraseUsed + " - " + storyWindow.RightRobot.TimesPhrases);
+            }*/
         }
         #endregion
 
@@ -214,7 +219,7 @@ namespace StoryOfPersonality
         public void WriteJSON(string timestamp, string info, string aux_path, string name_file)
         {
 
-        string filePath = CPublisher.fileName + @"\Logs\" + aux_path + @"\";
+            string filePath = CPublisher.fileName + @"\Logs\" + aux_path + @"\";
             string filename = filePath + name_file + ".txt";
 
             //Console.WriteLine(filePath);
@@ -244,20 +249,39 @@ namespace StoryOfPersonality
             idUtterancePhrase = Convert.ToInt32(id);
             string[] values = Utterance_utterance.Split(',');
             utterancePhrase = values[2];
-            string aux = "";
-            if ((Utterance_utterance.Contains("FAVOUR")) || (Utterance_utterance.Contains("AGAINST"))) {
-                if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+
+            if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+            {
+                if ((Utterance_utterance.Contains("FAVOUR")) || (Utterance_utterance.Contains("AGAINST")))
                 {
-                    aux = storyWindow.LeftRobot.PhraseUsed;
                     storyWindow.LeftRobot.IdPhrasesUsed = idUtterancePhrase;
-                    storyWindow.LeftRobot.PhraseUsed = aux + utterancePhrase;
+                    storyWindow.LeftRobot.PhraseUsed = utterancePhrase;
                     storyWindow.LeftRobot.TimesPhrases++;
-                } else
+                }
+                else if ((Utterance_utterance.Contains("ANIMATION")))
                 {
-                    aux = storyWindow.RightRobot.PhraseUsed;
+                    storyWindow.LeftRobot.AnimationUsed = utterancePhrase;
+                }
+                else if ((Utterance_utterance.Contains("GAZE_PB")) || (Utterance_utterance.Contains("GAZE_PBP")) || (Utterance_utterance.Contains("GAZE_PBPB")))
+                {
+                    storyWindow.LeftRobot.GazeUsed = utterancePhrase;
+                }
+            }
+            else if (!storyWindow.RightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
+            {
+                if ((Utterance_utterance.Contains("FAVOUR")) || (Utterance_utterance.Contains("AGAINST")))
+                {
                     storyWindow.RightRobot.IdPhrasesUsed = idUtterancePhrase;
-                    storyWindow.RightRobot.PhraseUsed = aux + utterancePhrase;
+                    storyWindow.RightRobot.PhraseUsed = utterancePhrase;
                     storyWindow.RightRobot.TimesPhrases++;
+                }
+                else if ((Utterance_utterance.Contains("ANIMATION")))
+                {
+                    storyWindow.RightRobot.AnimationUsed = utterancePhrase;
+                }
+                else if ((Utterance_utterance.Contains("GAZE_PB")) || (Utterance_utterance.Contains("GAZE_PBP")) || (Utterance_utterance.Contains("GAZE_PBPB")))
+                {
+                    storyWindow.RightRobot.GazeUsed = utterancePhrase;
                 }
             }
         }

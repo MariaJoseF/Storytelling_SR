@@ -25,6 +25,8 @@ namespace SOP.Modules
         private int timesPhrases = 0;
         private int idPhrasesUsed;
         private string phraseUsed;
+        private string animationUsed;
+        private string gazeUsed;
 
         private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
@@ -134,6 +136,8 @@ namespace SOP.Modules
         public string PhraseUsed { get => phraseUsed; set => phraseUsed = value; }
         public int IdPhrasesUsed { get => idPhrasesUsed; set => idPhrasesUsed = value; }
         public RobotCongruent CongruentIntention { get => congruentIntention; set => congruentIntention = value; }
+        public string AnimationUsed { get => animationUsed; set => animationUsed = value; }
+        public string GazeUsed { get => gazeUsed; set => gazeUsed = value; }
 
         public enum RobotsPersonality
         {
@@ -178,7 +182,7 @@ namespace SOP.Modules
         {
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return ";" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + persuasionCondition;
+            return ";" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + gazeUsed+";" + animationUsed+";" + persuasionCondition;
         }
     }
 }
