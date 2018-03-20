@@ -149,7 +149,7 @@ namespace SOP.Modules
         public enum RobotsPersuasion
         {
             none = -1,
-            Favour = 0,
+            Positive = 0,
             Against = 1
         }
 

@@ -158,25 +158,21 @@ namespace StoryOfPersonality
         private void LoadPreferencesPairs(List<Robot> preferencePair, int preftotal)
         {
             int generateDom = -1;
-
-            int generateFavour = -1;
-            int genereateAgaints = -1;
-
             Robot rDominant; Robot rMeek;
-
+         
             for (int i = 0; i < preftotal; i += 2)
             {
                 generateDom = GetRandom();
 
                 if (generateDom <= 4)
                 {
-                    rDominant = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Against);
-                    rMeek = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Against);
+                    rDominant = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Positive);
+                    rMeek = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Positive);
                 }
                 else //generateDom >=5 Meek dominant
                 {
-                    rDominant = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Against);
-                    rMeek = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Against);
+                    rDominant = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Positive);
+                    rMeek = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Positive);
                 }
 
 

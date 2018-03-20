@@ -42,6 +42,9 @@ namespace StoryOfPersonality
         private List<Robot> PreferenceSN = new List<Robot>();
         private List<Robot> preferenceDG = new List<Robot>();
         public bool WaitAnimation = false;
+        int[,] PreferencesCongruency = new int[,] { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };//first element is number of times dominant robot was against and the second is for the meek robot
+        int[,] PreviousPrefSelected = new int[,] { { -1, -1 } };// first element is robot Personality, second element is the id on the preference list
+
 
         public enum OptionSide
         {
@@ -190,7 +193,6 @@ namespace StoryOfPersonality
 
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
         {
-
             if (btConfirmEnable)
             {
                 btConfirmEnable = false;
@@ -224,6 +226,79 @@ namespace StoryOfPersonality
                 selectedDP.DpPrefPair = StoryHandler.GetPrefDP();
                 selectedDP.DPPrefIntention = auxPreferenceSide;
                 robotSide.PrefSelectedIntention = selectedDP.DPPrefIntention;
+
+                if (!robotSide.CongruentIntention.Equals(RobotCongruent.non_congruent))
+                {
+                    switch (selectedDP.DpPrefPair)
+                    {
+                        case "ei":
+                        case "ie":
+                            if (robotSide.Personality.Equals(RobotsPersonality.dominant) && PreferencesCongruency[0, 0] < 1)
+                            {
+                                PreferencesCongruency[0, 0]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            else if (robotSide.Personality.Equals(RobotsPersonality.meek) && PreferencesCongruency[0, 1] < 1)
+                            {
+                                PreferencesCongruency[0, 1]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            break;
+                        case "tf":
+                        case "ft":
+                            if (robotSide.Personality.Equals(RobotsPersonality.dominant) && PreferencesCongruency[1, 0] < 1)
+                            {
+                                PreferencesCongruency[1, 0]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            else if (robotSide.Personality.Equals(RobotsPersonality.meek) && PreferencesCongruency[1, 1] < 1)
+                            {
+                                PreferencesCongruency[1, 1]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            break;
+                        case "jp":
+                        case "pj":
+                            if (robotSide.Personality.Equals(RobotsPersonality.dominant) && PreferencesCongruency[2, 0] < 1)
+                            {
+                                PreferencesCongruency[2, 0]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            else if (robotSide.Personality.Equals(RobotsPersonality.meek) && PreferencesCongruency[2, 1] < 1)
+                            {
+                                PreferencesCongruency[2, 1]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            break;
+                        case "sn":
+                        case "ns":
+                            if (robotSide.Personality.Equals(RobotsPersonality.dominant) && PreferencesCongruency[3, 0] < 1)
+                            {
+                                PreferencesCongruency[3, 0]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            else if (robotSide.Personality.Equals(RobotsPersonality.meek) && PreferencesCongruency[3, 1] < 1)
+                            {
+                                PreferencesCongruency[3, 1]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            break;
+                        case "-":
+                            if (robotSide.Personality.Equals(RobotsPersonality.dominant) && PreferencesCongruency[0, 0] < 1)
+                            {
+                                PreferencesCongruency[4, 0]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            else if (robotSide.Personality.Equals(RobotsPersonality.meek) && PreferencesCongruency[4, 1] < 1)
+                            {
+                                PreferencesCongruency[4, 1]++;
+                                robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
+                            }
+                            break;
+                    }
+                }
+
+
                 //selectedDP.DPPrefSelected = auxPreferenceSide;
                 //robotSide.PrefSelectedIntention = selectedDP.DPPrefSelected;
 
@@ -354,22 +429,143 @@ namespace StoryOfPersonality
             {
                 case "ei":
                 case "ie":
-                    per_per = PreferenceEI.First();
+                    if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
+                    {
+                        per_per = PreferenceEI.First(personalityR => personalityR.Personality == RobotsPersonality.dominant);
+                        PreviousPrefSelected[0, 0] = 1;
+                        LoadPreviousPrefSelected(PreferenceEI, RobotsPersonality.dominant);
+                    }
+                    else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
+                    {
+                        per_per = PreferenceEI.First(personalityR => personalityR.Personality == RobotsPersonality.meek);
+                        PreviousPrefSelected[0, 0] = 0;
+                        LoadPreviousPrefSelected(PreferenceEI, RobotsPersonality.meek);
+                    }
+                    else
+                    {
+                        per_per = PreferenceEI.First();
+                        if (per_per.Personality.Equals(RobotsPersonality.dominant))
+                        {
+                            PreviousPrefSelected[0, 0] = 1;
+                        }
+                        else
+                        {
+                            PreviousPrefSelected[0, 0] = 0;
+                        }
+                        PreviousPrefSelected[0, 1] = 0;
+                    }
+
                     break;
                 case "tf":
                 case "ft":
-                    per_per = PreferenceTF.First();
+                    if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
+                    {
+                        per_per = PreferenceTF.First(personalityR => personalityR.Personality == RobotsPersonality.dominant);
+                        PreviousPrefSelected[0, 0] = 1;
+                        LoadPreviousPrefSelected(PreferenceTF, RobotsPersonality.dominant);
+                    }
+                    else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
+                    {
+                        per_per = PreferenceTF.First(personalityR => personalityR.Personality == RobotsPersonality.meek);
+                        PreviousPrefSelected[0, 0] = 0;
+                        LoadPreviousPrefSelected(PreferenceTF, RobotsPersonality.meek);
+                    }
+                    else
+                    {
+                        per_per = PreferenceTF.First();
+                        if (per_per.Personality.Equals(RobotsPersonality.dominant))
+                        {
+                            PreviousPrefSelected[0, 0] = 1;
+                        }
+                        else
+                        {
+                            PreviousPrefSelected[0, 0] = 0;
+                        }
+                        PreviousPrefSelected[0, 1] = 0;
+                    }
                     break;
                 case "jp":
                 case "pj":
-                    per_per = PreferenceJP.First();
+                    if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
+                    {
+                        per_per = PreferenceJP.First(personalityR => personalityR.Personality == RobotsPersonality.dominant);
+                        PreviousPrefSelected[0, 0] = 1;
+                        LoadPreviousPrefSelected(PreferenceJP, RobotsPersonality.dominant);
+                    }
+                    else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
+                    {
+                        per_per = PreferenceJP.First(personalityR => personalityR.Personality == RobotsPersonality.meek);
+                        PreviousPrefSelected[0, 0] = 0;
+                        LoadPreviousPrefSelected(PreferenceJP, RobotsPersonality.meek);
+                    }
+                    else
+                    {
+                        per_per = PreferenceJP.First();
+                        if (per_per.Personality.Equals(RobotsPersonality.dominant))
+                        {
+                            PreviousPrefSelected[0, 0] = 1;
+                        }
+                        else
+                        {
+                            PreviousPrefSelected[0, 0] = 0;
+                        }
+                        PreviousPrefSelected[0, 1] = 0;
+                    }
                     break;
                 case "sn":
                 case "ns":
-                    per_per = PreferenceSN.First();
+                    if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
+                    {
+                        per_per = PreferenceSN.First(personalityR => personalityR.Personality == RobotsPersonality.dominant);
+                        PreviousPrefSelected[0, 0] = 1;
+                        LoadPreviousPrefSelected(PreferenceSN, RobotsPersonality.dominant);
+                    }
+                    else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
+                    {
+                        per_per = PreferenceSN.First(personalityR => personalityR.Personality == RobotsPersonality.meek);
+                        PreviousPrefSelected[0, 0] = 0;
+                        LoadPreviousPrefSelected(PreferenceSN, RobotsPersonality.meek);
+                    }
+                    else
+                    {
+                        per_per = PreferenceSN.First();
+                        if (per_per.Personality.Equals(RobotsPersonality.dominant))
+                        {
+                            PreviousPrefSelected[0, 0] = 1;
+                        }
+                        else
+                        {
+                            PreviousPrefSelected[0, 0] = 0;
+                        }
+                        PreviousPrefSelected[0, 1] = 0;
+                    }
                     break;
                 case "-":
-                    per_per = preferenceDG.First();
+                    if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
+                    {
+                        per_per = preferenceDG.First(personalityR => personalityR.Personality == RobotsPersonality.dominant);
+                        PreviousPrefSelected[0, 0] = 1;
+                        LoadPreviousPrefSelected(preferenceDG, RobotsPersonality.dominant);
+                    }
+                    else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
+                    {
+                        per_per = preferenceDG.First(personalityR => personalityR.Personality == RobotsPersonality.meek);
+                        PreviousPrefSelected[0, 0] = 0;
+                        LoadPreviousPrefSelected(preferenceDG, RobotsPersonality.meek);
+                    }
+                    else
+                    {
+                        per_per = preferenceDG.First();
+                        if (per_per.Personality.Equals(RobotsPersonality.dominant))
+                        {
+                            PreviousPrefSelected[0, 0] = 1;
+                        }
+                        else
+                        {
+                            PreviousPrefSelected[0, 0] = 0;
+                        }
+                        PreviousPrefSelected[0, 1] = 0;
+                    }
                     break;
             }
 
@@ -409,6 +605,11 @@ namespace StoryOfPersonality
             {
                 return new Robot();
             }
+        }
+
+        private void LoadPreviousPrefSelected(List<Robot> preferencePair, RobotsPersonality personality)
+        {
+            PreviousPrefSelected[0, 1] = preferencePair.FindIndex(personalityR => personalityR.Personality == personality);
         }
 
         private void CallNextScene()
@@ -452,7 +653,7 @@ namespace StoryOfPersonality
                     robot.Persuasion.Animation = "joy1";
                 }
             }
-            else if (robot.PersuasionCondition.Equals(RobotsPersuasion.Favour))// robot persuasion condition is in favour of the user personality
+            else if (robot.PersuasionCondition.Equals(RobotsPersuasion.Positive))// robot persuasion condition is in favour of the user personality
             {
 
                 if (robot.PrefSelectedIntention.Equals(robot.PrefSelectedFinal))
@@ -564,9 +765,9 @@ namespace StoryOfPersonality
             else if (buttonoption == 2)// make utterance in favour or against
             {
                 string persuasion_condition = "";
-                if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Favour))
+                if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Positive))
                 {
-                    persuasion_condition = "FAVOUR";
+                    persuasion_condition = "POSITIVE";
                 }
                 else
                 {
@@ -768,7 +969,7 @@ namespace StoryOfPersonality
                 {
                     SaveFinalPreference(rightRobot, OptionSide.none, 1);
                 }
-                    
+
                 // PERSONALITY
                 personality.BuildPersonality(rightRobot.PrefSelectedFinal);//send the preference of the button chosen
                 txt = personality.RecordPathPersonality(StoryHandler.GetInitialDP(), StoryHandler.GetPrefDP(), rightRobot.PrefSelectedFinal, rightRobot.Personality.ToString(), rightRobot.PersuasionCondition.ToString());
@@ -825,7 +1026,8 @@ namespace StoryOfPersonality
             {
                 //Console.WriteLine(" == Final side: LEFT: " + selectedDP.DPPrefSelectedFinal + " - " + StoryHandler.GetLeftWeight1() + " - " + StoryHandler.GetLeftWeight2());
                 personality.BuildPersonalityWeight(selectedDP.DPPrefSelectedFinal, StoryHandler.GetLeftWeight1(), StoryHandler.GetLeftWeight2());//send the preference of the button chosen          
-            } else if (selectedDP.SideSelected.Equals(OptionSide.right))
+            }
+            else if (selectedDP.SideSelected.Equals(OptionSide.right))
             {
                 //Console.WriteLine(" == Final side: RIGHT: " + selectedDP.DPPrefSelectedFinal + " - " + StoryHandler.GetRightWeight1() + " - " + StoryHandler.GetRightWeight2());
                 personality.BuildPersonalityWeight(selectedDP.DPPrefSelectedFinal, StoryHandler.GetRightWeight1(), StoryHandler.GetRightWeight2());//send the preference of the button chosen
@@ -844,7 +1046,7 @@ namespace StoryOfPersonality
                 secs++;
                 Console.WriteLine("Waiting: " + secs);
                 System.Threading.Thread.Sleep(1000);
-            } 
+            }
 
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
@@ -882,22 +1084,22 @@ namespace StoryOfPersonality
             {
                 case "ei":
                 case "ie":
-                    PreferenceEI.RemoveAt(0);
+                    PreferenceEI.RemoveAt(PreviousPrefSelected[0, 1]);
                     break;
                 case "si":
                 case "is":
-                    PreferenceSN.RemoveAt(0);
+                    PreferenceSN.RemoveAt(PreviousPrefSelected[0, 1]);
                     break;
                 case "tf":
                 case "ft":
-                    PreferenceTF.RemoveAt(0);
+                    PreferenceTF.RemoveAt(PreviousPrefSelected[0, 1]);
                     break;
                 case "jp":
                 case "pj":
-                    PreferenceJP.RemoveAt(0);
+                    PreferenceJP.RemoveAt(PreviousPrefSelected[0, 1]);
                     break;
                 case "-":
-                    preferenceDG.RemoveAt(0);
+                    preferenceDG.RemoveAt(PreviousPrefSelected[0, 1]);
                     break;
             }
         }
