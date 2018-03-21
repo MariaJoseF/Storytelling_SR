@@ -12,8 +12,8 @@ namespace SOP.Modules
     {
         private RobotsPersonality personality;
         private Persuasion persuasion;
-        private int consecutivePlays;
-        private int oponentPlays;
+        //private int consecutivePlays;
+        //private int oponentPlays;
         private string pitch;
         private int totalDominant;
         private int totalMeek;
@@ -38,8 +38,8 @@ namespace SOP.Modules
         public Robot(RobotsPersonality personality, RobotsPersuasion against)
         {
             this.personality = personality;
-            this.consecutivePlays = 0;
-            this.oponentPlays = 0;
+            //this.consecutivePlays = 0;
+            //this.oponentPlays = 0;
             this.persuasion = new Persuasion();
             this.persuasionCondition = against;
             this.totalDominant = 0;
@@ -65,8 +65,8 @@ namespace SOP.Modules
         public Robot(RobotsPersonality personality, RobotSide side, Thalamus.BML.SpeechLanguages language)
         {
             this.personality = personality;
-            this.consecutivePlays = 0;
-            this.oponentPlays = 0;
+            //this.consecutivePlays = 0;
+            //this.oponentPlays = 0;
             this.persuasion = new Persuasion();
 
             if (language.Equals(RobotsLanguage.EN))
@@ -102,8 +102,8 @@ namespace SOP.Modules
         public Robot()
         {
             this.personality = RobotsPersonality.none;
-            this.consecutivePlays = 0;
-            this.oponentPlays = 0;
+            //this.consecutivePlays = 0;
+            //this.oponentPlays = 0;
             this.persuasion = new Persuasion();
             this.persuasionCondition = RobotsPersuasion.none;
             this.totalDominant = 0;
@@ -119,8 +119,8 @@ namespace SOP.Modules
 
         public RobotsPersonality Personality { get => personality; set => personality = value; }
         public Persuasion Persuasion { get => persuasion; set => persuasion = value; }
-        public int ConsecutivePlays { get => consecutivePlays; set => consecutivePlays = value; }
-        public int OponentPlays { get => oponentPlays; set => oponentPlays = value; }
+        //public int ConsecutivePlays { get => consecutivePlays; set => consecutivePlays = value; }
+        //public int OponentPlays { get => oponentPlays; set => oponentPlays = value; }
         public string Pitch { get => pitch; set => pitch = value; }
         public int TotalDominant { get => totalDominant; set => totalDominant = value; }
         public int TotalMeek { get => totalMeek; set => totalMeek = value; }
@@ -183,7 +183,8 @@ namespace SOP.Modules
         {
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return ";" + personality + ";" + posture + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + animationUsed+";" + persuasionCondition;
+            //return ";" + personality + ";" + posture + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + animationUsed + ";" + persuasionCondition;
+            return ";" + personality + ";" + posture + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + animationUsed + ";" + persuasionCondition;
         }
     }
 }
