@@ -252,7 +252,7 @@ namespace StoryOfPersonality
 
             if (!storyWindow.LeftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
-                if ((Utterance_utterance.Contains("FAVOUR")) || (Utterance_utterance.Contains("AGAINST")))
+                if ((Utterance_utterance.Contains("POSITIVE")) || (Utterance_utterance.Contains("AGAINST")))
                 {
                     storyWindow.LeftRobot.IdPhrasesUsed = idUtterancePhrase;
                     storyWindow.LeftRobot.PhraseUsed = utterancePhrase;
@@ -269,7 +269,7 @@ namespace StoryOfPersonality
             }
             else if (!storyWindow.RightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
-                if ((Utterance_utterance.Contains("FAVOUR")) || (Utterance_utterance.Contains("AGAINST")))
+                if ((Utterance_utterance.Contains("POSITIVE")) || (Utterance_utterance.Contains("AGAINST")))
                 {
                     storyWindow.RightRobot.IdPhrasesUsed = idUtterancePhrase;
                     storyWindow.RightRobot.PhraseUsed = utterancePhrase;
