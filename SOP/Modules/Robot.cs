@@ -26,7 +26,7 @@ namespace SOP.Modules
         private int idPhrasesUsed;
         private string phraseUsed;
         private string animationUsed;
-        private string gazeUsed;
+        //private string gazeUsed;
 
         private RobotsPersuasion persuasionCondition;//persuasionCondition mesmo
         private RobotsPosture posture;
@@ -183,7 +183,7 @@ namespace SOP.Modules
         {
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return ";" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + posture + ";" + animationUsed+";" + persuasionCondition;
+            return ";" + personality + ";" + posture + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + animationUsed+";" + persuasionCondition;
         }
     }
 }
