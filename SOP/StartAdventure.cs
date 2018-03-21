@@ -110,8 +110,8 @@ namespace StoryOfPersonality
                 ThalamusClientRight.CPublisher.SetLanguage(this.Language);
             }
 
-            ThalamusClientLeft.CPublisher.ChangeLibrary(ThalamusClientLeft.CPublisher.fileName + @"\Utterances\phrasesFavorPositive.xlsx");
-            ThalamusClientRight.CPublisher.ChangeLibrary(ThalamusClientRight.CPublisher.fileName + @"\Utterances\phrasesFavorPositive.xlsx");
+            ThalamusClientLeft.CPublisher.ChangeLibrary(ThalamusClientLeft.CPublisher.fileName + @"\Utterances\phrasesAgainstPositive.xlsx");
+            ThalamusClientRight.CPublisher.ChangeLibrary(ThalamusClientRight.CPublisher.fileName + @"\Utterances\phrasesAgainstPositive.xlsx");
             //this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
         }
 
