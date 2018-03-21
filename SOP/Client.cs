@@ -262,10 +262,10 @@ namespace StoryOfPersonality
                 {
                     storyWindow.LeftRobot.AnimationUsed = utterancePhrase;
                 }
-                else if ((Utterance_utterance.Contains("GAZE_PB")) || (Utterance_utterance.Contains("GAZE_PBP")) || (Utterance_utterance.Contains("GAZE_PBPB")))
-                {
-                    storyWindow.LeftRobot.GazeUsed = utterancePhrase;
-                }
+                //else if ((Utterance_utterance.Contains("GAZE_PB")) || (Utterance_utterance.Contains("GAZE_PBP")) || (Utterance_utterance.Contains("GAZE_PBPB")))
+                //{
+                //    storyWindow.LeftRobot.GazeUsed = utterancePhrase;
+                //}
             }
             else if (!storyWindow.RightRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -279,10 +279,10 @@ namespace StoryOfPersonality
                 {
                     storyWindow.RightRobot.AnimationUsed = utterancePhrase;
                 }
-                else if ((Utterance_utterance.Contains("GAZE_PB")) || (Utterance_utterance.Contains("GAZE_PBP")) || (Utterance_utterance.Contains("GAZE_PBPB")))
-                {
-                    storyWindow.RightRobot.GazeUsed = utterancePhrase;
-                }
+                //else if ((Utterance_utterance.Contains("GAZE_PB")) || (Utterance_utterance.Contains("GAZE_PBP")) || (Utterance_utterance.Contains("GAZE_PBPB")))
+                //{
+                //    storyWindow.RightRobot.GazeUsed = utterancePhrase;
+                //}
             }
         }
     }

@@ -137,7 +137,7 @@ namespace SOP.Modules
         public int IdPhrasesUsed { get => idPhrasesUsed; set => idPhrasesUsed = value; }
         public RobotCongruent CongruentIntention { get => congruentIntention; set => congruentIntention = value; }
         public string AnimationUsed { get => animationUsed; set => animationUsed = value; }
-        public string GazeUsed { get => gazeUsed; set => gazeUsed = value; }
+       // public string GazeUsed { get => gazeUsed; set => gazeUsed = value; }
 
         public enum RobotsPersonality
         {
@@ -169,7 +169,8 @@ namespace SOP.Modules
             hope = 4,
             joy = 5,
             pride = 6,
-            satisfaction = 7
+            satisfaction = 7,
+            gratitude = 8
         }
 
         public enum RobotCongruent
@@ -182,7 +183,7 @@ namespace SOP.Modules
         {
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
-            return ";" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + gazeUsed+";" + animationUsed+";" + persuasionCondition;
+            return ";" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalDominant + ";" + totalMeek + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + posture + ";" + animationUsed+";" + persuasionCondition;
         }
     }
 }
