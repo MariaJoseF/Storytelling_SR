@@ -1056,11 +1056,12 @@ namespace StoryOfPersonality
 
             StoryHandler.NextScene(selectedDP);
 
-            selectedDP.DPPrefIntention = "-";
-            selectedDP.DpPrefPair = "-";
-            selectedDP.DPPrefSelectedFinal = "-";
-            selectedDP.OptionSelected = -1;
-            selectedDP.SideSelected = OptionSide.none;
+            //selectedDP.DPPrefIntention = "-";
+            //selectedDP.DpPrefPair = "-";
+            //selectedDP.DPPrefSelectedFinal = "-";
+            //selectedDP.OptionSelected = -1;
+            //selectedDP.SideSelected = OptionSide.none;
+            selectedDP = new SelectionDP();
 
             rightRobot.PreferencePair = "-";
             rightRobot.PrefSelectedIntention = "-";
