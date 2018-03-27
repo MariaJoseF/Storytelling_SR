@@ -46,6 +46,9 @@ namespace StoryOfPersonality
         int[,] PreviousPrefSelected = new int[,] { { -1, -1 } };// first element is robot Personality, second element is the id on the preference list
 
 
+        public bool WaitIntro1 = false;
+        public bool WaitIntro3 = false;
+
         public enum OptionSide
         {
             none = -1,
@@ -64,7 +67,7 @@ namespace StoryOfPersonality
         public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot)
         {
             InitializeComponent();
-            Console.WriteLine("RESOLUTION: " + this.ClientSize.Width + " ::: " + this.ClientSize.Height);
+            //Console.WriteLine("RESOLUTION: " + this.ClientSize.Width + " ::: " + this.ClientSize.Height);
             if (this.Language.Equals(Thalamus.BML.SpeechLanguages.English))
             {
                 this.lblResearcher.Text = "Call the Researcher please.";
@@ -142,7 +145,8 @@ namespace StoryOfPersonality
         {
             this.leftButton.Enabled = this.rightButton.Enabled = false;
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
-            playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+            introduction();
+            //playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
             this.CropAndStrechBackImage();
         }
 
@@ -252,8 +256,6 @@ namespace StoryOfPersonality
                             break;
                     }
                 }
-
-
                 //selectedDP.DPPrefSelected = auxPreferenceSide;
                 //robotSide.PrefSelectedIntention = selectedDP.DPPrefSelected;
 
@@ -263,11 +265,11 @@ namespace StoryOfPersonality
 
                 //Console.WriteLine("Activar utterance a favor ou contra");
 
-                CallUtterances(robotSide, 2);
+                CallUtterances(robotSide, 2, optionSide);
 
                 //Console.WriteLine("Activar gaze a favor");
 
-                CallUtterances(robotSide, 3);
+                CallUtterances(robotSide, 3, OptionSide.none);
 
                 //btConfirm.Enabled = true;
             }
@@ -684,7 +686,7 @@ namespace StoryOfPersonality
         //    return 0;
         //}
 
-        private void CallUtterances(Robot robotSide, int buttonoption)
+        private void CallUtterances(Robot robotSide, int buttonoption, OptionSide optionSide)
         {
             string language = "";
             if (robotSide.Persuasion.Prosody.Language.Equals(Prosody.RobotsLanguage.EN))
@@ -701,36 +703,45 @@ namespace StoryOfPersonality
                 if (robotSide.Side.Equals(RobotSide.left))
                 {
                     //ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
-                    ThalamusClientLeft.PerformUtteranceFromLibrary("Animation", language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
+                    ThalamusClientLeft.PerformUtteranceFromLibrary("Animation", "ANIMATION", language, new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
                 }
                 else
                 {
                     //ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
-                    ThalamusClientRight.PerformUtteranceFromLibrary("Animation", language, "ANIMATION", new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
+                    ThalamusClientRight.PerformUtteranceFromLibrary("Animation", "ANIMATION", language, new string[] { "|pitch|", "|rate|", "|volume|", "|animation|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, robotSide.Persuasion.Animation });
                 }
                 //SAVE LOGS
             }
             else if (buttonoption == 2)// make utterance in favour or against
             {
                 string persuasion_condition = "";
+                string cat = "none";
                 if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Positive))
                 {
-                    persuasion_condition = "POSITIVE";
+                    persuasion_condition = "phraseFavourPref_"+language;
+                    cat = "POSITIVE";
                 }
                 else
                 {
-                    persuasion_condition = "AGAINST";
+                    if (optionSide.Equals(OptionSide.left))
+                    {
+                        persuasion_condition = "phraseAgainstPref1_" + language;
+                    } else
+                    {
+                        persuasion_condition = "phraseAgainstPref2_" + language;
+                    }
+                    cat = "AGAINST";
                 }
 
                 if (robotSide.Side.Equals(RobotSide.left))
                 {
                     //ThalamusClientLeft.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
-                    ThalamusClientLeft.PerformUtteranceFromLibrary("Phrase", language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
+                    ThalamusClientLeft.PerformUtteranceFromLibrary(cat, StoryHandler.GetInitialDP(), persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
                 }
                 else
                 {
                     //ThalamusClientRight.PerformUtteranceFromLibrary("Utterance_" + Guid.NewGuid().ToString(), language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
-                    ThalamusClientRight.PerformUtteranceFromLibrary("Phrase", language, persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
+                    ThalamusClientRight.PerformUtteranceFromLibrary(cat, StoryHandler.GetInitialDP(), persuasion_condition, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume });
                 }
                 //SAVE LOGS
             }
@@ -956,7 +967,7 @@ namespace StoryOfPersonality
 
                 LoadAnimation(rightRobot);
 
-                CallUtterances(rightRobot, 1);
+                CallUtterances(rightRobot, 1, OptionSide.none);
 
                 //Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
                 //Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
@@ -995,7 +1006,7 @@ namespace StoryOfPersonality
 
                 LoadAnimation(leftRobot);
 
-                CallUtterances(leftRobot, 1);
+                CallUtterances(leftRobot, 1, OptionSide.none);
 
                 //Console.WriteLine("btConfirm_Click rightRobot " + rightRobot.ToString());
                 //Console.WriteLine("btConfirm_Click leftRobot " + leftRobot.ToString());
@@ -1016,7 +1027,6 @@ namespace StoryOfPersonality
                 {
                     ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.contempt.ToString());
                 }
-
             }
 
             if (selectedDP.SideSelected.Equals(OptionSide.left))
@@ -1033,7 +1043,7 @@ namespace StoryOfPersonality
             txtWeight = personality.RecordPathPersonalityWeight();
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txtWeight, "ExtraInfo", "MBTIWeight-" + this.UserId.ToString() + ".txt");
-
+            /*
             // waiting 2 seconds to start the next method
             var waitTime = new TimeSpan(0, 0, 2);
             var waitUntil = DateTime.Now + waitTime;
@@ -1044,7 +1054,7 @@ namespace StoryOfPersonality
                 Console.WriteLine("Waiting: " + secs);
                 System.Threading.Thread.Sleep(1000);
             }
-
+            */
             DeletePreferenceUsed();
             rightRobot.PersuasionCondition = RobotsPersuasion.none;
             leftRobot.PersuasionCondition = RobotsPersuasion.none;
@@ -1115,6 +1125,44 @@ namespace StoryOfPersonality
                    personality.DefineMBTIPersonalityWeight();
 
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
+        }
+
+        private void introduction()
+        {
+            // Categories = intro_dom, intro_dom2, intro_meek | sub = en, pt
+            string lang = "EN";
+            if (this.Language == Thalamus.BML.SpeechLanguages.Portuguese)
+            {
+                lang = "PT";
+            }
+            if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
+            {
+               ThalamusClientLeft.PerformUtteranceFromLibrary("Intro1", "intro_dom", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
+                Console.WriteLine(" LEFT ");
+            }
+            else
+            {
+              ThalamusClientRight.PerformUtteranceFromLibrary("Intro1", "intro_dom", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
+            }
+            while (WaitIntro1 == false)
+            {
+
+            }
+            if (leftRobot.Personality.Equals(RobotsPersonality.meek))
+            {                  
+              ThalamusClientLeft.PerformUtteranceFromLibrary("Intro2", "intro_meek", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
+              ThalamusClientRight.PerformUtteranceFromLibrary("Intro3", "intro_dom2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
+            }
+            else
+            {
+               ThalamusClientRight.PerformUtteranceFromLibrary("Intro2", "intro_meek", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
+               ThalamusClientLeft.PerformUtteranceFromLibrary("Intro3", "intro_dom2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
+            }
+            while (WaitIntro3 == false)
+            {
+
+            }
+            playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
     }
 }

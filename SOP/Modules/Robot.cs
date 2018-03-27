@@ -24,7 +24,7 @@ namespace SOP.Modules
 
         private int timesPhrases = 0;
         private int idPhrasesUsed;
-        private string phraseUsed;
+        private string phraseUsed = "Error|none";
         private string animationUsed;
         //private string gazeUsed;
 

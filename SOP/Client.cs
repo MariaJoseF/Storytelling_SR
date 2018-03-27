@@ -175,7 +175,7 @@ namespace StoryOfPersonality
         public void SpeakFinished(string id)
         {
             Console.WriteLine("--------------------------------------- EMYS Finished The ID:" + id);
-            if (id.Equals("Phrase"))
+            if ((id.Equals("POSITIVE")) || (id.Equals("AGAINST")))
             {
                 //Console.WriteLine("=== CONFIRM BUTTON CAN BE ENABLED ===");
                 storyWindow.BeginInvoke((Action)delegate ()
@@ -186,7 +186,17 @@ namespace StoryOfPersonality
             else if (id.Equals("Animation"))
             {
                 storyWindow.WaitAnimation = true;
-                Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.WaitAnimation:" + storyWindow.WaitAnimation);
+                //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.WaitAnimation:" + storyWindow.WaitAnimation);
+            }
+            else if (id.Equals("Intro1"))
+            {
+                storyWindow.WaitIntro1 = true;
+                //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.Intro1:" + storyWindow.WaitIntro1);
+            }
+            else if (id.Equals("Intro3"))
+            {
+                storyWindow.WaitIntro3 = true;
+                //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.Intro3:" + storyWindow.WaitIntro3);
             }
             /*
             if (id.Equals("Animation"))
