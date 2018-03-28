@@ -1,0 +1,5 @@
+EN = http://www.fromtexttospeech.com/
+
+PT = https://www.naturalreaders.com/online/
+
+ps: To the portuguese speech, it is necessary inspect the website and go to the audio tag, copy the src and paste to another tab. Then download the audio file.

@@ -883,7 +883,7 @@ namespace StoryOfPersonality
 
             string folder = "EN";
             string audioExt = ".mp3";
-            if (language == Thalamus.BML.SpeechLanguages.Portuguese) { folder = "PT"; audioExt = ".wav"; }
+            if (language == Thalamus.BML.SpeechLanguages.Portuguese) { folder = "PT"; }
 
             //Console.WriteLine("=========== NEXT AUDIO ============== " + (idScene + 1));
 
