@@ -13,8 +13,6 @@ namespace SOP.Modules
         private int optionSelected;
         private OptionSide sideSelected;
         private RobotsPersonality robotPersonality;
-        private int totalDominant;
-        private int totalMeek;
         private long elapsedMs;
         private string dpPrefIntention;
         private string dpPrefSelectedFinal;
@@ -25,8 +23,6 @@ namespace SOP.Modules
             this.optionSelected = 0;
             this.sideSelected = OptionSide.none;
             this.robotPersonality = RobotsPersonality.none;
-            this.totalDominant = 0;
-            this.totalMeek = 0;
             this.elapsedMs = 0;
             this.dpPrefIntention = "";
             this.dpPrefSelectedFinal = "";
@@ -34,8 +30,6 @@ namespace SOP.Modules
         }
 
         public int OptionSelected { get => optionSelected; set => optionSelected = value; }
-        public int TotalDominant { get => totalDominant; set => totalDominant = value; }
-        public int TotalMeek { get => totalMeek; set => totalMeek = value; }
         public RobotsPersonality RobotPersonality { get => robotPersonality; set => robotPersonality = value; }
         public long ElapsedMs { get => elapsedMs; set => elapsedMs = value; }
         public OptionSide SideSelected { get => sideSelected; set => sideSelected = value; }
@@ -45,7 +39,7 @@ namespace SOP.Modules
 
         public override string ToString()
         {
-            return optionSelected + ";" + sideSelected + ";" + robotPersonality + ";" + totalDominant + ";" + totalMeek  + ";" + dpPrefPair + ";" + dpPrefIntention + ";" + dpPrefSelectedFinal + ";" + elapsedMs;
+            return optionSelected + ";" + sideSelected + ";" + robotPersonality + ";" + dpPrefPair + ";" + dpPrefIntention + ";" + dpPrefSelectedFinal + ";" + elapsedMs;
         }
     }
 }
