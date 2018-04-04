@@ -899,7 +899,7 @@ namespace StoryOfPersonality
             if (System.IO.File.Exists(ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + audioExt))
             {
                 axWindowsMediaPlayer1.URL = ThalamusClientLeft.CPublisher.fileName + @"\\speech\\" + folder + "\\" + (idScene + 1) + audioExt;
-                axWindowsMediaPlayer1.settings.volume = 70;
+                axWindowsMediaPlayer1.settings.volume = 80;
                 axWindowsMediaPlayer1.Ctlcontrols.play();
             }
             else
