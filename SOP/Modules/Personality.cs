@@ -57,11 +57,11 @@ namespace StoryOfPersonality
             }
         }
 
-        public string RecordPathPersonality(string dp, string pref, string prefSelected, string robotInfluenced, string conditionPersuasion)
+        public string RecordPathPersonality(string dp, string pref, string prefSelected, string userPersonality, string robotInfluenced, string conditionPersuasion)
         {
-            string txt = dp + ";" + pref + ";" + prefSelected + ";" + robotInfluenced + ";" + conditionPersuasion;
+            string txt = dp + ";" + pref + ";" + prefSelected + ";" + userPersonality + ";" + robotInfluenced + ";" + conditionPersuasion;
             //Console.WriteLine("=== Decisions: " + dp + " - " + pref + " - " + prefSelected + " - " + robotInfluenced + " - " + conditionPersuasion);
-
+            /*
             string arraySum = "";
             for (int i = 0; i < sumOfDecisions.Length; i++)
             {
@@ -70,7 +70,7 @@ namespace StoryOfPersonality
 
             arraySum = "E | I | S | N | T | F | J | P | L | R | \r\n" + arraySum + "\r\n" +
                        "============================= \r\n";
-            Console.WriteLine(arraySum);
+            Console.WriteLine(arraySum); */
             return txt;
         }
 
