@@ -185,11 +185,7 @@ namespace StoryOfPersonality
             }
             else if (id.Equals("Animation"))
             {
-                storyWindow.WaitAnimation = true;
-
-                // send a random gaze.
-                CPublisher.PerformUtterance("Gaze", "<Gaze(random)>", "Gaze");
-                
+                storyWindow.WaitAnimation = true;               
                 //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.WaitAnimation:" + storyWindow.WaitAnimation);
             }
             else if (id.Equals("Intro1"))
