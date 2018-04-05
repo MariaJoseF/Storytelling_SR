@@ -88,12 +88,12 @@ namespace SOP.Modules
             this.prefSelectedFinal = "-";
             if (personality.Equals(RobotsPersonality.dominant))
             {
-                this.pitch = "x-high";
+                this.pitch = "x-low";
                 this.persuasion.Prosody = new Prosody("medium", "x-loud");
             }
             else
             {
-                this.pitch = "x-low";
+                this.pitch = "high";
                 this.persuasion.Prosody = new Prosody("medium", "loud");
             }
             this.congruentIntention = RobotCongruent.none;
