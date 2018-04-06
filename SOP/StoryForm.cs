@@ -81,9 +81,11 @@ namespace StoryOfPersonality
             }
 
             this.ThalamusClientRight = ThalamusClientRight;
+            this.ThalamusClientRight.StoryWindow(this);
             this.ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
 
             this.ThalamusClientLeft = ThalamusClientLeft;
+            this.ThalamusClientLeft.StoryWindow(this);
             this.ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
 
             this.RightRobot = rightRobot;
@@ -106,6 +108,7 @@ namespace StoryOfPersonality
 
             selectedDP = new SelectionDP();
             instance = this;
+
         }
 
         private void LoadLogFiles()
@@ -146,9 +149,18 @@ namespace StoryOfPersonality
         {
             this.leftButton.Enabled = this.rightButton.Enabled = false;
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
-            introduction();
+
             //playStoryScene(this.StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
             this.CropAndStrechBackImage();
+
+        }
+
+        private void StoryForm_Shown(object sender, EventArgs e)
+        {
+            this.sceneBox.Text = "teste";
+               RobotsIntroduction();
+            this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
+            playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
         private void StoryForm_Resize(object sender, EventArgs e)
@@ -1159,7 +1171,7 @@ namespace StoryOfPersonality
             ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + txt, "ExtraInfo", "ExtraInfo-" + this.UserId.ToString() + ".txt");
         }
 
-        private void introduction()
+        internal void RobotsIntroduction()
         {
             // Categories = intro_dom, intro_dom2, intro_meek | sub = en, pt
             string lang = "EN";
@@ -1194,7 +1206,6 @@ namespace StoryOfPersonality
             {
 
             }
-            playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
     }
 }

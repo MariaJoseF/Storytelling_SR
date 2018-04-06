@@ -23,7 +23,6 @@ namespace StoryOfPersonality
 
         private static StartAdventure instance = null;
         private string UserId;
-        private string txtButton = "LET'S BEGIN";
 
         public Client ThalamusClientLeft;
         public Client ThalamusClientRight;
@@ -106,7 +105,7 @@ namespace StoryOfPersonality
         {
             if (languageSelector.Text == "English")
             {
-                this.metroButton4Story.Text = txtButton;
+                this.metroButton4Story.Text = "LET'S BEGIN";
                 this.Language = Thalamus.BML.SpeechLanguages.English;
                 ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
                 ThalamusClientRight.CPublisher.SetLanguage(this.Language);
@@ -143,6 +142,7 @@ namespace StoryOfPersonality
             this.ThalamusClientRight.StoryWindow(storyForm);
             this.storyForm.Show();
             this.Hide();
+            
         }
     }
 }

@@ -220,6 +220,7 @@ namespace StoryOfPersonality
             this.Theme = MetroFramework.MetroThemeStyle.Dark;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.StoryForm_Load);
+            this.Shown += new System.EventHandler(this.StoryForm_Shown);
             this.Resize += new System.EventHandler(this.StoryForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.groupBox1.ResumeLayout(false);
