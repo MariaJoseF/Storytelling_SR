@@ -95,6 +95,15 @@ namespace StoryOfPersonality
             int newSize = 80;
             this.metroButton4Story.Font = new Font(this.metroButton4Story.Font.FontFamily, newSize);
             this.metroButton4Story.Visible = true;
+            SetLanguage();
+           
+            ThalamusClientLeft.CPublisher.ChangeLibrary(ThalamusClientLeft.CPublisher.fileName + @"\Utterances\phrasesAgainstPositive.xlsx");
+            ThalamusClientRight.CPublisher.ChangeLibrary(ThalamusClientRight.CPublisher.fileName + @"\Utterances\phrasesAgainstPositive.xlsx");
+            //this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
+        }
+
+        private void SetLanguage()
+        {
             if (languageSelector.Text == "English")
             {
                 this.metroButton4Story.Text = txtButton;
@@ -109,10 +118,6 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.CPublisher.SetLanguage(this.Language);
                 ThalamusClientRight.CPublisher.SetLanguage(this.Language);
             }
-
-            ThalamusClientLeft.CPublisher.ChangeLibrary(ThalamusClientLeft.CPublisher.fileName + @"\Utterances\phrasesAgainstPositive.xlsx");
-            ThalamusClientRight.CPublisher.ChangeLibrary(ThalamusClientRight.CPublisher.fileName + @"\Utterances\phrasesAgainstPositive.xlsx");
-            //this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
         }
 
         private void metroButton4_Click(object sender, EventArgs e)
@@ -132,6 +137,7 @@ namespace StoryOfPersonality
 
             this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);
             this.storyForm.Language = this.Language;
+            SetLanguage();
 
             this.ThalamusClientLeft.StoryWindow(storyForm);
             this.ThalamusClientRight.StoryWindow(storyForm);

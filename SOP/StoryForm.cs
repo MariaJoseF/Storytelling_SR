@@ -172,7 +172,9 @@ namespace StoryOfPersonality
                 {
                     ChoiceIntention(rightRobot, OptionSide.left);
                 }
+                leftButton.Theme = MetroFramework.MetroThemeStyle.Light;
             }
+            leftButton.Highlight = true;
         }
 
         private void RightButton_Click(object sender, EventArgs e)
@@ -192,7 +194,9 @@ namespace StoryOfPersonality
                 {
                     ChoiceIntention(leftRobot, OptionSide.right);
                 }
+                rightButton.Theme = MetroFramework.MetroThemeStyle.Light;
             }
+            rightButton.Highlight = true;
         }
 
         private void ChoiceIntention(Robot robotSide, OptionSide optionSide)
@@ -200,8 +204,8 @@ namespace StoryOfPersonality
             if (btConfirmEnable)
             {
                 btConfirmEnable = false;
-                btConfirm.Enabled = false;
-                btConfirm.Visible = true;
+                //btConfirm.Enabled = false;
+                //btConfirm.Visible = true;
 
                 string auxPreferenceSide = "";
 
@@ -1091,6 +1095,10 @@ namespace StoryOfPersonality
             leftRobot.PrefSelectedIntention = "-";
             leftRobot.PrefSelectedFinal = "-";
 
+            rightButton.Highlight = false;
+            leftButton.Highlight = false;
+            rightButton.Theme = MetroFramework.MetroThemeStyle.Dark;
+            leftButton.Theme = MetroFramework.MetroThemeStyle.Dark;
             CallNextScene();
         }
 

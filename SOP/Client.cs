@@ -181,6 +181,7 @@ namespace StoryOfPersonality
                 storyWindow.BeginInvoke((Action)delegate ()
                 {//this refer to form in WPF application 
                     storyWindow.btConfirm.Enabled = true;
+                    storyWindow.btConfirm.Visible = true;
                 });
             }
             else if (id.Equals("Animation"))
