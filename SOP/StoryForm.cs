@@ -48,7 +48,9 @@ namespace StoryOfPersonality
 
 
         public bool WaitIntro1 = false;
+        public bool WaitIntro2 = false;
         public bool WaitIntro3 = false;
+        public bool WaitIntro4 = false;
 
         public enum OptionSide
         {
@@ -1195,14 +1197,38 @@ namespace StoryOfPersonality
             if (leftRobot.Personality.Equals(RobotsPersonality.meek))
             {
                 ThalamusClientLeft.PerformUtteranceFromLibrary("Intro2", "intro_meek", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
-                ThalamusClientRight.PerformUtteranceFromLibrary("Intro3", "intro_dom2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
             }
             else
             {
                 ThalamusClientRight.PerformUtteranceFromLibrary("Intro2", "intro_meek", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
+            }
+            while (WaitIntro2 == false)
+            {
+
+            }
+            if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
+            {
                 ThalamusClientLeft.PerformUtteranceFromLibrary("Intro3", "intro_dom2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
             }
+            else
+            {
+                ThalamusClientRight.PerformUtteranceFromLibrary("Intro3", "intro_dom2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
+            }
             while (WaitIntro3 == false)
+            {
+
+            }
+            if (leftRobot.Personality.Equals(RobotsPersonality.meek))
+            {
+                ThalamusClientLeft.PerformUtteranceFromLibrary("Intro4", "intro_meek2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
+                ThalamusClientRight.PerformUtteranceFromLibrary("Intro5", "intro_dom3", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
+            }
+            else
+            {
+                ThalamusClientRight.PerformUtteranceFromLibrary("Intro4", "intro_meek2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });
+                ThalamusClientLeft.PerformUtteranceFromLibrary("Intro5", "intro_dom3", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
+            }
+            while (WaitIntro4 == false)
             {
 
             }

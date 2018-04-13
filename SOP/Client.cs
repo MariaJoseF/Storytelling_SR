@@ -194,9 +194,19 @@ namespace StoryOfPersonality
                 storyWindow.WaitIntro1 = true;
                 //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.Intro1:" + storyWindow.WaitIntro1);
             }
+            else if (id.Equals("Intro2"))
+            {
+                storyWindow.WaitIntro2 = true;
+                //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.Intro3:" + storyWindow.WaitIntro3);
+            }
             else if (id.Equals("Intro3"))
             {
                 storyWindow.WaitIntro3 = true;
+                //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.Intro3:" + storyWindow.WaitIntro3);
+            }
+            else if (id.Equals("Intro5"))
+            {
+                storyWindow.WaitIntro4 = true;
                 //Console.WriteLine("--------------------------------------- EMYS Finished storyWindow.Intro3:" + storyWindow.WaitIntro3);
             }
             /*
