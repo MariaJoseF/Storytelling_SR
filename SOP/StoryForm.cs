@@ -160,7 +160,18 @@ namespace StoryOfPersonality
         private void StoryForm_Shown(object sender, EventArgs e)
         {
             this.sceneBox.Text = "teste";
-               RobotsIntroduction();
+
+            RobotsIntroduction();
+            // waiting 2 seconds to start the next method
+            var waitTime = new TimeSpan(0, 0, 2);
+            var waitUntil = DateTime.Now + waitTime;
+            int secs = 0;
+            while (DateTime.Now <= waitUntil)
+            {
+                secs++;
+                Console.WriteLine("Waiting: " + secs);
+                System.Threading.Thread.Sleep(1000);
+            }
             this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
             playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
