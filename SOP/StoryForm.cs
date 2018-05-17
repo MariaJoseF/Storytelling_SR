@@ -161,7 +161,7 @@ namespace StoryOfPersonality
         {
             this.sceneBox.Text = "teste";
 
-            RobotsIntroduction();
+            //RobotsIntroduction();
             // waiting 2 seconds to start the next method
             var waitTime = new TimeSpan(0, 0, 2);
             var waitUntil = DateTime.Now + waitTime;

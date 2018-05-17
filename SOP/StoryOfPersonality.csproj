@@ -162,6 +162,11 @@
   <ItemGroup>
     <Content Include="dlls\EmoteEvents.dll" />
     <Content Include="dlls\Thalamus.dll" />
+    <Content Include="images\alliance.jpg" />
+    <Content Include="images\beforevictory.jpg" />
+    <Content Include="images\defeated.jpg" />
+    <Content Include="images\surrender.jpg" />
+    <Content Include="images\war.jpg" />
     <Content Include="Logs\StoryChoices\choices-170.txt.txt" />
     <Content Include="Logs\StoryChoices\choices-1745.txt.txt" />
     <Content Include="Logs\StoryChoices\choices-606.txt.txt" />
