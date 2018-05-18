@@ -53,11 +53,26 @@ namespace StoryOfPersonality
             this.UserId = UserId;
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
-            ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
-            //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
+            
+            string[] aux = UserId.Split('-');
 
-            ThalamusClientLeft = new Client(OptionSide.left, Language, "Meek");
-            //ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
+            if (aux[1] == "D")
+            {
+                ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
+                //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
+
+                ThalamusClientLeft = new Client(OptionSide.left, Language, "Meek");
+                //ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
+            }
+            else
+            {
+                ThalamusClientRight = new Client(OptionSide.right, Language, "Meek");
+                //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
+
+                ThalamusClientLeft = new Client(OptionSide.left, Language, "Dominant");
+                //ThalamusClientLeft.CPublisher.ChangeLibrary("leftUtterances");
+            }
+
 
             instance = this;
         }
@@ -121,17 +136,47 @@ namespace StoryOfPersonality
 
         private void metroButton4_Click(object sender, EventArgs e)
         {
-            string[] aux = UserId.Split('-');
+            this.languageSelector.Visible = false;
+            this.metroButton4Story.Visible = false;
+            this.languageSelector.Enabled = false;
 
-            if ((Convert.ToInt32(aux[1]) == 1))
+            if (languageSelector.Text == "English")
             {
-                rightRobot = new Robot(Robot.RobotsPersonality.dominant,Robot.RobotSide.right, this.Language);
-                leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);
+                this.metroButton4Story.Text = "Counselours Information";
             }
             else
             {
-                rightRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.right, this.Language);
-                leftRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.left, this.Language);
+                this.metroButton4Story.Text = "Informações dos Conselheiros";
+            }
+
+            string[] aux = UserId.Split('-');
+
+            if (aux[1] == "D")
+            {
+               
+                if (aux[2] == "P")
+                {
+                    rightRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.right, this.Language);
+                    leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);
+                }
+                else
+                {
+                    rightRobot = new Robot(Robot.RobotsPersonality.neutral, Robot.RobotSide.right, this.Language);
+                    leftRobot = new Robot(Robot.RobotsPersonality.neutral, Robot.RobotSide.left, this.Language);
+                }
+            }
+            else
+            {
+                if (aux[2] == "P")
+                {
+                    rightRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.right, this.Language);
+                    leftRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.left, this.Language);
+                }
+                else
+                {
+                    rightRobot = new Robot(Robot.RobotsPersonality.neutral, Robot.RobotSide.right, this.Language);
+                    leftRobot = new Robot(Robot.RobotsPersonality.neutral, Robot.RobotSide.left, this.Language);
+                }
             }
 
             this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);
@@ -142,7 +187,7 @@ namespace StoryOfPersonality
             this.ThalamusClientRight.StoryWindow(storyForm);
             this.storyForm.Show();
             this.Hide();
-            
+
         }
     }
 }

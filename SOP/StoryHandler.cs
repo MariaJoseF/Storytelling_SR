@@ -38,6 +38,7 @@ namespace StoryOfPersonality
         public Client clientThalamus;
 
         public int currentStoryNodeId { get; set; }
+        public bool FirstTime = false;
 
         //private void writeLog(string log)
         //{
@@ -47,9 +48,10 @@ namespace StoryOfPersonality
         public StoryHandler(Client thalamusClient, int UserId)
         {
             this.UserId = UserId;
+            this.FirstTime = true;
 
-            UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_dp.csv";
-            UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\utterances_scenes.csv";
+            UTTERANCE_DP_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\DP_CSV.txt";
+            UTTERANCE_SCENES_FILE = thalamusClient.CPublisher.fileName + @"\Utterances\ScenesCSV.txt";
 
             //Directory.CreateDirectory(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + @"/Logs/StoryChoices/");
             //From the original excel file the two tabs should be imported in Unicode csv in the name mentioned
@@ -272,6 +274,10 @@ namespace StoryOfPersonality
         internal String GetSceneUtterance(Thalamus.BML.SpeechLanguages language)
         {
             return (language == Thalamus.BML.SpeechLanguages.English ? storyNodes[currentStoryNodeId].TextEn : storyNodes[currentStoryNodeId].Text).Replace("\\r\\n", "" + Environment.NewLine).Replace("\\t", Environment.NewLine);
+        }
+        internal void TestIntroduction()
+        {
+            storyWindow.RobotsIntroduction();
         }
 
         internal int GetSceneUtteranceId(Thalamus.BML.SpeechLanguages language)

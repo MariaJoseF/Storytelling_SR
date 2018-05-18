@@ -52,12 +52,17 @@ namespace SOP.Modules
             if (personality.Equals(RobotsPersonality.dominant))
             {
                 this.pitch = "x-low";
-                this.persuasion.Prosody = new Prosody("medium", "x-loud");
+                this.persuasion.Prosody = new Prosody("+20%", "x-loud");
+            }
+            else if (personality.Equals(RobotsPersonality.meek))
+            {
+                this.pitch = "x-high";
+                this.persuasion.Prosody = new Prosody("medium", "loud");
             }
             else
             {
-                this.pitch = "high";
-                this.persuasion.Prosody = new Prosody("medium", "loud");
+                this.pitch = "default";
+                this.persuasion.Prosody = new Prosody("medium", "default");
             }
             this.congruentIntention = RobotCongruent.none;
         }
@@ -86,15 +91,21 @@ namespace SOP.Modules
             this.preferencePair = "-";
             this.prefSelectedIntention = "-";
             this.prefSelectedFinal = "-";
+
             if (personality.Equals(RobotsPersonality.dominant))
             {
                 this.pitch = "x-low";
-                this.persuasion.Prosody = new Prosody("medium", "x-loud");
+                this.persuasion.Prosody = new Prosody("+20%", "x-loud");
+            }
+            else if(personality.Equals(RobotsPersonality.meek))
+            {
+                this.pitch = "x-high";
+                this.persuasion.Prosody = new Prosody("medium", "loud");
             }
             else
             {
-                this.pitch = "high";
-                this.persuasion.Prosody = new Prosody("medium", "loud");
+                this.pitch = "default";
+                this.persuasion.Prosody = new Prosody("medium", "default");
             }
             this.congruentIntention = RobotCongruent.none;
         }
@@ -143,7 +154,8 @@ namespace SOP.Modules
         {
             none = -1,
             meek = 0,
-            dominant = 1
+            dominant = 1,
+            neutral = 2
         }
 
         public enum RobotsPersuasion
@@ -165,12 +177,13 @@ namespace SOP.Modules
             admiration = 0,
             anger = 1,
             contempt = 2,
-            disappointment = 3,
+            shame = 3,
             hope = 4,
             joy = 5,
             pride = 6,
             satisfaction = 7,
-            gratitude = 8
+            gratitude = 8,
+            neutral = 9
         }
 
         public enum RobotCongruent
