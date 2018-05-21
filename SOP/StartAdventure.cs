@@ -36,6 +36,8 @@ namespace StoryOfPersonality
 
         public StoryForm storyForm;
 
+        private string condition = "D";
+
         public enum OptionSide
         {
             none = -1,
@@ -54,9 +56,10 @@ namespace StoryOfPersonality
 
             this.Language = Thalamus.BML.SpeechLanguages.English;
             
-            string[] aux = UserId.Split('-');
+            //string[] aux = UserId.Split('-');
+           
 
-            if (aux[1] == "D")
+            if (condition == "D")
             {
                 ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
                 //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
@@ -149,9 +152,9 @@ namespace StoryOfPersonality
                 this.metroButton4Story.Text = "Informações dos Conselheiros";
             }
 
-            string[] aux = UserId.Split('-');
+            //string[] aux = UserId.Split('-');
 
-            if (aux[1] == "D")
+            if (condition == "D")
             {
                     rightRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.right, this.Language);
                     leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);

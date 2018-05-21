@@ -98,7 +98,7 @@ namespace StoryOfPersonality
 
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
-            this.UserPersonality = aux[2].ToLower();
+            this.UserPersonality = aux[1].ToLower();
 
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
 
