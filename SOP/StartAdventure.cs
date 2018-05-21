@@ -36,7 +36,7 @@ namespace StoryOfPersonality
 
         public StoryForm storyForm;
 
-        private string condition = "D";
+        private string condition = "E";
 
         public enum OptionSide
         {
@@ -59,7 +59,7 @@ namespace StoryOfPersonality
             //string[] aux = UserId.Split('-');
            
 
-            if (condition == "D")
+            if (condition == "E")
             {
                 ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
                 //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
@@ -154,7 +154,7 @@ namespace StoryOfPersonality
 
             //string[] aux = UserId.Split('-');
 
-            if (condition == "D")
+            if (condition == "E")
             {
                     rightRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.right, this.Language);
                     leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);
