@@ -70,6 +70,7 @@ namespace StoryOfPersonality
         public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot, Thalamus.BML.SpeechLanguages language)
         {
             this.Language = language;
+            
             InitializeComponent();
             //Console.WriteLine("RESOLUTION: " + this.ClientSize.Width + " ::: " + this.ClientSize.Height);
             if (this.Language.Equals(Thalamus.BML.SpeechLanguages.English))
@@ -99,7 +100,7 @@ namespace StoryOfPersonality
 
             StoryHandler = new StoryHandler(ThalamusClientLeft, this.UserId);
 
-            this.UserPersonality = aux[1].ToLower();
+            this.UserPersonality = aux[2].ToLower();
 
             this.ReenableButtonsEvent += new System.EventHandler(this.EnableButtons);
 
@@ -165,29 +166,29 @@ namespace StoryOfPersonality
 
         private void StoryForm_Shown(object sender, EventArgs e)
         {
-           // this.button1.Visible = true;
-           // this.button1.Text = "Olá ...";
-           // this.sceneBox.Text = "teste";
+            // this.button1.Visible = true;
+            // this.button1.Text = "Olá ...";
+            // this.sceneBox.Text = "teste";
 
 
-           // RobotsIntroduction();
-           // this.sceneBox.Text = "Teste 123";
-           //// waiting 2 seconds to start the next method
-           //var waitTime = new TimeSpan(0, 0, 2);
-           // var waitUntil = DateTime.Now + waitTime;
-           // int secs = 0;
-           // while (DateTime.Now <= waitUntil)
-           // {
-           //     secs++;
-           //     Console.WriteLine("Waiting: " + secs);
-           //     System.Threading.Thread.Sleep(1000);
-           // }
+            // RobotsIntroduction();
+            // this.sceneBox.Text = "Teste 123";
+            //// waiting 2 seconds to start the next method
+            //var waitTime = new TimeSpan(0, 0, 2);
+            // var waitUntil = DateTime.Now + waitTime;
+            // int secs = 0;
+            // while (DateTime.Now <= waitUntil)
+            // {
+            //     secs++;
+            //     Console.WriteLine("Waiting: " + secs);
+            //     System.Threading.Thread.Sleep(1000);
+            // }
 
-        //    this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
+            //    this.sceneBox.Text = this.StoryHandler.GetSceneUtterance(this.Language);
 
 
 
-            playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+               playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
         private void StoryForm_Resize(object sender, EventArgs e)
@@ -513,12 +514,6 @@ namespace StoryOfPersonality
                     }
                     break;
             }
-
-
-
-
-
-            //////////////  REVER   //////////////
 
 
             if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
@@ -942,7 +937,6 @@ namespace StoryOfPersonality
 
         internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)
         {
-
             DisableButtons();
 
             string folder = "EN";
@@ -1053,7 +1047,6 @@ namespace StoryOfPersonality
                 {
                     ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.shame.ToString());
                 }
-
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -1157,7 +1150,7 @@ namespace StoryOfPersonality
             CallNextScene();
         }
 
-       
+
 
         private void DeletePreferenceUsed()
         {
@@ -1210,10 +1203,10 @@ namespace StoryOfPersonality
         internal void RobotsIntroduction()
         {
             // Categories = intro_dom, intro_dom2, intro_meek | sub = en, pt
-            string lang = "PT";
-            if (this.Language == Thalamus.BML.SpeechLanguages.English)
+            string lang = "EN";
+            if (this.Language == Thalamus.BML.SpeechLanguages.Portuguese)
             {
-                lang = "EN";
+                lang = "PT";
             }
             if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
             {
