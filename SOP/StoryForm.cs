@@ -69,8 +69,8 @@ namespace StoryOfPersonality
 
         public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot, Thalamus.BML.SpeechLanguages language)
         {
+
             this.Language = language;
-            
             InitializeComponent();
             //Console.WriteLine("RESOLUTION: " + this.ClientSize.Width + " ::: " + this.ClientSize.Height);
             if (this.Language.Equals(Thalamus.BML.SpeechLanguages.English))
@@ -113,7 +113,7 @@ namespace StoryOfPersonality
 
             StoryHandler.storyWindow = this;
 
-            StoryHandler.TestIntroduction();
+            StoryHandler.CallRobotsIntroduction();
 
             selectedDP = new SelectionDP();
             instance = this;
@@ -188,7 +188,7 @@ namespace StoryOfPersonality
 
 
 
-               playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+            playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
         private void StoryForm_Resize(object sender, EventArgs e)
@@ -514,7 +514,6 @@ namespace StoryOfPersonality
                     }
                     break;
             }
-
 
             if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
             {
@@ -1047,6 +1046,10 @@ namespace StoryOfPersonality
                 {
                     ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.shame.ToString());
                 }
+                //else
+                //{
+                //    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
+                //}
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {

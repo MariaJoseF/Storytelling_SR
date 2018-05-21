@@ -275,7 +275,7 @@ namespace StoryOfPersonality
         {
             return (language == Thalamus.BML.SpeechLanguages.English ? storyNodes[currentStoryNodeId].TextEn : storyNodes[currentStoryNodeId].Text).Replace("\\r\\n", "" + Environment.NewLine).Replace("\\t", Environment.NewLine);
         }
-        internal void TestIntroduction()
+        internal void CallRobotsIntroduction()
         {
             storyWindow.RobotsIntroduction();
         }
