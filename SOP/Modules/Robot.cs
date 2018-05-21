@@ -182,7 +182,7 @@ namespace SOP.Modules
             pride = 6,
             satisfaction = 7,
             gratitude = 8,
-            neutral = 9
+            //neutral = 9
         }
 
         public enum RobotCongruent
