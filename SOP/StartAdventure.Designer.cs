@@ -56,8 +56,8 @@ namespace StoryOfPersonality
             this.languageSelector.FormattingEnabled = true;
             this.languageSelector.ItemHeight = 23;
             this.languageSelector.Items.AddRange(new object[] {
-            "English",
-            "Portuguese"});
+            "Portuguese",
+            "English"});
             this.languageSelector.Location = new System.Drawing.Point(9, 13);
             this.languageSelector.Name = "languageSelector";
             this.languageSelector.Size = new System.Drawing.Size(121, 29);

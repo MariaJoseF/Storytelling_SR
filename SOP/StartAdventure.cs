@@ -86,7 +86,7 @@ namespace StoryOfPersonality
 
         private void StoryForm_Load(object sender, EventArgs e)
         {
-            this.languageSelector.Text = "English"; // put this as default
+            this.languageSelector.Text = "Portuguese"; // put this as default
             this.CropAndStrechBackImage();
         }
 
@@ -143,6 +143,8 @@ namespace StoryOfPersonality
             this.metroButton4Story.Visible = false;
             this.languageSelector.Enabled = false;
 
+            SetLanguage();
+
             if (languageSelector.Text == "English")
             {
                 this.metroButton4Story.Text = "Counselours Information";
@@ -165,8 +167,7 @@ namespace StoryOfPersonality
                     leftRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.left, this.Language);
             }
 
-            this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot);
-            this.storyForm.Language = this.Language;
+            this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot,  this.Language);
             SetLanguage();
 
             this.ThalamusClientLeft.StoryWindow(storyForm);

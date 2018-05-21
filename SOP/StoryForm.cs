@@ -67,8 +67,9 @@ namespace StoryOfPersonality
         internal Robot RightRobot { get => rightRobot; set => rightRobot = value; }
         public static List<Prosody> ProsodyLvls { get => prosodyLvls; /*set => prosodyLvls = value; */}
 
-        public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot)
+        public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot, Thalamus.BML.SpeechLanguages language)
         {
+            this.Language = language;
             InitializeComponent();
             //Console.WriteLine("RESOLUTION: " + this.ClientSize.Width + " ::: " + this.ClientSize.Height);
             if (this.Language.Equals(Thalamus.BML.SpeechLanguages.English))
@@ -186,7 +187,7 @@ namespace StoryOfPersonality
 
 
 
-         //   playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+            playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
         private void StoryForm_Resize(object sender, EventArgs e)
@@ -941,6 +942,7 @@ namespace StoryOfPersonality
 
         internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)
         {
+
             DisableButtons();
 
             string folder = "EN";
@@ -1208,10 +1210,10 @@ namespace StoryOfPersonality
         internal void RobotsIntroduction()
         {
             // Categories = intro_dom, intro_dom2, intro_meek | sub = en, pt
-            string lang = "EN";
-            if (this.Language == Thalamus.BML.SpeechLanguages.Portuguese)
+            string lang = "PT";
+            if (this.Language == Thalamus.BML.SpeechLanguages.English)
             {
-                lang = "PT";
+                lang = "EN";
             }
             if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
             {
