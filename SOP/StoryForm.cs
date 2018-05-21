@@ -556,30 +556,10 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.CPublisher.SetPosture("", leftRobot.Posture.ToString());
                 return leftRobot;
             }
-            else if (per_per.Personality.Equals(Robot.RobotsPersonality.neutral) && rightRobot.Personality.Equals(Robot.RobotsPersonality.neutral))
-            {
-                rightRobot.Posture = RobotsPosture.neutral;
-                rightRobot.PersuasionCondition = per_per.PersuasionCondition;
-                leftRobot.PersuasionCondition = RobotsPersuasion.none;
-                ThalamusClientLeft.CPublisher.ResetPose();
-                ThalamusClientLeft.CPublisher.SetPosture("", rightRobot.Posture.ToString());
-                return rightRobot;
-            }
-            else if (per_per.Personality.Equals(Robot.RobotsPersonality.neutral) && leftRobot.Personality.Equals(Robot.RobotsPersonality.neutral))
-            {
-                leftRobot.Posture = RobotsPosture.neutral;
-                leftRobot.PersuasionCondition = per_per.PersuasionCondition;
-                rightRobot.PersuasionCondition = RobotsPersuasion.none;
-                ThalamusClientLeft.CPublisher.ResetPose();
-                ThalamusClientLeft.CPublisher.SetPosture("", leftRobot.Posture.ToString());
-                return leftRobot;
-            }
             else
             {
                 return new Robot();
             }
-
--
         }
 
         private Robot LoadFirstPrefSelected(List<Robot> preferenceList)

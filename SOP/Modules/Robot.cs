@@ -155,7 +155,6 @@ namespace SOP.Modules
             none = -1,
             meek = 0,
             dominant = 1,
-            neutral = 2
         }
 
         public enum RobotsPersuasion
