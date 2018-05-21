@@ -92,20 +92,20 @@ namespace SOP.Modules
             this.prefSelectedIntention = "-";
             this.prefSelectedFinal = "-";
 
-            //if (personality.Equals(RobotsPersonality.dominant))
-            //{
-            //    this.pitch = "x-low";
-            //    this.persuasion.Prosody = new Prosody("+20%", "x-loud");
-            //}
-            //else if(personality.Equals(RobotsPersonality.meek))
-            //{
-            //    this.pitch = "x-high";
-            //    this.persuasion.Prosody = new Prosody("medium", "loud");
-            //}
+            if (personality.Equals(RobotsPersonality.dominant))
+            {
+                this.pitch = "x-low";
+                this.persuasion.Prosody = new Prosody("+20%", "x-loud");
+            }
+            else if (personality.Equals(RobotsPersonality.meek))
+            {
+                this.pitch = "x-high";
+                this.persuasion.Prosody = new Prosody("medium", "loud");
+            }
             //else
             //{
-                this.pitch = "default";
-                this.persuasion.Prosody = new Prosody("medium", "default");
+            //    this.pitch = "default";
+            //    this.persuasion.Prosody = new Prosody("medium", "default");
             //}
             this.congruentIntention = RobotCongruent.none;
         }
