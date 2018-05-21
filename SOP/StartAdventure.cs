@@ -36,7 +36,7 @@ namespace StoryOfPersonality
 
         public StoryForm storyForm;
 
-        private string condition = "D";
+        private string condition = "E";
 
         public enum OptionSide
         {
