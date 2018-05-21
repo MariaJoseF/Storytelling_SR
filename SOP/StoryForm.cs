@@ -523,7 +523,7 @@ namespace StoryOfPersonality
 
             if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
             {
-                rightRobot.Posture = RobotsPosture.neutral;
+                rightRobot.Posture = RobotsPosture.pride;
                 rightRobot.PersuasionCondition = per_per.PersuasionCondition;
                 leftRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientRight.CPublisher.ResetPose();
@@ -532,7 +532,7 @@ namespace StoryOfPersonality
             }
             else if (per_per.Personality.Equals(Robot.RobotsPersonality.meek) && rightRobot.Personality.Equals(Robot.RobotsPersonality.meek))
             {
-                rightRobot.Posture = RobotsPosture.neutral;
+                rightRobot.Posture = RobotsPosture.shame;
                 rightRobot.PersuasionCondition = per_per.PersuasionCondition;
                 leftRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientRight.CPublisher.ResetPose();
@@ -541,7 +541,7 @@ namespace StoryOfPersonality
             }
             else if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && leftRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
             {
-                leftRobot.Posture = RobotsPosture.neutral;
+                leftRobot.Posture = RobotsPosture.pride;
                 leftRobot.PersuasionCondition = per_per.PersuasionCondition;
                 rightRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientLeft.CPublisher.ResetPose();
@@ -550,7 +550,7 @@ namespace StoryOfPersonality
             }
             else if (per_per.Personality.Equals(Robot.RobotsPersonality.meek) && leftRobot.Personality.Equals(Robot.RobotsPersonality.meek))
             {
-                leftRobot.Posture = RobotsPosture.neutral;
+                leftRobot.Posture = RobotsPosture.shame;
                 leftRobot.PersuasionCondition = per_per.PersuasionCondition;
                 rightRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientLeft.CPublisher.ResetPose();
@@ -817,7 +817,7 @@ namespace StoryOfPersonality
                 {
                     if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
                     {
-                        robotSide.Posture = RobotsPosture.neutral;
+                        robotSide.Posture = RobotsPosture.shame;
                         ThalamusClientLeft.CPublisher.ResetPose();
                         ThalamusClientLeft.CPublisher.SetPosture("", robotSide.Posture.ToString());
                     }
@@ -847,7 +847,7 @@ namespace StoryOfPersonality
 
                     if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
                     {
-                        robotSide.Posture = RobotsPosture.neutral;
+                        robotSide.Posture = RobotsPosture.shame;
                         ThalamusClientRight.CPublisher.ResetPose();
                         ThalamusClientRight.CPublisher.SetPosture("", robotSide.Posture.ToString());
                     }
@@ -1047,11 +1047,11 @@ namespace StoryOfPersonality
                 ThalamusClientRight.CPublisher.ResetPose();
                 if (rightRobot.Personality.Equals(RobotsPersonality.dominant))
                 {
-                    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
+                    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.pride.ToString());
                 }
-                else if(rightRobot.Personality.Equals(RobotsPersonality.meek))
+                else if (rightRobot.Personality.Equals(RobotsPersonality.meek))
                 {
-                    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
+                    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.shame.ToString());
                 }
 
             }
@@ -1087,11 +1087,11 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.CPublisher.ResetPose();
                 if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
                 {
-                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
+                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.pride.ToString());
                 }
                 else
                 {
-                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
+                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.shame.ToString());
                 }
             }
 

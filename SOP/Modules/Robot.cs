@@ -176,13 +176,13 @@ namespace SOP.Modules
             admiration = 0,
             anger = 1,
             contempt = 2,
-            //shame = 3,
+            shame = 3,
             hope = 4,
             joy = 5,
-            //pride = 6,
+            pride = 6,
             satisfaction = 7,
             gratitude = 8,
-            neutral = 9
+            //neutral = 9
         }
 
         public enum RobotCongruent
