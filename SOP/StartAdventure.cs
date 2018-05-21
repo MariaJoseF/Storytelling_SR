@@ -59,7 +59,7 @@ namespace StoryOfPersonality
             //string[] aux = UserId.Split('-');
            
 
-            if (condition == "E")
+            if (condition == "D")
             {
                 ThalamusClientRight = new Client(OptionSide.right, Language, "Dominant");
                 //ThalamusClientRight.CPublisher.ChangeLibrary("rightUtterances");
@@ -154,7 +154,7 @@ namespace StoryOfPersonality
 
             //string[] aux = UserId.Split('-');
 
-            if (condition == "E")
+            if (condition == "D")
             {
                     rightRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.right, this.Language);
                     leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);
