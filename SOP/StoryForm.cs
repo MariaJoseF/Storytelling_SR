@@ -67,8 +67,9 @@ namespace StoryOfPersonality
         internal Robot RightRobot { get => rightRobot; set => rightRobot = value; }
         public static List<Prosody> ProsodyLvls { get => prosodyLvls; /*set => prosodyLvls = value; */}
 
-        public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot)
+        public StoryForm(string UserId, Client ThalamusClientRight, Client ThalamusClientLeft, Robot rightRobot, Robot leftRobot, Thalamus.BML.SpeechLanguages language)
         {
+            this.Language = language;
             InitializeComponent();
             //Console.WriteLine("RESOLUTION: " + this.ClientSize.Width + " ::: " + this.ClientSize.Height);
             if (this.Language.Equals(Thalamus.BML.SpeechLanguages.English))
@@ -186,7 +187,7 @@ namespace StoryOfPersonality
 
 
 
-         //   playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
+            playStoryScene(StoryHandler.GetSceneUtteranceId(this.Language), this.Language);
         }
 
         private void StoryForm_Resize(object sender, EventArgs e)
@@ -522,7 +523,7 @@ namespace StoryOfPersonality
 
             if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
             {
-                rightRobot.Posture = RobotsPosture.pride;
+                rightRobot.Posture = RobotsPosture.neutral;
                 rightRobot.PersuasionCondition = per_per.PersuasionCondition;
                 leftRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientRight.CPublisher.ResetPose();
@@ -531,7 +532,7 @@ namespace StoryOfPersonality
             }
             else if (per_per.Personality.Equals(Robot.RobotsPersonality.meek) && rightRobot.Personality.Equals(Robot.RobotsPersonality.meek))
             {
-                rightRobot.Posture = RobotsPosture.shame;
+                rightRobot.Posture = RobotsPosture.neutral;
                 rightRobot.PersuasionCondition = per_per.PersuasionCondition;
                 leftRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientRight.CPublisher.ResetPose();
@@ -540,7 +541,7 @@ namespace StoryOfPersonality
             }
             else if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && leftRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
             {
-                leftRobot.Posture = RobotsPosture.pride;
+                leftRobot.Posture = RobotsPosture.neutral;
                 leftRobot.PersuasionCondition = per_per.PersuasionCondition;
                 rightRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientLeft.CPublisher.ResetPose();
@@ -549,7 +550,7 @@ namespace StoryOfPersonality
             }
             else if (per_per.Personality.Equals(Robot.RobotsPersonality.meek) && leftRobot.Personality.Equals(Robot.RobotsPersonality.meek))
             {
-                leftRobot.Posture = RobotsPosture.shame;
+                leftRobot.Posture = RobotsPosture.neutral;
                 leftRobot.PersuasionCondition = per_per.PersuasionCondition;
                 rightRobot.PersuasionCondition = RobotsPersuasion.none;
                 ThalamusClientLeft.CPublisher.ResetPose();
@@ -816,7 +817,7 @@ namespace StoryOfPersonality
                 {
                     if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
                     {
-                        robotSide.Posture = RobotsPosture.shame;
+                        robotSide.Posture = RobotsPosture.neutral;
                         ThalamusClientLeft.CPublisher.ResetPose();
                         ThalamusClientLeft.CPublisher.SetPosture("", robotSide.Posture.ToString());
                     }
@@ -846,7 +847,7 @@ namespace StoryOfPersonality
 
                     if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
                     {
-                        robotSide.Posture = RobotsPosture.shame;
+                        robotSide.Posture = RobotsPosture.neutral;
                         ThalamusClientRight.CPublisher.ResetPose();
                         ThalamusClientRight.CPublisher.SetPosture("", robotSide.Posture.ToString());
                     }
@@ -941,6 +942,7 @@ namespace StoryOfPersonality
 
         internal void playStoryScene(int idScene, Thalamus.BML.SpeechLanguages language)
         {
+
             DisableButtons();
 
             string folder = "EN";
@@ -1045,16 +1047,13 @@ namespace StoryOfPersonality
                 ThalamusClientRight.CPublisher.ResetPose();
                 if (rightRobot.Personality.Equals(RobotsPersonality.dominant))
                 {
-                    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.pride.ToString());
+                    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
                 }
                 else if(rightRobot.Personality.Equals(RobotsPersonality.meek))
                 {
-                    ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.shame.ToString());
-                }
-                else
-                {
                     ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
                 }
+
             }
             else if (!leftRobot.PersuasionCondition.Equals(RobotsPersuasion.none))
             {
@@ -1088,11 +1087,11 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.CPublisher.ResetPose();
                 if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
                 {
-                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.pride.ToString());
+                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
                 }
                 else
                 {
-                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.shame.ToString());
+                    ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
                 }
             }
 
@@ -1211,10 +1210,10 @@ namespace StoryOfPersonality
         internal void RobotsIntroduction()
         {
             // Categories = intro_dom, intro_dom2, intro_meek | sub = en, pt
-            string lang = "EN";
-            if (this.Language == Thalamus.BML.SpeechLanguages.Portuguese)
+            string lang = "PT";
+            if (this.Language == Thalamus.BML.SpeechLanguages.English)
             {
-                lang = "PT";
+                lang = "EN";
             }
             if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
             {
