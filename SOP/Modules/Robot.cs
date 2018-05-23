@@ -153,8 +153,8 @@ namespace SOP.Modules
         public enum RobotsPersonality
         {
             none = -1,
-            meek = 0,
-            dominant = 1,
+            meekNeutral = 0,
+            dominantNeutral = 1,
         }
 
         public enum RobotsPersuasion
