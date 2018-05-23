@@ -328,12 +328,12 @@ namespace StoryOfPersonality
 
         private void LoadCongruency(Robot robotSide, int index)
         {
-            if (robotSide.Personality.Equals(RobotsPersonality.dominant) && PreferencesCongruency[index, 0] < 1)
+            if (robotSide.Personality.Equals(RobotsPersonality.dominantNeutral) && PreferencesCongruency[index, 0] < 1)
             {
                 PreferencesCongruency[index, 0]++;
                 robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
             }
-            else if (robotSide.Personality.Equals(RobotsPersonality.meek) && PreferencesCongruency[index, 1] < 1)
+            else if (robotSide.Personality.Equals(RobotsPersonality.meekNeutral) && PreferencesCongruency[index, 1] < 1)
             {
                 PreferencesCongruency[index, 1]++;
                 robotSide.PersuasionCondition = Robot.RobotsPersuasion.Against;
@@ -441,11 +441,11 @@ namespace StoryOfPersonality
                     if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
                     {
 
-                        per_per = LoadNextPrefSelected(PreferenceEI, RobotsPersonality.dominant);
+                        per_per = LoadNextPrefSelected(PreferenceEI, RobotsPersonality.dominantNeutral);
                     }
                     else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(PreferenceEI, RobotsPersonality.meek);
+                        per_per = LoadNextPrefSelected(PreferenceEI, RobotsPersonality.meekNeutral);
                     }
                     else
                     {
@@ -457,11 +457,11 @@ namespace StoryOfPersonality
                 case "ft":
                     if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(PreferenceTF, RobotsPersonality.dominant);
+                        per_per = LoadNextPrefSelected(PreferenceTF, RobotsPersonality.dominantNeutral);
                     }
                     else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(PreferenceTF, RobotsPersonality.meek);
+                        per_per = LoadNextPrefSelected(PreferenceTF, RobotsPersonality.meekNeutral);
                     }
                     else
                     {
@@ -472,11 +472,11 @@ namespace StoryOfPersonality
                 case "pj":
                     if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(PreferenceJP, RobotsPersonality.dominant);
+                        per_per = LoadNextPrefSelected(PreferenceJP, RobotsPersonality.dominantNeutral);
                     }
                     else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(PreferenceJP, RobotsPersonality.meek);
+                        per_per = LoadNextPrefSelected(PreferenceJP, RobotsPersonality.meekNeutral);
                     }
                     else
                     {
@@ -487,11 +487,11 @@ namespace StoryOfPersonality
                 case "ns":
                     if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(PreferenceSN, RobotsPersonality.dominant);
+                        per_per = LoadNextPrefSelected(PreferenceSN, RobotsPersonality.dominantNeutral);
                     }
                     else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(PreferenceSN, RobotsPersonality.meek);
+                        per_per = LoadNextPrefSelected(PreferenceSN, RobotsPersonality.meekNeutral);
                     }
                     else
                     {
@@ -501,11 +501,11 @@ namespace StoryOfPersonality
                 case "-":
                     if (PreviousPrefSelected[0, 0] == 0) //meek robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(preferenceDG, RobotsPersonality.dominant);
+                        per_per = LoadNextPrefSelected(preferenceDG, RobotsPersonality.dominantNeutral);
                     }
                     else if (PreviousPrefSelected[0, 0] == 1) //dominant robot was the last selected
                     {
-                        per_per = LoadNextPrefSelected(preferenceDG, RobotsPersonality.meek);
+                        per_per = LoadNextPrefSelected(preferenceDG, RobotsPersonality.meekNeutral);
                     }
                     else
                     {
@@ -521,7 +521,7 @@ namespace StoryOfPersonality
             //////////////  REVER   //////////////
 
 
-            if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && rightRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
+            if (per_per.Personality.Equals(Robot.RobotsPersonality.dominantNeutral) && rightRobot.Personality.Equals(Robot.RobotsPersonality.dominantNeutral))
             {
                 rightRobot.Posture = RobotsPosture.neutral;
                 rightRobot.PersuasionCondition = per_per.PersuasionCondition;
@@ -530,7 +530,7 @@ namespace StoryOfPersonality
                 ThalamusClientRight.CPublisher.SetPosture("", rightRobot.Posture.ToString());
                 return rightRobot;
             }
-            else if (per_per.Personality.Equals(Robot.RobotsPersonality.meek) && rightRobot.Personality.Equals(Robot.RobotsPersonality.meek))
+            else if (per_per.Personality.Equals(Robot.RobotsPersonality.meekNeutral) && rightRobot.Personality.Equals(Robot.RobotsPersonality.meekNeutral))
             {
                 rightRobot.Posture = RobotsPosture.neutral;
                 rightRobot.PersuasionCondition = per_per.PersuasionCondition;
@@ -539,7 +539,7 @@ namespace StoryOfPersonality
                 ThalamusClientRight.CPublisher.SetPosture("", rightRobot.Posture.ToString());
                 return rightRobot;
             }
-            else if (per_per.Personality.Equals(Robot.RobotsPersonality.dominant) && leftRobot.Personality.Equals(Robot.RobotsPersonality.dominant))
+            else if (per_per.Personality.Equals(Robot.RobotsPersonality.dominantNeutral) && leftRobot.Personality.Equals(Robot.RobotsPersonality.dominantNeutral))
             {
                 leftRobot.Posture = RobotsPosture.neutral;
                 leftRobot.PersuasionCondition = per_per.PersuasionCondition;
@@ -548,7 +548,7 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.CPublisher.SetPosture("", leftRobot.Posture.ToString());
                 return leftRobot;
             }
-            else if (per_per.Personality.Equals(Robot.RobotsPersonality.meek) && leftRobot.Personality.Equals(Robot.RobotsPersonality.meek))
+            else if (per_per.Personality.Equals(Robot.RobotsPersonality.meekNeutral) && leftRobot.Personality.Equals(Robot.RobotsPersonality.meekNeutral))
             {
                 leftRobot.Posture = RobotsPosture.neutral;
                 leftRobot.PersuasionCondition = per_per.PersuasionCondition;
@@ -566,7 +566,7 @@ namespace StoryOfPersonality
         private Robot LoadFirstPrefSelected(List<Robot> preferenceList)
         {
             Robot per_per = preferenceList.First();
-            if (per_per.Personality.Equals(RobotsPersonality.dominant))
+            if (per_per.Personality.Equals(RobotsPersonality.dominantNeutral))
             {
                 PreviousPrefSelected[0, 0] = 1;
             }
@@ -585,7 +585,7 @@ namespace StoryOfPersonality
             {
                 per_per = preferencePair.First(personalityR => personalityR.Personality == personality);
 
-                if (personality.Equals(RobotsPersonality.dominant))
+                if (personality.Equals(RobotsPersonality.dominantNeutral))
                 {
                     PreviousPrefSelected[0, 0] = 1;
                 }
@@ -972,7 +972,7 @@ namespace StoryOfPersonality
                 if (!(StoryHandler.isEnding()))
                 {
                     // saber em qual lado está o robo dominante e depois ativar o botao.
-                    if (leftRobot.Personality == Robot.RobotsPersonality.dominant)
+                    if (leftRobot.Personality == Robot.RobotsPersonality.dominantNeutral)
                     {
                         Console.WriteLine("=========== ROBOT LEFT DOMINANT ==============");
                     }
@@ -1045,11 +1045,11 @@ namespace StoryOfPersonality
                 ThalamusClientRight.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + UserPersonality + rightRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
 
                 ThalamusClientRight.CPublisher.ResetPose();
-                if (rightRobot.Personality.Equals(RobotsPersonality.dominant))
+                if (rightRobot.Personality.Equals(RobotsPersonality.dominantNeutral))
                 {
                     ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
                 }
-                else if(rightRobot.Personality.Equals(RobotsPersonality.meek))
+                else if(rightRobot.Personality.Equals(RobotsPersonality.meekNeutral))
                 {
                     ThalamusClientRight.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
                 }
@@ -1085,7 +1085,7 @@ namespace StoryOfPersonality
                 ThalamusClientLeft.WriteJSON(String.Format("{0:dd-MM-yyyy hh-mm-ss}", DateTime.Now), ";" + UserPersonality + leftRobot.ToString(), "ThalamusClientsFull", "Robots-" + this.UserId.ToString() + ".txt");
 
                 ThalamusClientLeft.CPublisher.ResetPose();
-                if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
+                if (leftRobot.Personality.Equals(RobotsPersonality.dominantNeutral))
                 {
                     ThalamusClientLeft.CPublisher.SetPosture("", RobotsPosture.neutral.ToString());
                 }
@@ -1215,7 +1215,7 @@ namespace StoryOfPersonality
             {
                 lang = "EN";
             }
-            if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
+            if (leftRobot.Personality.Equals(RobotsPersonality.dominantNeutral))
             {
                 ThalamusClientLeft.PerformUtteranceFromLibrary("Intro1", "intro_dom", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
                 Console.WriteLine(" LEFT ");
@@ -1228,7 +1228,7 @@ namespace StoryOfPersonality
             {
 
             }
-            if (leftRobot.Personality.Equals(RobotsPersonality.meek))
+            if (leftRobot.Personality.Equals(RobotsPersonality.meekNeutral))
             {
                 ThalamusClientLeft.PerformUtteranceFromLibrary("Intro2", "intro_meek", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
             }
@@ -1240,7 +1240,7 @@ namespace StoryOfPersonality
             {
 
             }
-            if (leftRobot.Personality.Equals(RobotsPersonality.dominant))
+            if (leftRobot.Personality.Equals(RobotsPersonality.dominantNeutral))
             {
                 ThalamusClientLeft.PerformUtteranceFromLibrary("Intro3", "intro_dom2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
             }
@@ -1252,7 +1252,7 @@ namespace StoryOfPersonality
             {
 
             }
-            if (leftRobot.Personality.Equals(RobotsPersonality.meek))
+            if (leftRobot.Personality.Equals(RobotsPersonality.meekNeutral))
             {
                 ThalamusClientLeft.PerformUtteranceFromLibrary("Intro4", "intro_meek2", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { leftRobot.Pitch, leftRobot.Persuasion.Prosody.Rate, leftRobot.Persuasion.Prosody.Volume });
                 ThalamusClientRight.PerformUtteranceFromLibrary("Intro5", "intro_dom3", lang, new string[] { "|pitch|", "|rate|", "|volume|" }, new string[] { rightRobot.Pitch, rightRobot.Persuasion.Prosody.Rate, rightRobot.Persuasion.Prosody.Volume });

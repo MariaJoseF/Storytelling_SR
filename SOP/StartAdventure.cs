@@ -158,13 +158,13 @@ namespace StoryOfPersonality
 
             if (condition == "D")
             {
-                    rightRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.right, this.Language);
-                    leftRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.left, this.Language);
+                    rightRobot = new Robot(Robot.RobotsPersonality.dominantNeutral, Robot.RobotSide.right, this.Language);
+                    leftRobot = new Robot(Robot.RobotsPersonality.meekNeutral, Robot.RobotSide.left, this.Language);
             }
             else
             {
-                    rightRobot = new Robot(Robot.RobotsPersonality.meek, Robot.RobotSide.right, this.Language);
-                    leftRobot = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotSide.left, this.Language);
+                    rightRobot = new Robot(Robot.RobotsPersonality.meekNeutral, Robot.RobotSide.right, this.Language);
+                    leftRobot = new Robot(Robot.RobotsPersonality.dominantNeutral, Robot.RobotSide.left, this.Language);
             }
 
             this.storyForm = new StoryForm(UserId, ThalamusClientRight, ThalamusClientLeft, rightRobot, leftRobot,  this.Language);

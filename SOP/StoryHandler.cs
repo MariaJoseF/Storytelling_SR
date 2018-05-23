@@ -168,13 +168,13 @@ namespace StoryOfPersonality
 
                 if (generateDom <= 4)
                 {
-                    rDominant = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Positive);
-                    rMeek = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Positive);
+                    rDominant = new Robot(Robot.RobotsPersonality.dominantNeutral, Robot.RobotsPersuasion.Positive);
+                    rMeek = new Robot(Robot.RobotsPersonality.meekNeutral, Robot.RobotsPersuasion.Positive);
                 }
                 else //generateDom >=5 Meek dominant
                 {
-                    rDominant = new Robot(Robot.RobotsPersonality.meek, Robot.RobotsPersuasion.Positive);
-                    rMeek = new Robot(Robot.RobotsPersonality.dominant, Robot.RobotsPersuasion.Positive);
+                    rDominant = new Robot(Robot.RobotsPersonality.meekNeutral, Robot.RobotsPersuasion.Positive);
+                    rMeek = new Robot(Robot.RobotsPersonality.dominantNeutral, Robot.RobotsPersuasion.Positive);
                 }
 
 
