@@ -196,7 +196,7 @@ namespace SOP.Modules
             // return "RobotsPersonality: " + personality + " Persuasion: " + persuasion + " ConsecutivePlays: " + consecutivePlays + " OponentPlays: " + oponentPlays + " Persuasion: " + persuasion.ToString() + " Condition: " + condition;
             //return "" + personality + ";" + consecutivePlays + ";" + oponentPlays + ";" + persuasion.ToString() + ";" + condition;
             //return ";" + personality + ";" + posture + ";" + consecutivePlays + ";" + oponentPlays + ";" + totalFavour + ";" + totalNegative + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + timesPhrases + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + animationUsed + ";" + persuasionCondition;
-            return ";" + personality + ";" + posture + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + animationUsed + ";" + persuasionCondition;
+            return ";" + personality + ";"+ side+ ";" + posture + ";" + pitch + ";" + persuasion.ToString() + ";" + decisionPoint + ";" + preferencePair + ";" + prefSelectedIntention + ";" + prefSelectedFinal + ";" + congruentIntention + ";" + IdPhrasesUsed + ";" + phraseUsed + ";" + animationUsed + ";" + persuasionCondition;
         }
     }
 }
