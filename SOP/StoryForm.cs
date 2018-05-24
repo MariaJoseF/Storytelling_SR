@@ -807,65 +807,68 @@ namespace StoryOfPersonality
                 //string animation_person = GetGaze(robotSide);
                 //string[] aux = animation_person.Split('-');
 
-                if (robotSide.Side.Equals(RobotSide.left))
+                if (robotSide.Personality.Equals(RobotsPersonality.meek))
                 {
-                    if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
+                    if (robotSide.Side.Equals(RobotSide.left))
                     {
-                        robotSide.Posture = RobotsPosture.shame;
-                        ThalamusClientLeft.CPublisher.ResetPose();
-                        ThalamusClientLeft.CPublisher.SetPosture("", robotSide.Posture.ToString());
+                        if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
+                        {
+                            robotSide.Posture = RobotsPosture.shame;
+                            ThalamusClientLeft.CPublisher.ResetPose();
+                            ThalamusClientLeft.CPublisher.SetPosture("", robotSide.Posture.ToString());
+                        }
+                        //else
+                        //{
+                        //    robotSide.Posture = RobotsPosture.gratitude;
+                        //    ThalamusClientLeft.CPublisher.ResetPose();
+                        //    ThalamusClientLeft.CPublisher.SetPosture("", robotSide.Posture.ToString());
+                        //}
+
+                        //switch (aux[0])
+                        //{
+                        //    case "Gaze_PB":
+                        //        ThalamusClientLeft.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
+                        //        break;
+                        //    case "Gaze_PBP":
+                        //        ThalamusClientLeft.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
+                        //        break;
+                        //    case "Gaze_PBPB":
+                        //        ThalamusClientLeft.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
+                        //        break;
+                        //}
+                        //SAVE LOGS
                     }
-                    //else
-                    //{
-                    //    robotSide.Posture = RobotsPosture.gratitude;
-                    //    ThalamusClientLeft.CPublisher.ResetPose();
-                    //    ThalamusClientLeft.CPublisher.SetPosture("", robotSide.Posture.ToString());
-                    //}
-
-                    //switch (aux[0])
-                    //{
-                    //    case "Gaze_PB":
-                    //        ThalamusClientLeft.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
-                    //        break;
-                    //    case "Gaze_PBP":
-                    //        ThalamusClientLeft.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
-                    //        break;
-                    //    case "Gaze_PBPB":
-                    //        ThalamusClientLeft.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|", "|animation_side|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1], "btConfirm" });
-                    //        break;
-                    //}
-                    //SAVE LOGS
-                }
-                else
-                {
-
-                    if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
+                    else
                     {
-                        robotSide.Posture = RobotsPosture.shame;
-                        ThalamusClientRight.CPublisher.ResetPose();
-                        ThalamusClientRight.CPublisher.SetPosture("", robotSide.Posture.ToString());
+
+                        if (robotSide.PersuasionCondition.Equals(RobotsPersuasion.Against))
+                        {
+                            robotSide.Posture = RobotsPosture.shame;
+                            ThalamusClientRight.CPublisher.ResetPose();
+                            ThalamusClientRight.CPublisher.SetPosture("", robotSide.Posture.ToString());
+                        }
+                        //else
+                        //{
+                        //    robotSide.Posture = RobotsPosture.pride;
+                        //    ThalamusClientRight.CPublisher.ResetPose();
+                        //    ThalamusClientRight.CPublisher.SetPosture("", robotSide.Posture.ToString());
+                        //}
+
+
+                        //switch (aux[0])
+                        //{
+                        //    case "Gaze_PB":
+                        //        ThalamusClientRight.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                        //        break;
+                        //    case "Gaze_PBP":
+                        //        ThalamusClientRight.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                        //        break;
+                        //    case "Gaze_PBPB":
+                        //        ThalamusClientRight.PerformUtteranceFromLibrary("Gaze", "PT", "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
+                        //        break;
+                        //}
+                        //SAVE LOGS
                     }
-                    //else
-                    //{
-                    //    robotSide.Posture = RobotsPosture.pride;
-                    //    ThalamusClientRight.CPublisher.ResetPose();
-                    //    ThalamusClientRight.CPublisher.SetPosture("", robotSide.Posture.ToString());
-                    //}
-
-
-                    //switch (aux[0])
-                    //{
-                    //    case "Gaze_PB":
-                    //        ThalamusClientRight.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
-                    //        break;
-                    //    case "Gaze_PBP":
-                    //        ThalamusClientRight.PerformUtteranceFromLibrary("Gaze", language, "Gaze_PBP", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
-                    //        break;
-                    //    case "Gaze_PBPB":
-                    //        ThalamusClientRight.PerformUtteranceFromLibrary("Gaze", "PT", "Gaze_PBPB", new string[] { "|pitch|", "|rate|", "|volume|", "|animation_person|" }, new string[] { robotSide.Pitch, robotSide.Persuasion.Prosody.Rate, robotSide.Persuasion.Prosody.Volume, aux[1] });
-                    //        break;
-                    //}
-                    //SAVE LOGS
                 }
             }
         }
