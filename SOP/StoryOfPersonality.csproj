@@ -258,6 +258,8 @@
     <Content Include="speech\PT\7.mp3" />
     <Content Include="speech\PT\8.mp3" />
     <Content Include="speech\PT\9.mp3" />
+    <Content Include="Utterances\DP_CSV.txt" />
+    <Content Include="Utterances\ScenesCSV.txt" />
     <None Include="images\sound.png" />
     <None Include="images\castle.jpg" />
     <None Include="images\office.jpg" />
