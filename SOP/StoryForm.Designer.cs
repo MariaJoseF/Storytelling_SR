@@ -145,7 +145,6 @@ namespace StoryOfPersonality
             this.labelRightButton.Size = new System.Drawing.Size(710, 122);
             this.labelRightButton.TabIndex = 28;
             this.labelRightButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelRightButton.Click += new System.EventHandler(this.RightButton_Click);
             // 
             // labelLeftButton
             // 
@@ -158,7 +157,6 @@ namespace StoryOfPersonality
             this.labelLeftButton.Size = new System.Drawing.Size(710, 122);
             this.labelLeftButton.TabIndex = 27;
             this.labelLeftButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.labelLeftButton.Click += new System.EventHandler(this.LeftButton_Click);
             // 
             // btConfirm
             // 
